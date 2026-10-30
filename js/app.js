@@ -4,6 +4,18 @@ import * as views from './views.js';
 import { afterRender } from './views.js';
 import { changeChannel, showOSD, toggleSound } from './tv.js';
 
+const BASE = window.Y2K_BASE || '';
+const here = () => location.pathname.slice(BASE.length) || '/';
+const strip = (href) => (BASE && href.startsWith(BASE + '/') ? href.slice(BASE.length) : href);
+// Prefix in-site links with the base path so "open in new tab" works on GitHub Pages.
+function fixLinks(root) {
+  if (!BASE) return;
+  root.querySelectorAll('a[data-link]').forEach((a) => {
+    const h = a.getAttribute('href');
+    if (h && h.startsWith('/') && !h.startsWith(BASE + '/')) a.setAttribute('href', BASE + h);
+  });
+}
+
 const view = document.getElementById('view');
 const display = document.getElementById('remote-display');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,7 +53,8 @@ function render(path, { animate = true } = {}) {
     document.title = r.title;
     display.textContent = r.num === '--' ? 'GUIDE' : `CH ${r.num}`;
     startSnow();
-    afterRender(view);
+    fixLinks(view);
+    afterRender(view).then(() => fixLinks(view));
   };
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
@@ -52,23 +65,23 @@ function render(path, { animate = true } = {}) {
 }
 
 export function go(path) {
-  if (path === location.pathname) return;
-  history.pushState({}, '', path);
+  if (path === here()) return;
+  history.pushState({}, '', BASE + path);
   render(path);
 }
 
-window.addEventListener('popstate', () => render(location.pathname));
+window.addEventListener('popstate', () => render(here()));
 
 document.addEventListener('click', (ev) => {
   const a = ev.target.closest('a[data-link]');
   if (!a || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
   ev.preventDefault();
-  go(a.getAttribute('href'));
+  go(strip(a.getAttribute('href')));
 });
 
 /* ---------- Remote ---------- */
 function dialIndex() {
-  const p = location.pathname.replace(/\/+$/, '') || '/';
+  const p = here().replace(/\/+$/, '') || '/';
   const m = p.match(/^\/ch\/(\d\d)/);
   const key = m ? `/ch/${m[1]}` : p;
   const i = DIAL.indexOf(key);
@@ -79,7 +92,7 @@ function step(dir) {
   go(DIAL[i]);
 }
 function up() {
-  const p = location.pathname.replace(/\/+$/, '');
+  const p = here().replace(/\/+$/, '');
   const parts = p.split('/').filter(Boolean);
   if (parts.length <= 1) return go(parts[0] === 'guide' ? '/' : '/guide');
   if (parts[0] === 'ch' && parts.length === 2) return go('/guide');
@@ -97,7 +110,7 @@ function typeDigit(n) {
     typed = '';
     if (num === '00') return go('/');
     if (findChannel(num)) go(`/ch/${num}`);
-    else render(location.pathname, { animate: false });
+    else render(here(), { animate: false });
   };
   if (typed.length === 2) commit();
   else typedTimer = setTimeout(commit, 900);
@@ -159,4 +172,4 @@ function startSnow() {
 
 /* ---------- Start ---------- */
 if (!reduced) view.classList.add('flicker');
-render(location.pathname, { animate: true });
+render(here(), { animate: true });

@@ -5,12 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Y2Kultura TV Network</title>
   <meta name="description" content="A digital museum of Philippine pop culture from 2000 to 2010, presented as a 2000s TV network.">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>
+    // On GitHub Pages the site lives under /y2kultura-tv/; on Vercel it lives at the root.
+    window.Y2K_BASE = location.hostname.endsWith('github.io') ? '/y2kultura-tv' : '';
+    document.write('<base href="' + window.Y2K_BASE + '/">');
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@1,500&family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <main class="room">
@@ -54,6 +59,6 @@
       </nav>
     </div>
   </main>
-  <script type="module" src="/js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
