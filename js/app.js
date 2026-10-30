@@ -1,6 +1,7 @@
 // Router and remote control. Every page swaps inside the TV screen, with static in between.
 import { DIAL, findChannel } from './data/channels.js';
 import * as views from './views.js';
+import { afterRender } from './views.js';
 import { changeChannel, showOSD, toggleSound } from './tv.js';
 
 const view = document.getElementById('view');
@@ -40,6 +41,7 @@ function render(path, { animate = true } = {}) {
     document.title = r.title;
     display.textContent = r.num === '--' ? 'GUIDE' : `CH ${r.num}`;
     startSnow();
+    afterRender(view);
   };
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
