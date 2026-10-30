@@ -113,9 +113,14 @@ function lineupChannel(c) {
 }
 
 /* ---------- Episode pages ---------- */
+function ytFrame(video, cls, accent) {
+  return `<div class="video ${cls}"${accent ? ` style="border-color:${accent}"` : ''}><iframe src="https://www.youtube-nocookie.com/embed/${esc(video.youtube)}?rel=0" title="${esc(video.label)}" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <div class="vcap"><i class="ti ti-brand-youtube" aria-hidden="true"></i> ${esc(video.label)}${video.credit ? ` · <a href="https://www.youtube.com/watch?v=${esc(video.youtube)}" target="_blank" rel="noopener">${esc(video.credit)} on YouTube</a>` : ''}</div>`;
+}
+
 export function media(video, photos, accent) {
   const v = video?.youtube
-    ? `<div class="video"${accent ? ` style="border-color:${accent}"` : ''}><iframe src="https://www.youtube-nocookie.com/embed/${esc(video.youtube)}" title="${esc(video.label)}" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+    ? ytFrame(video, '', accent)
     : `<div class="video"${accent ? ` style="border-color:${accent}"` : ''}><canvas class="snow" data-snow></canvas><div class="msg"><i class="ti ti-player-play" aria-hidden="true"></i>VIDEO COMING SOON<br><span class="it">${esc(video?.label || '')}</span></div></div>`;
   return v + photoGrid(photos);
 }
@@ -124,7 +129,7 @@ export function photoGrid(photos) {
   const p = (photos || [])
     .map((ph) =>
       ph.src
-        ? `<figure class="photo"><img src="${esc(ph.src)}" alt="${esc(ph.caption)}" loading="lazy"><figcaption>${esc(ph.caption)}</figcaption></figure>`
+        ? `<figure class="photo"><img src="${esc(ph.src)}" alt="${esc(ph.caption)}" loading="lazy"><figcaption>${esc(ph.caption)}${ph.credit ? `<a class="credit" href="${esc(ph.link || ph.src)}" target="_blank" rel="noopener">Photo: ${esc(ph.credit)}</a>` : ''}</figcaption></figure>`
         : `<figure class="photo"><div class="ph">PHOTO COMING SOON</div><figcaption>${esc(ph.caption)}</figcaption></figure>`
     )
     .join('');
@@ -316,7 +321,7 @@ function newsChannel(c) {
 
 function newsCam(video, photos, tag) {
   const v = video?.youtube
-    ? `<div class="video cam"><iframe src="https://www.youtube-nocookie.com/embed/${esc(video.youtube)}" title="${esc(video.label)}" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+    ? ytFrame(video, 'cam', null)
     : `<div class="video cam"><canvas class="snow" data-snow></canvas><span class="cam-tag">${esc(tag || 'FILE FOOTAGE')}</span><span class="cam-rec">REC ●</span><div class="msg"><i class="ti ti-video" aria-hidden="true"></i>FOOTAGE COMING SOON<br><span class="it">${esc(video?.label || '')}</span></div></div>`;
   return v + photoGrid(photos);
 }
@@ -391,7 +396,7 @@ function adsChannel(c) {
 
 function adSpot(video, photos) {
   const v = video?.youtube
-    ? `<div class="video spot"><iframe src="https://www.youtube-nocookie.com/embed/${esc(video.youtube)}" title="${esc(video.label)}" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+    ? ytFrame(video, 'spot', null)
     : `<div class="video spot"><canvas class="snow" data-snow></canvas><span class="cam-tag spot-tag">TV SPOT</span><span class="cam-rec">0:30</span><div class="msg"><i class="ti ti-player-play" aria-hidden="true"></i>SPOT COMING SOON<br><span class="it">${esc(video?.label || '')}</span></div></div>`;
   return v + photoGrid(photos);
 }

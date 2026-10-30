@@ -403,3 +403,10 @@ a.ad:hover, a.ad:focus-visible { border-color: var(--yellow); transform: transla
 .spot-go { background: var(--red); color: #fff; text-align: center; font-weight: 700; font-size: 12px; padding: 3px; }
 .ad-pager { background: var(--magenta); }
 .ad-pager a { color: #2a0f4a; }
+
+/* Media captions and credits */
+.vcap { font-size: 11px; margin: -4px 0 8px; opacity: .85; line-height: 1.4; }
+.vcap a, .photo .credit { color: inherit; }
+.photo { background: #000; }
+.photo img { aspect-ratio: 4 / 3; height: auto; }
+.photo .credit { display: block; font-size: 10px; opacity: .7; margin-top: 2px; text-decoration: underline; }

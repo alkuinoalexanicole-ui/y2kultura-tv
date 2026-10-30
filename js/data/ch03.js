@@ -70,7 +70,7 @@ export default {
           stats: [['P1B+', 'Harry Potter series total by July 2009'], ['1ST', 'film series to cross P1 billion in the Philippines'], ['P214M', 'Order of the Phoenix (2007), the top earner']],
           panels: [
             ['THE REPORT', "In July 2009, Warner Bros. announced that the Harry Potter films had earned more than P1 billion at the Philippine box office, the first film series to do so. Each film earned between about P137 million and P214 million, from Sorcerer's Stone in 2001 to Half-Blood Prince in 2009."],
-            ['LOCAL ANGLE', 'Hollywood franchises like Harry Potter and Spider-Man became events Filipino families and barkadas planned around: a new release meant lines at the mall cinema and a story everyone was talking about.'],
+            ['LOCAL ANGLE', 'Hollywood franchises like Harry Potter and Spider-Man became big events in Philippine cinemas, and the audience kept growing: the fifth Harry Potter film earned about P77 million more here than the first.'],
           ],
           video: v('an official Harry Potter or Spider-Man trailer'),
           photos: ph('A cinema line', 'A movie ticket'),
@@ -209,7 +209,7 @@ export default {
         ],
         video: v('Kobe Bryant in Manila, or a 2000s fast-food commercial'),
         photos: ph('A Kobe jersey', 'A fast-food counter', 'A Chickenjoy meal'),
-        ticker: ['SOURCES: ASSOCIATED PRESS VIA HONOLULU ADVERTISER (JULY 21, 2009)', "WIKIPEDIA (MCDONALD'S PHILIPPINES; JOLLIBEE GROUP)"],
+        ticker: ['SOURCES: ASSOCIATED PRESS VIA HONOLULU ADVERTISER (JULY 21, 2009)', "WIKIPEDIA (MCDONALD'S PHILIPPINES; JOLLIBEE GROUP)", 'SOUTH CHINA MORNING POST (2021)'],
       },
       cta: { title: 'VOX POP', text: "Kobe jersey or Jollibee Chickenjoy: what's your strongest 2000s memory? First name and city only." },
       parts: [
@@ -232,7 +232,7 @@ export default {
           stats: [['#1', 'Jollibee leads Philippine fast food'], ['#2', "McDonald's, its main rival"], ['2002', "The Economist notes the rare market McDonald's doesn't lead"], ['2005', "McDonald's Philippines becomes 100% Filipino-owned"]],
           panels: [
             ['THE REPORT', "In most of the world, McDonald's led fast food. In the Philippines, Jollibee came first and McDonald's second. In 2002, The Economist noted the Philippines as one of the few markets where McDonald's was not the leader. In 2005, McDonald's Philippines became 100 percent Filipino-owned."],
-            ['LOCAL ANGLE', "To compete, global chains went Filipino. McDonald's had already added McSpaghetti and Chicken McDo in the 1980s, matching the local taste for sweet spaghetti and fried chicken with rice."],
+            ['LOCAL ANGLE', "To compete, global chains went Filipino. McDonald's Philippines added local-style dishes to its menu, introducing McSpaghetti in 1986 and Chicken McDo in 1987."],
           ],
           video: v("a 2000s Jollibee or McDonald's TV commercial"),
           photos: ph('A Jollibee store', "A McDonald's meal"),
