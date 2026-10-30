@@ -1,7 +1,8 @@
 // Videos and photos for every page, kept in one place.
 // Key = page address without "/ch/": "01/love-teams" is an episode overview, "01/filipino-pride/hatton" a part.
-// Videos: official YouTube uploads only, all checked to allow embedding. `yt` is the video ID.
-// Photos: freely licensed images from Wikimedia Commons, shown with author and license.
+// Videos: YouTube uploads (official and fan) whose footage dates from 2000 to 2010, all checked to allow embedding.
+// `yt` is the video ID; the label states what the clip is and when it is from.
+// Photos: freely licensed images from Wikimedia Commons taken 2000 to 2010, shown with author and license.
 // To swap a photo for one in Supabase Storage, replace `src` with its public URL and update the credit.
 
 const C = 'https://upload.wikimedia.org/wikipedia/commons/';
@@ -23,7 +24,6 @@ const P = {
   cory: ph(C + 'c/c6/Cory_Aquino_funeral.jpg', "Cory Aquino's funeral, August 2009", 'Richel King', 'CC BY 2.0', 'Cory_Aquino_funeral.jpg'),
   cathedral: ph(T + '6/63/Manila_Cathedral_dome.jpg/960px-Manila_Cathedral_dome.jpg', 'Manila Cathedral, August 4, 2009', 'Howard the Duck', 'CC BY-SA 3.0', 'Manila_Cathedral_dome.jpg'),
   n3310a: ph(T + '3/31/Nokia_3310_blue.jpg/960px-Nokia_3310_blue.jpg', 'A Nokia 3310, released in 2000', 'Michael Brandtner', 'Public domain', 'Nokia_3310_blue.jpg'),
-  n3310b: ph(T + 'a/a2/Nokia_3310_grey_front_%28tidied_and_enhanced%29.jpg/960px-Nokia_3310_grey_front_%28tidied_and_enhanced%29.jpg', 'The multi-tap keypad', 'Multicherry', 'CC BY-SA 4.0', 'Nokia_3310_grey_front_(tidied_and_enhanced).jpg'),
   p800: ph(C + 'f/f3/Sony_Ericsson_P800_with_web_browser.jpg', 'Sony Ericsson P800, a stylus touchscreen', 'Zache', 'CC BY-SA 3.0', 'Sony_Ericsson_P800_with_web_browser.jpg'),
   iphone: ph(T + 'b/b1/IPhone_%26_iPhone_3G_fronts.jpg/960px-IPhone_%26_iPhone_3G_fronts.jpg', 'The first iPhone and the iPhone 3G, 2008', 'Dan Taylor', 'CC BY 2.0', 'IPhone_%26_iPhone_3G_fronts.jpg'),
   zenmini: ph(T + '2/22/Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg/960px-Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg', 'A Creative Zen Micro and an iPod mini, 2005', 'Dan Taylor-Watt', 'CC BY 2.0', 'Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg'),
@@ -31,9 +31,7 @@ const P = {
   zen: ph(T + '8/82/Zen_micro.JPG/960px-Zen_micro.JPG', 'A Creative Zen Micro', 'Sebyx', 'CC BY-SA 3.0', 'Zen_micro.JPG'),
   cds: ph(C + '6/6b/CD_stack.jpg', 'A stack of CDs', 'mutednarayan', 'CC BY-SA 2.0', 'CD_stack.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
-  vcd: ph(C + '1/1a/Old_model_VCD_player.jpg', 'A VCD player', 'Obuezie', 'CC BY-SA 4.0', 'Old_model_VCD_player.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
-  dvd: ph(T + 'b/bf/SEG_DVD_430-2458.jpg/960px-SEG_DVD_430-2458.jpg', 'A DVD player', 'Raimond Spekking', 'CC BY-SA 4.0', 'SEG_DVD_430-2458.jpg'),
   jawed: ph(T + 'c/ca/Jawed_Karim.jpg/960px-Jawed_Karim.jpg', 'YouTube co-founder Jawed Karim', 'Jawed', 'Public domain', 'Jawed_Karim.jpg'),
   arnel: ph(T + '5/5b/Arnel_Pineda_by_Phey_Palma.jpg/960px-Arnel_Pineda_by_Phey_Palma.jpg', 'Arnel Pineda, March 2009', 'Phey Palma', 'CC BY 2.0', 'Arnel_Pineda_by_Phey_Palma.jpg'),
   avril1: ph(C + 'c/ce/Avril_Lavigne_in_May_2005.jpg', 'Avril Lavigne on her 2005 Bonez Tour', 'James Wyse', 'CC BY-SA 2.0', 'Avril_Lavigne_in_May_2005.jpg'),
@@ -47,57 +45,63 @@ const P = {
   kobe2: ph(T + '8/84/Kobe_Bryant_Magic_Johnson_Barack_Obama_2009_NBA_Champions_Lakers.jpg/960px-Kobe_Bryant_Magic_Johnson_Barack_Obama_2009_NBA_Champions_Lakers.jpg', 'The 2009 NBA champion Lakers at the White House', 'The White House', 'Public domain', 'Kobe_Bryant_Magic_Johnson_Barack_Obama_2009_NBA_Champions_Lakers.jpg'),
   jolhk: ph(T + 'c/c5/Jollibee%2C_Central%2C_Hong_Kong_1.jpg/960px-Jollibee%2C_Central%2C_Hong_Kong_1.jpg', 'Jollibee in Hong Kong, 2008', 'Minghong', 'CC BY-SA 4.0', 'Jollibee,_Central,_Hong_Kong_1.jpg'),
   mang: ph(T + '9/9c/Mang_Inasal_Butuan_-_panoramio.jpg/960px-Mang_Inasal_Butuan_-_panoramio.jpg', 'Mang Inasal in Butuan, December 2009', 'kbraner', 'CC BY-SA 3.0', 'Mang_Inasal_Butuan_-_panoramio.jpg'),
-  chow: ph(T + '3/3b/Chowkingjf.JPG/960px-Chowkingjf.JPG', 'A Chowking branch', 'Ramon FVelasquez', 'CC BY-SA 3.0', 'Chowkingjf.JPG'),
-  noli: ph(C + 'f/f1/Noli_Me_Tangere.jpg', "Rizal's Noli Me Tangere, 1887", 'José Rizal', 'Public domain', 'Noli_Me_Tangere.jpg'),
 };
 
 const yt = (id, label, credit) => ({ youtube: id, label, credit });
 
 export default {
   /* CH 01 */
-  '01/love-teams': { video: yt('ZmuQJg6ZTRU', "One More Chance official trailer", 'ABS-CBN Star Cinema'), photos: [P.love1, P.love2] },
-  '01/filipino-pride': { video: yt('9gx_CisURrA', 'Pacquiao vs. Hatton, the knockout', 'Top Rank Boxing'), photos: [P.pride1, P.pride2] },
-  '01/filipino-pride/de-la-hoya': { video: yt('wDqOnlqRlLo', 'Full fight: De La Hoya vs. Pacquiao', 'DAZN Boxing'), photos: [P.dlh] },
-  '01/filipino-pride/hatton': { video: yt('Zj7Saz9Jync', 'Full fight: Pacquiao vs. Hatton', 'DAZN Boxing'), photos: [P.hat1, P.hat2] },
-  '01/filipino-pride/cotto': { video: yt('kUruG4y9mak', 'Full fight: Pacquiao vs. Cotto', 'Top Rank Boxing'), photos: [P.cotto] },
-  '01/opm-bands': { video: yt('lcnPPah8tMg', 'Hale performs "The Day You Said Goodnight" live', 'Wish 107.5'), photos: [P.eheads] },
-  '01/opm-bands/hale': { video: yt('DbIY9NSho8Y', '"The Day You Said Goodnight" official music video', 'PolyEast Records') },
-  '01/opm-bands/cueshe': { video: yt('17Sv2FAZnkw', '"Stay" official music video', 'Cueshé (VEVO)') },
-  '01/opm-bands/eraserheads': { photos: [P.eheads] },
-  '01/cory-aquino': { video: yt('B7qRhUiA95w', 'Noynoy Aquino confirms his mother\'s death, August 1, 2009', 'AP Archive'), photos: [P.cory, P.cathedral] },
+  '01/love-teams': { video: yt('ZmuQJg6ZTRU', 'One More Chance official trailer, 2007', 'ABS-CBN Star Cinema'), photos: [P.love1, P.love2] },
+  '01/filipino-pride': { video: yt('9gx_CisURrA', 'Pacquiao vs. Hatton, the knockout, May 2009', 'Top Rank Boxing'), photos: [P.pride1, P.pride2] },
+  '01/filipino-pride/de-la-hoya': { video: yt('wDqOnlqRlLo', 'De La Hoya vs. Pacquiao, December 2008', 'DAZN Boxing'), photos: [P.dlh] },
+  '01/filipino-pride/hatton': { video: yt('Zj7Saz9Jync', 'Pacquiao vs. Hatton, May 2009', 'DAZN Boxing'), photos: [P.hat1, P.hat2] },
+  '01/filipino-pride/cotto': { video: yt('kUruG4y9mak', 'Pacquiao vs. Cotto, November 2009', 'Top Rank Boxing'), photos: [P.cotto] },
+  '01/opm-bands': { video: yt('DbIY9NSho8Y', 'Hale, "The Day You Said Goodnight" music video, 2005', 'PolyEast Records'), photos: [P.eheads] },
+  '01/opm-bands/hale': { video: yt('5i-3aFRBVhE', 'Hale, "Kahit Pa" music video, 2005', 'PolyEast Records') },
+  '01/opm-bands/cueshe': { video: yt('17Sv2FAZnkw', 'Cueshé, "Stay" music video, 2005', 'Cueshé (VEVO)') },
+  '01/opm-bands/eraserheads': { video: yt('mI0k8YisS1A', 'TV Patrol Sabado: the reunion concert is cut short, August 30, 2008', "schizo's Eraserheads Video Vault"), photos: [P.eheads] },
+  '01/cory-aquino': { video: yt('B7qRhUiA95w', "Noynoy Aquino confirms his mother's death, August 1, 2009", 'AP Archive'), photos: [P.cory, P.cathedral] },
   '01/cory-aquino/the-wake': { video: yt('CulRHeW_m_E', 'Mourners line up at La Salle Greenhills, August 2, 2009', 'AP Archive') },
-  '01/cory-aquino/yellow-confetti': { video: yt('rWDAyEGUzIg', 'Crowds at Manila Cathedral, August 4, 2009', 'AP Archive'), photos: [P.cathedral] },
-  '01/cory-aquino/the-long-goodbye': { video: yt('2XCgKQU5saQ', "TV Patrol: Cory Aquino's burial beside Ninoy", 'ABS-CBN News'), photos: [P.cory] },
+  '01/cory-aquino/yellow-confetti': { video: yt('1p_6sDAIPtw', 'Scenes from Ayala Avenue, August 3, 2009', 'Mich Bustamante'), photos: [P.cathedral] },
+  '01/cory-aquino/the-long-goodbye': { video: yt('2XCgKQU5saQ', "TV Patrol: Cory Aquino's burial beside Ninoy, August 5, 2009", 'ABS-CBN News'), photos: [P.cory] },
 
   /* CH 02 */
-  '02/text-unli': { photos: [P.n3310a, P.p800] },
-  '02/text-unli/p1-a-text': { video: yt('2ckXEssOL48', 'EDSA 2 protests, January 19, 2001', 'AP Archive'), photos: [P.n3310b] },
-  '02/text-unli/keypad-to-tap': { photos: [P.p800, P.iphone] },
-  '02/pocket-soundtrack': { photos: [P.zenmini, P.nanoshuf] },
-  '02/pocket-soundtrack/1000-songs': { photos: [P.nanoshuf, P.zen] },
-  '02/pocket-soundtrack/the-playlist-era': { photos: [P.cds] },
-  '02/pocket-soundtrack/phone-becomes-the-player': { photos: [P.n5800, P.iphone] },
-  '02/beyond-free-tv': { video: yt('KWVi9ziKT3I', 'Sniffer dogs join a pirated-DVD raid in the Philippines, 2007', 'AP Archive'), photos: [P.stb, P.dvd, P.vcd] },
-  '02/beyond-free-tv/cable-takes-over': { video: yt('AldpwVP_8sQ', 'SKY: 25 years of entertainment', 'SKY'), photos: [P.stb] },
-  '02/beyond-free-tv/dibidi-nights': { photos: [P.dvd, P.vcd] },
-  '02/beyond-free-tv/the-crackdown': { video: yt('mQbZDDxa9QU', 'Steamrollers crush pirated CDs and VCDs in Manila, 2002', 'AP Archive') },
-  '02/click-upload-watch': { video: yt('yKv93LcfLOI', "Don't Stop Believin': Everyman's Journey, official trailer", 'Rotten Tomatoes Indie'), photos: [P.jawed, P.arnel] },
-  '02/click-upload-watch/broadcast-yourself': { video: yt('jNQXAC9IVRw', '"Me at the zoo," the first YouTube video', 'jawed'), photos: [P.jawed] },
-  '02/click-upload-watch/found-on-youtube': { video: yt('HH_i4DC0-BU', 'Journey with Arnel Pineda, "Faithfully" (Live in Manila)', 'Journey (VEVO)'), photos: [P.arnel] },
+  '02/text-unli': { video: yt('tApCa8whWCI', 'Smart Buddy load ad with Heart Evangelista, 2003', 'UndustFixation'), photos: [P.n3310a, P.p800] },
+  '02/text-unli/p1-a-text': { video: yt('2ckXEssOL48', 'EDSA 2 protests, January 19, 2001', 'AP Archive'), photos: [P.n3310a] },
+  '02/text-unli/gm-textmate-eyeball': { video: yt('3MX2J_1zkV8', 'Globe Unlitxt TV ad, mid-2000s', 'wershwie') },
+  '02/text-unli/keypad-to-tap': { video: yt('bd4o8RMF3d8', "Talk 'N Text ad with Rico Yan, 2000", 'UndustFixation'), photos: [P.p800, P.iphone] },
+  '02/pocket-soundtrack': { video: yt('mE_bDNaYAr8', 'The first iPod TV ad, 2001', 'xaviertic'), photos: [P.zenmini, P.nanoshuf] },
+  '02/pocket-soundtrack/1000-songs': { video: yt('e84SER_IkP4', 'The first iPod promotional video, 2001', 'JoshuaG'), photos: [P.nanoshuf, P.zen] },
+  '02/pocket-soundtrack/the-playlist-era': { video: yt('NS80VFHn7D4', 'Creative Zen MP3 player TV ad, 2004', 'filmfactoryltd'), photos: [P.cds] },
+  '02/pocket-soundtrack/phone-becomes-the-player': { video: yt('jG7ohCRGd4Q', 'Nokia 5800 XpressMusic TV ad, 2009', 'N5800XM'), photos: [P.n5800, P.iphone] },
+  '02/beyond-free-tv': { video: yt('KWVi9ziKT3I', 'Sniffer dogs join a pirated-DVD raid in the Philippines, April 2007', 'AP Archive'), photos: [P.stb] },
+  '02/beyond-free-tv/cable-takes-over': { video: yt('FXEA9o7gkEY', 'SkyCable "The Biggest Show On Air" TV ad, 2000', 'JKSHLTR'), photos: [P.stb] },
+  '02/beyond-free-tv/dibidi-nights': { video: yt('I-zSnSxIwqs', 'Optical Media Board raid on pirated DVDs in Quiapo, August 17, 2010', 'Optical Media Board') },
+  '02/beyond-free-tv/the-crackdown': { video: yt('mQbZDDxa9QU', 'Steamrollers crush pirated CDs and VCDs in Manila, July 2002', 'AP Archive') },
+  '02/click-upload-watch': { video: yt('HH_i4DC0-BU', 'Journey with Arnel Pineda, "Faithfully," Live in Manila, 2009', 'Journey (VEVO)'), photos: [P.jawed, P.arnel] },
+  '02/click-upload-watch/broadcast-yourself': { video: yt('jNQXAC9IVRw', '"Me at the zoo," the first YouTube video, April 23, 2005', 'jawed'), photos: [P.jawed] },
+  '02/click-upload-watch/found-on-youtube': { video: yt('a7zIE1N_Prg', 'Arnel Pineda and Zoo cover "Faithfully," uploaded 2007', 'naitx09'), photos: [P.arnel] },
+  '02/click-upload-watch/photos-online': { video: yt('6WwSh2Pqdxs', 'Friendster Capital: the Philippines and its Friendster record, 2007', 'Vince Rodriguez') },
 
   /* CH 03 */
-  '03/western-waves': { video: yt('5NPBIwQyPWE', 'Avril Lavigne, "Complicated" official video', 'Avril Lavigne (VEVO)'), photos: [P.avril1] },
-  '03/western-waves/live-in-manila': { video: yt('kXYiU_JCYtU', 'Linkin Park, "Numb" official music video (2003)', 'Linkin Park'), photos: [P.avril2] },
-  '03/western-waves/box-office-magic': { video: yt('LLAaW1EgyY8', 'Harry Potter and the Order of the Phoenix, official trailer', 'Harry Potter') },
-  '03/hallyu-rising': { video: yt('x6QA3m58DQw', 'Super Junior, "Sorry, Sorry" official MV', 'SMTOWN'), photos: [P.suju, P.twone] },
-  '03/hallyu-rising/krung-krung-to-2ne1': { video: yt('JhfRt_k5_vg', 'Sandara Park, "In or Out"', 'ABS-CBN Star Music'), photos: [P.dara, P.twone] },
-  '03/hallyu-rising/sorry-sorry-on-myx': { video: yt('BA7fdSkp8ds', 'Wonder Girls, "Nobody" official MV', 'Wonder Girls'), photos: [P.suju2, P.wg] },
-  '03/hallyu-rising/fan-clubs-and-dance-covers': { video: yt('AAWqnA8PdcY', 'Super Junior, "Sorry, Sorry" dance version', 'SMTOWN') },
-  '03/courtside-and-counter': { video: yt('cHYApcfdDn8', 'Filipino fans pay tribute to Kobe Bryant in Manila, January 2020', 'AP Archive'), photos: [P.kobe1, P.jolhk] },
-  '03/courtside-and-counter/mamba-in-manila': { photos: [P.kobe2, P.kobe1] },
-  '03/courtside-and-counter/jollibee-goes-global': { photos: [P.jolhk, P.mang, P.chow] },
+  '03/western-waves': { video: yt('5NPBIwQyPWE', 'Avril Lavigne, "Complicated" music video, 2002', 'Avril Lavigne (VEVO)'), photos: [P.avril1] },
+  '03/western-waves/live-in-manila': { video: yt('iNDt-RxDtjI', 'Linkin Park in Manila on ASAP Mania, June 2004', 'qwir34'), photos: [P.avril2] },
+  '03/western-waves/box-office-magic': { video: yt('LLAaW1EgyY8', 'Harry Potter and the Order of the Phoenix trailer, 2007', 'Harry Potter') },
+  '03/dubbed-and-delivered': { video: yt('Yw-QjQME6eE', 'Meteor Garden, Tagalog-dubbed episode 4', 'Meteor Garden Marathon') },
+  '03/dubbed-and-delivered/meteor-fever': { video: yt('hOqLnJ6pHOY', 'F4 sing "Liu Xing Yu" in the Philippines, 2003', 'F4 Original-2001') },
+  '03/dubbed-and-delivered/koreanovela-nights': { video: yt('dAbnwBeugHY', 'Endless Love: Autumn in My Heart opening on GMA, 2003', 'Frauleinpinky02') },
+  '03/dubbed-and-delivered/the-filipino-voice': { video: yt('4EM0qR9lhS4', 'Hero TV station ID, summer 2007', 'ARCHIVE Pilipinas') },
+  '03/hallyu-rising': { video: yt('x6QA3m58DQw', 'Super Junior, "Sorry, Sorry" music video, 2009', 'SMTOWN'), photos: [P.suju, P.twone] },
+  '03/hallyu-rising/krung-krung-to-2ne1': { video: yt('QvlrtvuIKC8', 'Sandara Park on Star Circle Quest, 2004', 'Nn Nani'), photos: [P.dara, P.twone] },
+  '03/hallyu-rising/sorry-sorry-on-myx': { video: yt('BA7fdSkp8ds', 'Wonder Girls, "Nobody" music video, 2009', 'Wonder Girls'), photos: [P.suju2, P.wg] },
+  '03/hallyu-rising/fan-clubs-and-dance-covers': { video: yt('_43TO_OPj-8', 'CPDRC inmates dance to "Sorry, Sorry," Cebu, June 2009', 'byronfgarcia') },
+  '03/courtside-and-counter': { video: yt('d7gPbo8qmTc', 'Kobe Bryant visits Manila, July 2009', 'SN+1 Archives'), photos: [P.kobe1, P.jolhk] },
+  '03/courtside-and-counter/mamba-in-manila': { video: yt('2QSHXojL39g', "Kobe Bryant's grand entrance at the Ultra, July 21, 2009", 'sports37productions'), photos: [P.kobe2, P.kobe1] },
+  '03/courtside-and-counter/chickenjoy-vs-the-burger': { video: yt('G-r0piA5KYo', 'Jollibee Chickenjoy TV ad, 2005', "My Philippine TVC's") },
+  '03/courtside-and-counter/jollibee-goes-global': { video: yt('XhKABuDMGEY', 'Jollibee Super Meal TV ad, 2005', 'Matt Virtudazo'), photos: [P.jolhk, P.mang] },
 
   /* CH 04 */
-  '04/maputi-at-unat': { video: yt('NEs3g5LVqPU', 'Undercover Asia: the cost of skin whitening in the Philippines (2020)', 'CNA Insider') },
-  '04/maputi-at-unat/reality-check': { photos: [P.noli] },
+  '04/maputi-at-unat': { video: yt('1KK_VP-N-eQ', 'Sunsilk shampoo TV ad, early 2000s', 'Chai H.') },
+  '04/maputi-at-unat/whitening-boom': { video: yt('7aheTQ686zs', 'Silka Papaya whitening soap TV ad with Iya Villania, 2008', "Alden Richards's Commercial") },
+  '04/maputi-at-unat/the-rebond-era': { video: yt('0c7F5trRXg8', 'Sunsilk TV ad with Marian Rivera, Nikki Gil, and Maja Salvador, 2008', 'xxRedGalaxyxx') },
 };
