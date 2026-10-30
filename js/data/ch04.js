@@ -37,12 +37,12 @@ export default {
           title: 'THE WHITENING BOOM', sub: 'Lotions, soaps, and the promise of fairer skin', fine: '*Results not typical. Side effects not advertised.',
           stats: [['2004', 'whitening was still an "emerging market"'], ['400+ YEARS', 'how far back the preference for fair skin goes'], ['2009', 'law creating the Philippine FDA (RA 9711)']],
           panels: [
-            ['THE PITCH', 'In 2004, the skin-whitening industry in the Philippines was still described as an emerging market. Over the decade it grew into lotions, soaps, and creams sold everywhere from malls to sari-sari stores, often advertised with fair-skinned celebrities.'],
+            ['THE PITCH', 'In 2004, the skin-whitening industry in the Philippines was still described as an emerging market. By 2010, store shelves were full of whitening soaps, creams, and powders, major brands sold them in single-use sachets, and makers were moving into sari-sari stores.'],
             ['REALITY CHECK', 'A public health study of Filipino whitening consumers found adulterated and misbranded products, and that cheaper, toxic whiteners could undercut safer ones. Regulation tried to keep up: the law creating the Philippine FDA passed in 2009.'],
           ],
           video: v('a news report on whitening products'),
           photos: ph('Whitening soaps', 'A drugstore aisle'),
-          ticker: ['SOURCES: ESQUIRE PHILIPPINES (2019)', 'JOURNAL OF PUBLIC HEALTH POLICY (2013)'],
+          ticker: ['SOURCES: ESQUIRE PHILIPPINES (2019)', 'GMA NEWS (JAN 29, 2010)', 'JOURNAL OF PUBLIC HEALTH POLICY (2013)'],
         },
         {
           slug: 'the-rebond-era', label: 'SPOT 2', cardTitle: 'THE REBOND ERA', cardLine: 'How the straight-hair look took over',

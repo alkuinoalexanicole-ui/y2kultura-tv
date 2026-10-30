@@ -4,6 +4,23 @@ import ch01 from './ch01.js';
 import ch02 from './ch02.js';
 import ch03 from './ch03.js';
 import ch04 from './ch04.js';
+import MEDIA from './media.js';
+
+// Attach videos and photos from media.js to each page.
+function applyMedia(ch) {
+  for (const e of ch.episodes) {
+    const set = (page, key) => {
+      const m = MEDIA[key];
+      if (!page || !m) return;
+      if (m.video) page.video = m.video;
+      if (m.photos) page.photos = m.photos;
+    };
+    set(e.overview, `${ch.num}/${e.slug}`);
+    (e.parts || []).forEach((p) => set(p, `${ch.num}/${e.slug}/${p.slug}`));
+  }
+  return ch;
+}
+[ch01, ch02, ch03, ch04].forEach(applyMedia);
 
 export const CHANNELS = [
   { num: '01', title: 'Heartstrings', aspect: 'Affect, Senses, and Feelings', slot: '7:00 PM', data: ch01 },

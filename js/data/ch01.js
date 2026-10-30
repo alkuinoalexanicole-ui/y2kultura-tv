@@ -71,7 +71,7 @@ export default {
             "src": null
           }
         ],
-        "ticker": [],
+        "ticker": ["SOURCES: PEP.PH (NOV 26, 2021)", "WIKIPEDIA (ONE MORE CHANCE, 2007 FILM)"],
         "facts": [
           [
             "TEAMED UP",
