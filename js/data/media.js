@@ -7,13 +7,14 @@
 const C = 'https://upload.wikimedia.org/wikipedia/commons/';
 const T = 'https://upload.wikimedia.org/wikipedia/commons/thumb/';
 const W = 'https://commons.wikimedia.org/wiki/File:';
-const ph = (src, caption, author, license, file) => ({ src, caption, credit: `${author} / ${license}`, link: W + file });
+// `pos` (optional) picks which part of the photo stays in frame, e.g. 'center top'. Default keeps the upper part, where faces usually are.
+const ph = (src, caption, author, license, file, pos) => ({ src, caption, credit: `${author} / ${license}`, link: W + file, pos });
 
 const P = {
   love1: ph(C + '3/3f/John_Lloyd_Cruz_at_ABS-CBN_Talent_Center%2C_May_2010.jpg', 'John Lloyd Cruz, 2010', 'Thedarkknightjc', 'CC BY-SA 3.0', 'John_Lloyd_Cruz_at_ABS-CBN_Talent_Center,_May_2010.jpg'),
   love2: ph(C + '4/4c/Bea_Alonzo.jpg', 'Bea Alonzo, 2009', 'karicafort', 'CC BY 2.0', 'Bea_Alonzo.jpg'),
-  pride1: ph(C + '2/22/Manny_Pacman_Pacquiao_1.jpg', 'Manny Pacquiao, 2009', 'SC Ryan A', 'CC BY-SA 3.0', 'Manny_Pacman_Pacquiao_1.jpg'),
-  pride2: ph(C + '5/50/Ceremonial_first_pitch_by_Manny_Pacquiao%2C_April_21%2C_2009.jpg', 'Pacquiao throws a first pitch, April 2009', 'bryce_edwards', 'CC BY 2.0', 'Ceremonial_first_pitch_by_Manny_Pacquiao,_April_21,_2009.jpg'),
+  pride1: ph(C + '2/22/Manny_Pacman_Pacquiao_1.jpg', 'Manny Pacquiao, 2009', 'SC Ryan A', 'CC BY-SA 3.0', 'Manny_Pacman_Pacquiao_1.jpg', 'center top'),
+  pride2: ph(C + '5/50/Ceremonial_first_pitch_by_Manny_Pacquiao%2C_April_21%2C_2009.jpg', 'Pacquiao throws a first pitch, April 2009', 'bryce_edwards', 'CC BY 2.0', 'Ceremonial_first_pitch_by_Manny_Pacquiao,_April_21,_2009.jpg', 'center top'),
   dlh: ph(T + 'e/e6/Oscar_De_La_Hoya_in_June_2008.jpg/960px-Oscar_De_La_Hoya_in_June_2008.jpg', 'Oscar De La Hoya, June 2008', 'Oscar the WWE Nexus Shirt Guy', 'CC BY-SA 4.0', 'Oscar_De_La_Hoya_in_June_2008.jpg'),
   hat1: ph(C + '0/02/Hatton_and_Pacquiao_with_trainers.jpg', 'Hatton and Pacquiao with their trainers, 2009', 'Ganglandboss', 'Public domain', 'Hatton_and_Pacquiao_with_trainers.jpg'),
   hat2: ph(C + '5/55/Ricky_Hatton_2009.jpg', 'Ricky Hatton, 2009', 'SamboD', 'CC BY 2.0', 'Ricky_Hatton_2009.jpg'),
