@@ -53,6 +53,8 @@ const P = {
   dubBooth: ph(T + 'e/ef/Sala_de_doblaje.jpg/960px-Sala_de_doblaje.jpg', 'A dubbing booth: microphone, script stand, and a screen showing the scene to match, 2008', 'Andres Moreno', 'CC BY 2.0', 'Sala_de_doblaje.jpg'),
   sujuFans: ph(C + '7/7b/Super_Junior_fans_in_Hanoi.jpg', 'Super Junior fans with blue lightsticks at a concert in Hanoi, March 2010', 'USAID Vietnam', 'Public domain', 'Super_Junior_fans_in_Hanoi.jpg'),
   coverDance: ph(C + '8/84/KOCIS_K-pop_contest_in_Argentina_%285838082803%29.jpg', 'A K-pop dance cover group performs at a fan contest, October 2010', 'Korea.net / KOCIS', 'CC BY-SA 2.0', 'KOCIS_K-pop_contest_in_Argentina_(5838082803).jpg'),
+  jolBaybay: ph(C + '5/53/Jollibee_Baybay.jpg', 'A Jollibee branch in Baybay, Leyte, with a tricycle parked out front, August 2010', 'Franzrocks', 'CC BY-SA 3.0', 'Jollibee_Baybay.jpg', 'contain'),
+  mcdMeal: ph(T + '3/3f/McDonald%27s_Meal_Japan.jpg/960px-McDonald%27s_Meal_Japan.jpg', "A McDonald's meal: burger, fries, nuggets and a drink, March 2008", 'Ryuta Ishimoto', 'CC BY-SA 2.0', "McDonald's_Meal_Japan.jpg"),
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
@@ -122,7 +124,7 @@ export default {
   '03/hallyu-rising/fan-clubs-and-dance-covers': { video: yt('_43TO_OPj-8', 'CPDRC inmates dance to "Sorry, Sorry," Cebu, June 2009', 'byronfgarcia'), photos: [P.sujuFans, P.coverDance] },
   '03/courtside-and-counter': { video: yt('d7gPbo8qmTc', 'Kobe Bryant visits Manila, July 2009', 'SN+1 Archives'), photos: [P.kobe1, P.jolhk] },
   '03/courtside-and-counter/mamba-in-manila': { video: yt('2QSHXojL39g', "Kobe Bryant's grand entrance at the Ultra, July 21, 2009", 'sports37productions'), photos: [P.kobe2, P.kobe1] },
-  '03/courtside-and-counter/chickenjoy-vs-the-burger': { video: yt('G-r0piA5KYo', 'Jollibee Chickenjoy TV ad, 2005', "My Philippine TVC's") },
+  '03/courtside-and-counter/chickenjoy-vs-the-burger': { video: yt('G-r0piA5KYo', 'Jollibee Chickenjoy TV ad, 2005', "My Philippine TVC's"), photos: [P.jolBaybay, P.mcdMeal] },
   '03/courtside-and-counter/jollibee-goes-global': { video: yt('XhKABuDMGEY', 'Jollibee Super Meal TV ad, 2005', 'Matt Virtudazo'), photos: [P.jolhk, P.mang] },
 
   /* CH 04 */
