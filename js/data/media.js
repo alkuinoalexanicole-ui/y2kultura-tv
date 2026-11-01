@@ -69,9 +69,9 @@ export default {
 
   /* CH 02 */
   '02/text-unli': { video: yt('tApCa8whWCI', 'Smart Buddy load ad with Heart Evangelista, 2003', 'UndustFixation'), photos: [P.n3310a, P.p800] },
-  '02/text-unli/p1-a-text': { video: yt('2ckXEssOL48', 'EDSA 2 protests, January 19, 2001', 'AP Archive'), photos: [P.n3310a] },
-  '02/text-unli/gm-textmate-eyeball': { video: yt('3MX2J_1zkV8', 'Globe Unlitxt TV ad, mid-2000s', 'wershwie') },
-  '02/text-unli/keypad-to-tap': { video: yt('bd4o8RMF3d8', "Talk 'N Text ad with Rico Yan, 2000", 'UndustFixation'), photos: [P.p800, P.iphone] },
+  '02/text-unli/p1-a-text': { video: yt('bd4o8RMF3d8', "Talk 'N Text ad with Rico Yan on low rates and affordable phones, 2000", 'UndustFixation'), photos: [P.n3310a] },
+  '02/text-unli/gm-textmate-eyeball': { video: yt('XipJFRBBoYs', 'Globe Gentxt group-texting TV ad, 2002', '莢豌豆本舗') },
+  '02/text-unli/keypad-to-tap': { video: yt('PcVg9pzxzDA', 'Nokia 3310 TV ad, 2000: the keypad era', 'Fredrik Idestam'), photos: [P.p800, P.iphone] },
   '02/pocket-soundtrack': { video: yt('mE_bDNaYAr8', 'The first iPod TV ad, 2001', 'xaviertic'), photos: [P.zenmini, P.nanoshuf] },
   '02/pocket-soundtrack/1000-songs': { video: yt('e84SER_IkP4', 'The first iPod promotional video, 2001', 'JoshuaG'), photos: [P.nanoshuf, P.zen] },
   '02/pocket-soundtrack/the-playlist-era': { video: yt('NS80VFHn7D4', 'Creative Zen MP3 player TV ad, 2004', 'filmfactoryltd'), photos: [P.cds] },
