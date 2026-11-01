@@ -23,6 +23,8 @@ const P = {
   eheads: ph(T + '7/75/Eraserheads_Final_Set.jpg/960px-Eraserheads_Final_Set.jpg', 'The Eraserheads at The Final Set, March 7, 2009', 'charisseyorke', 'CC BY 2.0', 'Eraserheads_Final_Set.jpg'),
   cory: ph(C + 'c/c6/Cory_Aquino_funeral.jpg', "Cory Aquino's funeral, August 2009", 'Richel King', 'CC BY 2.0', 'Cory_Aquino_funeral.jpg'),
   cathedral: ph(T + '6/63/Manila_Cathedral_dome.jpg/960px-Manila_Cathedral_dome.jpg', 'Manila Cathedral, August 4, 2009', 'Howard the Duck', 'CC BY-SA 3.0', 'Manila_Cathedral_dome.jpg'),
+  wakeLine: ph(T + '4/4a/Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg/960px-Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg', 'The line of mourners to Manila Cathedral, August 2009', 'Howard the Duck', 'CC BY-SA 3.0', 'Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg'),
+  wakeCoffin: ph(T + '0/0f/Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm/960px--Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm.jpg', 'Her flag-draped coffin under guard at Manila Cathedral, August 2009', 'Radio Television Malacañang', 'Public domain', 'Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm'),
   n3310a: ph(T + '3/31/Nokia_3310_blue.jpg/960px-Nokia_3310_blue.jpg', 'A Nokia 3310, released in 2000', 'Michael Brandtner', 'Public domain', 'Nokia_3310_blue.jpg'),
   p800: ph(C + 'f/f3/Sony_Ericsson_P800_with_web_browser.jpg', 'Sony Ericsson P800, a stylus touchscreen', 'Zache', 'CC BY-SA 3.0', 'Sony_Ericsson_P800_with_web_browser.jpg'),
   iphone: ph(T + 'b/b1/IPhone_%26_iPhone_3G_fronts.jpg/960px-IPhone_%26_iPhone_3G_fronts.jpg', 'The first iPhone and the iPhone 3G, 2008', 'Dan Taylor', 'CC BY 2.0', 'IPhone_%26_iPhone_3G_fronts.jpg'),
@@ -61,7 +63,7 @@ export default {
   '01/opm-bands/cueshe': { video: yt('17Sv2FAZnkw', 'Cueshé, "Stay" music video, 2005', 'Cueshé (VEVO)') },
   '01/opm-bands/eraserheads': { video: yt('mI0k8YisS1A', 'TV Patrol Sabado: the reunion concert is cut short, August 30, 2008', "schizo's Eraserheads Video Vault"), photos: [P.eheads] },
   '01/cory-aquino': { video: yt('B7qRhUiA95w', "Noynoy Aquino confirms his mother's death, August 1, 2009", 'AP Archive'), photos: [P.cory, P.cathedral] },
-  '01/cory-aquino/the-wake': { video: yt('CulRHeW_m_E', 'Mourners line up at La Salle Greenhills, August 2, 2009', 'AP Archive') },
+  '01/cory-aquino/the-wake': { video: yt('CulRHeW_m_E', 'Mourners line up at La Salle Greenhills, August 2, 2009', 'AP Archive'), photos: [P.wakeLine, P.wakeCoffin] },
   '01/cory-aquino/yellow-confetti': { video: yt('1p_6sDAIPtw', 'Scenes from Ayala Avenue, August 3, 2009', 'Mich Bustamante'), photos: [P.cathedral] },
   '01/cory-aquino/the-long-goodbye': { video: yt('2XCgKQU5saQ', "TV Patrol: Cory Aquino's burial beside Ninoy, August 5, 2009", 'ABS-CBN News'), photos: [P.cory] },
 
