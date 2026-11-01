@@ -61,6 +61,8 @@ const P = {
   sariSari: ph(T + '8/86/Sari-Sari_Store_Cavite.jpg/960px-Sari-Sari_Store_Cavite.jpg', 'A sari-sari store in Cavite, with single-use sachets hung in strips, February 2007', 'Glen from United States', 'CC BY 2.0', 'Sari-Sari_Store_Cavite.jpg'),
   marianStraight: ph(C + '7/7d/Marian_Rivera_LA_Press_Conference%2C_December_2008_%2801%29.jpg', 'Marian Rivera, one of the stars of the 2008 Sunsilk ad, with sleek straight hair, December 2008', 'Gerry Edra', 'CC BY 2.5', 'Marian_Rivera_LA_Press_Conference,_December_2008_(01).jpg', 'center top'),
   flatIron: ph(T + 'd/d1/GHDhairiron2.JPG/960px-GHDhairiron2.JPG', 'A ceramic flat iron for straightening hair, 2007', 'Iamandrewrice', 'CC BY-SA 3.0', 'GHDhairiron2.JPG', 'contain'),
+  rizalMon: ph(T + 'd/d1/Rizal_Monument_on_Rizal_Day.jpg/960px-Rizal_Monument_on_Rizal_Day.jpg', 'The Rizal Monument in Manila on Rizal Day, December 30, 2009. Rizal wrote Noli Me Tangere, home of Doña Victorina', 'Handtell', 'Public domain', 'Rizal_Monument_on_Rizal_Day.jpg'),
+  angelLocsin: ph(T + '5/5d/Angel_Locsin_2.jpg/960px-Angel_Locsin_2.jpg', 'Angel Locsin, one of the decade\'s biggest stars and a celebrated morena beauty, December 2008', 'Gerry Edra', 'CC BY 3.0', 'Angel_Locsin_2.jpg', 'center top'),
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
@@ -137,4 +139,5 @@ export default {
   '04/maputi-at-unat': { video: yt('1KK_VP-N-eQ', 'Sunsilk shampoo TV ad, early 2000s', 'Chai H.'), photos: [P.salon, P.straightBA] },
   '04/maputi-at-unat/whitening-boom': { video: yt('7aheTQ686zs', 'Silka Papaya whitening soap TV ad with Iya Villania, 2008', "Alden Richards's Commercial"), photos: [P.mercuryCream, P.sariSari] },
   '04/maputi-at-unat/the-rebond-era': { video: yt('0c7F5trRXg8', 'Sunsilk TV ad with Marian Rivera, Nikki Gil, and Maja Salvador, 2008', 'xxRedGalaxyxx'), photos: [P.marianStraight, P.flatIron] },
+  '04/maputi-at-unat/reality-check': { video: yt('ksaCmZwiKmI', 'Philippine Dermatological Society PSA on the dangers of unsupervised skin bleaching, 2008', 'FRANZTENDO64'), photos: [P.rizalMon, P.angelLocsin] },
 };
