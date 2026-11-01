@@ -57,6 +57,8 @@ const P = {
   mcdMeal: ph(T + '3/3f/McDonald%27s_Meal_Japan.jpg/960px-McDonald%27s_Meal_Japan.jpg', "A McDonald's meal: burger, fries, nuggets and a drink, March 2008", 'Ryuta Ishimoto', 'CC BY-SA 2.0', "McDonald's_Meal_Japan.jpg"),
   salon: ph(T + 'd/d7/Planet_Hair.jpg/960px-Planet_Hair.jpg', 'A hair salon with styling chairs and wash basins, 2008', 'Ambients', 'CC BY-SA 3.0', 'Planet_Hair.jpg'),
   straightBA: ph(C + 'e/e2/Lissage.jpg', 'Before and after: wavy hair made pin-straight with Japanese straightening, the treatment sold here as rebonding, 2009', 'sofiane mahmoudi', 'Public domain', 'Lissage.jpg', 'contain'),
+  mercuryCream: ph(T + '0/08/Mercury_Poisoning_Linked_to_Skin_Products_%286819019484%29.jpg/960px-Mercury_Poisoning_Linked_to_Skin_Products_%286819019484%29.jpg', 'A beauty cream found to contain mercury, examined after U.S. FDA warnings about toxic skin creams and soaps, September 2010', 'U.S. Food and Drug Administration', 'Public domain', 'Mercury_Poisoning_Linked_to_Skin_Products_(6819019484).jpg'),
+  sariSari: ph(T + '8/86/Sari-Sari_Store_Cavite.jpg/960px-Sari-Sari_Store_Cavite.jpg', 'A sari-sari store in Cavite, with single-use sachets hung in strips, February 2007', 'Glen from United States', 'CC BY 2.0', 'Sari-Sari_Store_Cavite.jpg'),
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
@@ -131,6 +133,6 @@ export default {
 
   /* CH 04 */
   '04/maputi-at-unat': { video: yt('1KK_VP-N-eQ', 'Sunsilk shampoo TV ad, early 2000s', 'Chai H.'), photos: [P.salon, P.straightBA] },
-  '04/maputi-at-unat/whitening-boom': { video: yt('7aheTQ686zs', 'Silka Papaya whitening soap TV ad with Iya Villania, 2008', "Alden Richards's Commercial") },
+  '04/maputi-at-unat/whitening-boom': { video: yt('7aheTQ686zs', 'Silka Papaya whitening soap TV ad with Iya Villania, 2008', "Alden Richards's Commercial"), photos: [P.mercuryCream, P.sariSari] },
   '04/maputi-at-unat/the-rebond-era': { video: yt('0c7F5trRXg8', 'Sunsilk TV ad with Marian Rivera, Nikki Gil, and Maja Salvador, 2008', 'xxRedGalaxyxx') },
 };
