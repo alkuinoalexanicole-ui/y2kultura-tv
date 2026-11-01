@@ -86,7 +86,7 @@ export default {
   '02/beyond-free-tv/cable-takes-over': { video: yt('FXEA9o7gkEY', 'SkyCable "The Biggest Show On Air" TV ad, 2000', 'JKSHLTR'), photos: [P.stb] },
   '02/beyond-free-tv/dibidi-nights': { video: yt('I-zSnSxIwqs', 'Optical Media Board raid on pirated DVDs in Quiapo, August 17, 2010', 'Optical Media Board'), photos: [P.dvdPlayer, P.tvCorner] },
   '02/beyond-free-tv/the-crackdown': { video: yt('mQbZDDxa9QU', 'Steamrollers crush pirated CDs and VCDs in Manila, July 2002', 'AP Archive'), photos: [P.pirateVendor, P.pirateTable] },
-  '02/click-upload-watch': { video: yt('HH_i4DC0-BU', 'Journey with Arnel Pineda, "Faithfully," Live in Manila, 2009', 'Journey (VEVO)'), photos: [P.jawed, P.arnel] },
+  '02/click-upload-watch': { video: yt('spTJzMlzSFU', 'CBS News on Google buying YouTube, October 2006', 'CBS'), photos: [P.jawed, P.arnel] },
   '02/click-upload-watch/broadcast-yourself': { video: yt('jNQXAC9IVRw', '"Me at the zoo," the first YouTube video, April 23, 2005', 'jawed'), photos: [P.jawed] },
   '02/click-upload-watch/found-on-youtube': { video: yt('a7zIE1N_Prg', 'Arnel Pineda and Zoo cover "Faithfully," uploaded 2007', 'naitx09'), photos: [P.arnel] },
   '02/click-upload-watch/photos-online': { video: yt('6WwSh2Pqdxs', 'Friendster Capital: the Philippines and its Friendster record, 2007', 'Vince Rodriguez') },
