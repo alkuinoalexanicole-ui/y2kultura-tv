@@ -8,7 +8,7 @@
 const C = 'https://upload.wikimedia.org/wikipedia/commons/';
 const T = 'https://upload.wikimedia.org/wikipedia/commons/thumb/';
 const W = 'https://commons.wikimedia.org/wiki/File:';
-// `pos` (optional) picks which part of the photo stays in frame, e.g. 'center top'. Default keeps the upper part, where faces usually are.
+// `pos` (optional) picks which part of the photo stays in frame, e.g. 'center top', or 'contain' to show the whole photo uncropped. Default keeps the upper part, where faces usually are.
 const ph = (src, caption, author, license, file, pos) => ({ src, caption, credit: `${author} / ${license}`, link: W + file, pos });
 
 const P = {
@@ -25,8 +25,8 @@ const P = {
   cathedral: ph(T + '6/63/Manila_Cathedral_dome.jpg/960px-Manila_Cathedral_dome.jpg', 'Manila Cathedral, August 4, 2009', 'Howard the Duck', 'CC BY-SA 3.0', 'Manila_Cathedral_dome.jpg'),
   wakeLine: ph(T + '4/4a/Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg/960px-Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg', 'The line of mourners to Manila Cathedral, August 2009', 'Howard the Duck', 'CC BY-SA 3.0', 'Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg'),
   wakeCoffin: ph(T + '0/0f/Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm/960px--Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm.jpg', 'Her flag-draped coffin under guard at Manila Cathedral, August 2009', 'Radio Television Malacañang', 'Public domain', 'Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm'),
-  n3310a: ph(T + '3/31/Nokia_3310_blue.jpg/960px-Nokia_3310_blue.jpg', 'A Nokia 3310, released in 2000', 'Michael Brandtner', 'Public domain', 'Nokia_3310_blue.jpg'),
-  p800: ph(C + 'f/f3/Sony_Ericsson_P800_with_web_browser.jpg', 'Sony Ericsson P800, a stylus touchscreen', 'Zache', 'CC BY-SA 3.0', 'Sony_Ericsson_P800_with_web_browser.jpg'),
+  n3310a: ph(T + '3/31/Nokia_3310_blue.jpg/960px-Nokia_3310_blue.jpg', 'A Nokia 3310, released in 2000', 'Michael Brandtner', 'Public domain', 'Nokia_3310_blue.jpg', 'contain'),
+  p800: ph(C + 'f/f3/Sony_Ericsson_P800_with_web_browser.jpg', 'Sony Ericsson P800, a stylus touchscreen', 'Zache', 'CC BY-SA 3.0', 'Sony_Ericsson_P800_with_web_browser.jpg', 'contain'),
   iphone: ph(T + 'b/b1/IPhone_%26_iPhone_3G_fronts.jpg/960px-IPhone_%26_iPhone_3G_fronts.jpg', 'The first iPhone and the iPhone 3G, 2008', 'Dan Taylor', 'CC BY 2.0', 'IPhone_%26_iPhone_3G_fronts.jpg'),
   zenmini: ph(T + '2/22/Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg/960px-Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg', 'A Creative Zen Micro and an iPod mini, 2005', 'Dan Taylor-Watt', 'CC BY 2.0', 'Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg'),
   nanoshuf: ph(C + 'c/cf/IPod_nano_vs_iPod_Shuffle_-_Flickr_-_veroyama.jpg', 'iPod nano and iPod shuffle, September 2005', 'veroyama', 'CC BY-SA 2.0', 'IPod_nano_vs_iPod_Shuffle_-_Flickr_-_veroyama.jpg'),
