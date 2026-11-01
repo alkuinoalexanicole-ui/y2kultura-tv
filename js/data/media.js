@@ -55,6 +55,8 @@ const P = {
   coverDance: ph(C + '8/84/KOCIS_K-pop_contest_in_Argentina_%285838082803%29.jpg', 'A K-pop dance cover group performs at a fan contest, October 2010', 'Korea.net / KOCIS', 'CC BY-SA 2.0', 'KOCIS_K-pop_contest_in_Argentina_(5838082803).jpg'),
   jolBaybay: ph(C + '5/53/Jollibee_Baybay.jpg', 'A Jollibee branch in Baybay, Leyte, with a tricycle parked out front, August 2010', 'Franzrocks', 'CC BY-SA 3.0', 'Jollibee_Baybay.jpg', 'contain'),
   mcdMeal: ph(T + '3/3f/McDonald%27s_Meal_Japan.jpg/960px-McDonald%27s_Meal_Japan.jpg', "A McDonald's meal: burger, fries, nuggets and a drink, March 2008", 'Ryuta Ishimoto', 'CC BY-SA 2.0', "McDonald's_Meal_Japan.jpg"),
+  salon: ph(T + 'd/d7/Planet_Hair.jpg/960px-Planet_Hair.jpg', 'A hair salon with styling chairs and wash basins, 2008', 'Ambients', 'CC BY-SA 3.0', 'Planet_Hair.jpg'),
+  straightBA: ph(C + 'e/e2/Lissage.jpg', 'Before and after: wavy hair made pin-straight with Japanese straightening, the treatment sold here as rebonding, 2009', 'sofiane mahmoudi', 'Public domain', 'Lissage.jpg', 'contain'),
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
@@ -128,7 +130,7 @@ export default {
   '03/courtside-and-counter/jollibee-goes-global': { video: yt('XhKABuDMGEY', 'Jollibee Super Meal TV ad, 2005', 'Matt Virtudazo'), photos: [P.jolhk, P.mang] },
 
   /* CH 04 */
-  '04/maputi-at-unat': { video: yt('1KK_VP-N-eQ', 'Sunsilk shampoo TV ad, early 2000s', 'Chai H.') },
+  '04/maputi-at-unat': { video: yt('1KK_VP-N-eQ', 'Sunsilk shampoo TV ad, early 2000s', 'Chai H.'), photos: [P.salon, P.straightBA] },
   '04/maputi-at-unat/whitening-boom': { video: yt('7aheTQ686zs', 'Silka Papaya whitening soap TV ad with Iya Villania, 2008', "Alden Richards's Commercial") },
   '04/maputi-at-unat/the-rebond-era': { video: yt('0c7F5trRXg8', 'Sunsilk TV ad with Marian Rivera, Nikki Gil, and Maja Salvador, 2008', 'xxRedGalaxyxx') },
 };
