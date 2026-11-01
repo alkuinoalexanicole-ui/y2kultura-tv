@@ -32,7 +32,7 @@ const P = {
   iphone: ph(T + 'b/b1/IPhone_%26_iPhone_3G_fronts.jpg/960px-IPhone_%26_iPhone_3G_fronts.jpg', 'The first iPhone and the iPhone 3G, 2008', 'Dan Taylor', 'CC BY 2.0', 'IPhone_%26_iPhone_3G_fronts.jpg'),
   zenmini: ph(T + '2/22/Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg/960px-Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg', 'A Creative Zen Micro and an iPod mini, 2005', 'Dan Taylor-Watt', 'CC BY 2.0', 'Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg'),
   nanoshuf: ph(C + 'c/cf/IPod_nano_vs_iPod_Shuffle_-_Flickr_-_veroyama.jpg', 'iPod nano and iPod shuffle, September 2005', 'veroyama', 'CC BY-SA 2.0', 'IPod_nano_vs_iPod_Shuffle_-_Flickr_-_veroyama.jpg'),
-  zen: ph(T + '8/82/Zen_micro.JPG/960px-Zen_micro.JPG', 'A Creative Zen Micro', 'Sebyx', 'CC BY-SA 3.0', 'Zen_micro.JPG'),
+  zen: ph(T + '8/82/Zen_micro.JPG/960px-Zen_micro.JPG', 'A Creative Zen Micro', 'Sebyx', 'CC BY-SA 3.0', 'Zen_micro.JPG', 'contain'),
   cds: ph(C + '6/6b/CD_stack.jpg', 'A stack of CDs', 'mutednarayan', 'CC BY-SA 2.0', 'CD_stack.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
