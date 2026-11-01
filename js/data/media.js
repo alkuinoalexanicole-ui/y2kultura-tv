@@ -39,6 +39,8 @@ const P = {
   pirateTable: ph(T + 'd/de/Film_piracy_in_Singapore.jpg/960px-Film_piracy_in_Singapore.jpg', 'Pirated film discs on a night-market table, Singapore, 2008', 'David Sifry', 'CC BY 2.0', 'Film_piracy_in_Singapore.jpg', 'contain'),
   camPhone: ph(T + '5/54/CameraPhoneMpegMan.jpg/960px-CameraPhoneMpegMan.jpg', 'Snapping a picture on a Nokia camera phone, January 2005', 'Bill/MpegMan', 'CC BY-SA 3.0', 'CameraPhoneMpegMan.jpg', 'contain'),
   netCafe: ph(C + '6/6f/Internet_caf%C3%A9_in_Brgy._San_Jose%2C_Luzon.jpg', 'Browsing photos and videos online at an internet café in San Jose, Luzon, October 2010', 'Pfc. Nathaniel J. Henry, U.S. Marine Corps', 'Public domain', 'Internet_café_in_Brgy._San_Jose,_Luzon.jpg'),
+  channelV: ph(C + '2/25/Channel_V_%288425827567%29.jpg', 'A music channel on a home TV: Channel V, May 2001', 'Joybot', 'CC BY-SA 2.0', 'Channel_V_(8425827567).jpg'),
+  maggie: ph(C + '2/2c/Maggie_Wilson_at_Binibining_Pilipinas_2008.jpg', 'MTV Philippines VJ Maggie Wilson, March 2008', 'Paul Chin', 'CC BY-SA 2.0', 'Maggie_Wilson_at_Binibining_Pilipinas_2008.jpg', 'center top'),
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
@@ -96,6 +98,7 @@ export default {
   /* CH 03 */
   '03/western-waves': { video: yt('5NPBIwQyPWE', 'Avril Lavigne, "Complicated" music video, 2002', 'Avril Lavigne (VEVO)'), photos: [P.avril1] },
   '03/western-waves/live-in-manila': { video: yt('iNDt-RxDtjI', 'Linkin Park in Manila on ASAP Mania, June 2004', 'qwir34'), photos: [P.avril2] },
+  '03/western-waves/mtv-on-channel-41': { video: yt('PuiMqMfoNrE', 'MTV Philippines sketch with VJ KC Montero and Gary Valenciano, uploaded 2008', 'Arv The Man'), photos: [P.channelV, P.maggie] },
   '03/western-waves/box-office-magic': { video: yt('LLAaW1EgyY8', 'Harry Potter and the Order of the Phoenix trailer, 2007', 'Harry Potter') },
   '03/dubbed-and-delivered': { video: yt('Yw-QjQME6eE', 'Meteor Garden, Tagalog-dubbed episode 4', 'Meteor Garden Marathon') },
   '03/dubbed-and-delivered/meteor-fever': { video: yt('hOqLnJ6pHOY', 'F4 sing "Liu Xing Yu" in the Philippines, 2003', 'F4 Original-2001') },
