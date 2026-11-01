@@ -73,6 +73,7 @@ export function standby(c) {
 export function channel(c) {
   if (c.data.format === 'news') return newsChannel(c);
   if (c.data.format === 'ads') return adsChannel(c);
+  if (c.data.format === 'talent') return talentChannel(c);
   return lineupChannel(c);
 }
 
@@ -152,6 +153,7 @@ function factsTable(rows, accent) {
 export function episode(c, e, partIndex) {
   if (c.data.format === 'news') return newsEpisode(c, e, partIndex);
   if (c.data.format === 'ads') return adEpisode(c, e, partIndex);
+  if (c.data.format === 'talent') return talentEpisode(c, e, partIndex);
   return lineupEpisode(c, e, partIndex);
 }
 
@@ -441,6 +443,97 @@ function adEpisode(c, e, partIndex) {
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav, 'ad-pager')}
+    ${ticker(page.ticker || [])}
+  </div>`;
+}
+
+/* ---------- CH 05 format: "Grand Finals" talent show ---------- */
+const pad = (n) => String(n).padStart(2, '0');
+
+function talentChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const acts = d.episodes
+    .map(
+      (e) => `<a class="act" href="/ch/${c.num}/${e.slug}" data-link style="--act:${e.color}">
+        <span class="act-num an">#${pad(e.ep)}</span>
+        <span class="act-name an">${esc(e.title)}</span>
+        <span class="act-sub">${esc(e.cardSub)}</span>
+        <span class="act-vote">VOTE CODE: STAR ${pad(e.ep)}</span>
+        <span class="act-go">▶ WATCH PERFORMANCE</span></a>`
+    )
+    .join('');
+  return `
+  <div class="page talent" style="background:${d.bg}">
+    ${channelHead(c, d, 'background:#12062b')}
+    <div class="stage-head">
+      <div class="beams" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <span class="live-bug onair">● LIVE</span>
+      <div class="marquee an">${esc(d.showTitle)}</div>
+      <div class="stage-sub">${esc(d.showSub)}</div>
+    </div>
+    <div class="bar talent-bar"><span class="an">TONIGHT'S FINALISTS</span><small>${d.episodes.length} ACTS · 1 DECADE</small></div>
+    <div class="acts">${acts}</div>
+    <div style="flex:1"></div>
+    ${ticker(['TAP A FINALIST TO WATCH THEIR PERFORMANCE', 'VOTE CODES ARE FOR DISPLAY ONLY', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function scorecards(stats) {
+  if (!stats?.length) return '';
+  return `<div class="scores">${stats
+    .map(
+      ([big, small], i) => `<div class="paddle"><span class="judge">JUDGE ${i + 1}</span><div class="an">${esc(big)}</div><div class="why">${esc(small)}</div><i class="stick" aria-hidden="true"></i></div>`
+    )
+    .join('')}</div>`;
+}
+
+function jumbotron(video, photos) {
+  const v = video?.youtube
+    ? ytFrame(video, 'jumbo', null)
+    : `<div class="video jumbo"><canvas class="snow" data-snow></canvas><div class="msg"><i class="ti ti-microphone-2" aria-hidden="true"></i>PERFORMANCE COMING SOON<br><span class="it">${esc(video?.label || '')}</span></div></div>`;
+  return v + photoGrid(photos);
+}
+
+function talentEpisode(c, e, partIndex) {
+  const nav = stopsFor(c, e, partIndex, 'THE ACT');
+  const page = partIndex == null ? e.overview : e.parts[partIndex];
+  const panels = page.panels
+    .map(([h, t], i) => `<div class="judges${i ? ' verdict' : ''}"><h4>${esc(h)}</h4><p>${esc(t)}</p></div>`)
+    .join('');
+  let extra = '';
+  if (partIndex == null) {
+    extra = `<h3 class="an section-head">THE ROUNDS</h3><div class="parts">${e.parts
+      .map(
+        (p) => `<a class="round" href="${nav.base}/${p.slug}" data-link><span class="round-tag">${esc(p.label)}</span>
+          <div class="cb"><span class="ct">${esc(p.cardTitle)}</span><span class="cs">${esc(p.cardLine)}</span></div>
+          <span class="round-go">▶ WATCH ROUND</span></a>`
+      )
+      .join('')}</div>`;
+  }
+  const cta = partIndex == null ? e.cta : page.cta;
+  return `
+  <div class="page talent" style="background:${c.data.bg};--act:${e.color}">
+    <div class="now talent-now"><span class="an">${esc(c.data.showTitle)}</span><span class="label live-bug onair">● LIVE</span>
+      <span class="where">CH ${c.num} · CONTESTANT #${pad(e.ep)}${partIndex != null ? ` · ${esc(page.label)} OF ${e.parts.length}` : ''}</span>
+      <a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
+    <div class="spot-title">
+      <div class="kicker">${partIndex == null ? `NOW PERFORMING · CONTESTANT #${pad(e.ep)}` : esc(page.label)}</div>
+      <h1 class="an bulbs">${esc(partIndex == null ? e.title : page.title)}</h1>
+      <div class="spot-sub">${esc(page.sub)}</div>
+    </div>
+    ${tabRow(nav, 'talent-tabs')}
+    <div class="page-body">
+      ${scorecards(page.stats)}
+      <div class="cols">
+        <div>${jumbotron(page.video, page.photos)}</div>
+        <div>${panels}</div>
+      </div>
+      ${extra}
+      ${cta ? `<div class="cta vote-bar"><span class="vote-tag">TEXT TO VOTE</span><span class="an">${esc(cta.title)}</span><p>${esc(cta.text)}</p><span class="btn" aria-disabled="true">LINES OPEN SOON</span></div>` : ''}
+    </div>
+    <div style="flex:1"></div>
+    ${pagerBar(c, nav, 'talent-pager')}
     ${ticker(page.ticker || [])}
   </div>`;
 }
