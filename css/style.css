@@ -410,3 +410,65 @@ a.ad:hover, a.ad:focus-visible { border-color: var(--yellow); transform: transla
 .photo { background: #000; }
 .photo img { aspect-ratio: 4 / 3; height: auto; object-position: center 12%; }
 .photo .credit { display: block; font-size: 10px; opacity: .7; margin-top: 2px; text-decoration: underline; }
+
+/* ---------- CH 05 "Grand Finals" talent show ---------- */
+.talent { --gold: #ffcf3a; }
+.talent .ch-head .aspect { color: #e9dcff; }
+.stage-head { position: relative; overflow: hidden; text-align: center; padding: 34px 16px 14px; background: radial-gradient(ellipse at 50% 120%, #5a1aa8 0%, #22093f 55%, #12062b 100%); border-bottom: 3px solid var(--gold); }
+.beams i { position: absolute; top: -40%; width: 26%; height: 180%; background: linear-gradient(to bottom, rgba(255,240,180,.35), rgba(255,240,180,0)); transform-origin: top center; filter: blur(2px); pointer-events: none; }
+.beams i:nth-child(1) { left: 2%; transform: rotate(-24deg); }
+.beams i:nth-child(2) { left: 22%; transform: rotate(-8deg); opacity: .6; }
+.beams i:nth-child(3) { right: 22%; transform: rotate(8deg); opacity: .6; }
+.beams i:nth-child(4) { right: 2%; transform: rotate(24deg); }
+@media (prefers-reduced-motion: no-preference) {
+  .beams i { animation: sweep 5s ease-in-out infinite alternate; }
+  .beams i:nth-child(even) { animation-delay: -2.5s; }
+}
+@keyframes sweep { from { translate: -14px 0; } to { translate: 14px 0; } }
+.onair { background: var(--red) !important; color: #fff !important; }
+@media (prefers-reduced-motion: no-preference) { .onair { animation: blink 1.4s steps(2, start) infinite; } }
+@keyframes blink { 50% { opacity: .55; } }
+.stage-head .live-bug { position: absolute; left: 12px; top: 10px; font-size: 11px; font-weight: 700; padding: 1px 8px; }
+.marquee { position: relative; display: inline-block; font-size: clamp(26px, 4.6cqw, 46px); line-height: 1.05; color: var(--gold); padding: 8px 18px; border: 3px solid var(--gold); border-radius: 8px; text-shadow: 0 0 10px rgba(255,207,58,.65), 3px 3px 0 #7a1f9c; background: rgba(0,0,0,.35); box-shadow: 0 0 0 4px #12062b, 0 0 0 6px rgba(255,207,58,.45); }
+.stage-sub { position: relative; margin-top: 8px; font-weight: 700; letter-spacing: 2px; font-size: 12px; color: #e9dcff; }
+.talent-bar { background: var(--gold); color: #2a0a4a; }
+.acts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; padding: 14px 16px; }
+.act { position: relative; display: flex; flex-direction: column; text-decoration: none; color: #fff; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.35)); border: 3px solid var(--act); border-radius: 6px; overflow: hidden; transition: transform .12s, box-shadow .12s; min-height: 170px; }
+.act:hover, .act:focus-visible { transform: translateY(-3px); box-shadow: 0 0 16px var(--act); outline: none; }
+.act-num { font-size: 40px; line-height: 1; color: var(--act); padding: 8px 10px 0; text-shadow: 2px 2px 0 #000; }
+.act-name { font-size: 18px; line-height: 1.1; padding: 4px 10px 2px; }
+.act-sub { font-size: 12px; padding: 0 10px 6px; color: #e9dcff; flex: 1; }
+.act-vote { margin: 0 10px 8px; align-self: flex-start; font-size: 10px; font-weight: 700; letter-spacing: 1px; border: 1px dashed var(--act); padding: 1px 6px; color: var(--act); }
+.act-go { background: var(--act); color: #1a0933; text-align: center; font-weight: 700; font-size: 12px; padding: 4px; }
+.talent-now { background: #12062b; color: var(--gold); border-bottom: 2px solid var(--gold); }
+.talent-now .an { font-size: 16px; }
+.talent-now .where { color: #fff; }
+.spot-title { text-align: center; padding: 14px 16px 4px; background: radial-gradient(ellipse at 50% 0%, rgba(255,240,180,.22), rgba(0,0,0,0) 65%); }
+.spot-title .kicker { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--act); }
+.bulbs { display: inline-block; margin: 4px 0 2px; font-weight: 400; font-size: clamp(26px, 4cqw, 40px); line-height: 1.05; padding: 6px 16px; border: 3px dotted var(--gold); border-radius: 6px; color: #fff; text-shadow: 0 0 12px var(--act); }
+.spot-sub { font-size: 14px; color: #e9dcff; }
+.talent-tabs { text-align: center; --accent: var(--gold); padding-top: 8px; }
+.talent-tabs .tab.on { color: #2a0a4a; }
+.scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.paddle { position: relative; background: #fff; color: #2a0a4a; border-radius: 10px; border: 4px solid var(--gold); text-align: center; padding: 6px 8px 8px; margin-bottom: 14px; }
+.paddle .judge { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #7a1f9c; }
+.paddle .an { font-size: clamp(20px, 2.6cqw, 28px); line-height: 1.05; color: #c4127a; }
+.paddle .why { font-size: 12px; line-height: 1.3; }
+.paddle .stick { position: absolute; left: 50%; bottom: -16px; width: 8px; height: 14px; margin-left: -4px; background: #b8862b; border-radius: 0 0 3px 3px; }
+.video.jumbo { border: 4px solid #222; outline: 3px dotted var(--gold); outline-offset: 3px; margin: 6px 6px 14px; }
+.judges { background: #1d0838; border: 2px solid var(--gold); border-radius: 6px; padding: 9px 12px; margin-bottom: 10px; }
+.judges h4 { margin: 0 0 3px; font-family: 'Anton', sans-serif; font-weight: 400; letter-spacing: .4px; font-size: 15px; color: var(--gold); }
+.judges.verdict { border-color: var(--act); background: #160630; }
+.judges.verdict h4 { color: var(--act); }
+.judges p { margin: 0; font-size: 14px; line-height: 1.55; color: #f3ebff; }
+.round { background: #1d0838; border: 2px solid var(--act); border-radius: 6px; overflow: hidden; text-decoration: none; display: flex; flex-direction: column; }
+.round:hover, .round:focus-visible { border-color: var(--gold); outline: none; }
+.round .cb { padding: 6px 10px; flex: 1; }
+.round .ct { font-family: 'Anton', sans-serif; font-size: 16px; display: block; }
+.round .cs { font-size: 12px; color: #e9dcff; display: block; }
+.round-tag { background: var(--act); color: #1a0933; font-size: 11px; font-weight: 700; padding: 1px 8px; }
+.round-go { background: var(--gold); color: #2a0a4a; text-align: center; font-weight: 700; font-size: 12px; padding: 3px; }
+.vote-bar { background: var(--gold); color: #2a0a4a; }
+.vote-tag { background: var(--red); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; letter-spacing: 1px; }
+.talent-pager { background: #12062b; border-top: 2px solid var(--gold); }
+.talent-pager a { color: var(--gold); }
