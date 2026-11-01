@@ -26,6 +26,8 @@ const P = {
   wakeLine: ph(T + '4/4a/Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg/960px-Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg', 'The line of mourners to Manila Cathedral, August 2009', 'Howard the Duck', 'CC BY-SA 3.0', 'Line_at_the_Corazon_Aquino_wake_at_the_Manila_Cathedral.jpg'),
   wakeCoffin: ph(T + '0/0f/Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm/960px--Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm.jpg', 'Her flag-draped coffin under guard at Manila Cathedral, August 2009', 'Radio Television Malacañang', 'Public domain', 'Visit_to_the_Wake_of_Former_Philippine_President_Corazon_C._Aquino_by_President_Gloria_Macapagal_Arroyo_-_5_August_2009.webm'),
   n3310a: ph(T + '3/31/Nokia_3310_blue.jpg/960px-Nokia_3310_blue.jpg', 'A Nokia 3310, released in 2000', 'Michael Brandtner', 'Public domain', 'Nokia_3310_blue.jpg', 'contain'),
+  textNokia: ph(T + '9/90/Text_message_on_a_Nokia.jpg/960px-Text_message_on_a_Nokia.jpg', 'Typing a text on a Nokia keypad phone, 2008', 'CayleeChristinePhotography', 'CC BY 2.0', 'Text_message_on_a_Nokia.jpg'),
+  glorietta: ph(T + '2/2b/Makati6.jpg/960px-Makati6.jpg', 'Glorietta mall in Makati, January 2007', 'Eternal dragon', 'Public domain', 'Makati6.jpg'),
   p800: ph(C + 'f/f3/Sony_Ericsson_P800_with_web_browser.jpg', 'Sony Ericsson P800, a stylus touchscreen', 'Zache', 'CC BY-SA 3.0', 'Sony_Ericsson_P800_with_web_browser.jpg', 'contain'),
   iphone: ph(T + 'b/b1/IPhone_%26_iPhone_3G_fronts.jpg/960px-IPhone_%26_iPhone_3G_fronts.jpg', 'The first iPhone and the iPhone 3G, 2008', 'Dan Taylor', 'CC BY 2.0', 'IPhone_%26_iPhone_3G_fronts.jpg'),
   zenmini: ph(T + '2/22/Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg/960px-Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg', 'A Creative Zen Micro and an iPod mini, 2005', 'Dan Taylor-Watt', 'CC BY 2.0', 'Creative_Zen_Micro_%5E_Apple_iPod_Mini_-_Flickr_-_dan_taylor.jpg'),
@@ -70,7 +72,7 @@ export default {
   /* CH 02 */
   '02/text-unli': { video: yt('tApCa8whWCI', 'Smart Buddy load ad with Heart Evangelista, 2003', 'UndustFixation'), photos: [P.n3310a, P.p800] },
   '02/text-unli/p1-a-text': { video: yt('bd4o8RMF3d8', "Talk 'N Text ad with Rico Yan on low rates and affordable phones, 2000", 'UndustFixation'), photos: [P.n3310a] },
-  '02/text-unli/gm-textmate-eyeball': { video: yt('XipJFRBBoYs', 'Globe Gentxt group-texting TV ad, 2002', '莢豌豆本舗') },
+  '02/text-unli/gm-textmate-eyeball': { video: yt('XipJFRBBoYs', 'Globe Gentxt group-texting TV ad, 2002', '莢豌豆本舗'), photos: [P.textNokia, P.glorietta] },
   '02/text-unli/keypad-to-tap': { video: yt('PcVg9pzxzDA', 'Nokia 3310 TV ad, 2000: the keypad era', 'Fredrik Idestam'), photos: [P.p800, P.iphone] },
   '02/pocket-soundtrack': { video: yt('mE_bDNaYAr8', 'The first iPod TV ad, 2001', 'xaviertic'), photos: [P.zenmini, P.nanoshuf] },
   '02/pocket-soundtrack/1000-songs': { video: yt('e84SER_IkP4', 'The first iPod promotional video, 2001', 'JoshuaG'), photos: [P.nanoshuf, P.zen] },
