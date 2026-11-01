@@ -37,6 +37,8 @@ const P = {
   tvCorner: ph(T + '0/04/Philips_CRT_TV%2C_LG_DVD_player%2C_Samsung_VHS_recorder_and_anime_DVD_boxes_20051109.jpg/960px-Philips_CRT_TV%2C_LG_DVD_player%2C_Samsung_VHS_recorder_and_anime_DVD_boxes_20051109.jpg', 'A home TV corner: CRT TV, DVD player, VHS deck and DVD box sets, 2005', 'Raxzje', 'CC BY-SA 2.0', 'Philips_CRT_TV,_LG_DVD_player,_Samsung_VHS_recorder_and_anime_DVD_boxes_20051109.jpg', 'contain'),
   pirateVendor: ph(C + 'd/d2/Pirate_street_vendor.jpg', 'A street vendor packs up his pirated CDs, ever watchful for police, c. 2005', 'Alkivar', 'Public domain', 'Pirate_street_vendor.jpg'),
   pirateTable: ph(T + 'd/de/Film_piracy_in_Singapore.jpg/960px-Film_piracy_in_Singapore.jpg', 'Pirated film discs on a night-market table, Singapore, 2008', 'David Sifry', 'CC BY 2.0', 'Film_piracy_in_Singapore.jpg', 'contain'),
+  camPhone: ph(T + '5/54/CameraPhoneMpegMan.jpg/960px-CameraPhoneMpegMan.jpg', 'Snapping a picture on a Nokia camera phone, January 2005', 'Bill/MpegMan', 'CC BY-SA 3.0', 'CameraPhoneMpegMan.jpg', 'contain'),
+  netCafe: ph(C + '6/6f/Internet_caf%C3%A9_in_Brgy._San_Jose%2C_Luzon.jpg', 'Browsing photos and videos online at an internet café in San Jose, Luzon, October 2010', 'Pfc. Nathaniel J. Henry, U.S. Marine Corps', 'Public domain', 'Internet_café_in_Brgy._San_Jose,_Luzon.jpg'),
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
@@ -89,7 +91,7 @@ export default {
   '02/click-upload-watch': { video: yt('spTJzMlzSFU', 'CBS News on Google buying YouTube, October 2006', 'CBS'), photos: [P.jawed, P.arnel] },
   '02/click-upload-watch/broadcast-yourself': { video: yt('jNQXAC9IVRw', '"Me at the zoo," the first YouTube video, April 23, 2005', 'jawed'), photos: [P.jawed] },
   '02/click-upload-watch/found-on-youtube': { video: yt('a7zIE1N_Prg', 'Arnel Pineda and Zoo cover "Faithfully," uploaded 2007', 'naitx09'), photos: [P.arnel] },
-  '02/click-upload-watch/photos-online': { video: yt('6WwSh2Pqdxs', 'Friendster Capital: the Philippines and its Friendster record, 2007', 'Vince Rodriguez') },
+  '02/click-upload-watch/photos-online': { video: yt('6WwSh2Pqdxs', 'Friendster Capital: the Philippines and its Friendster record, 2007', 'Vince Rodriguez'), photos: [P.camPhone, P.netCafe] },
 
   /* CH 03 */
   '03/western-waves': { video: yt('5NPBIwQyPWE', 'Avril Lavigne, "Complicated" music video, 2002', 'Avril Lavigne (VEVO)'), photos: [P.avril1] },
