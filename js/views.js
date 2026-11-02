@@ -75,6 +75,7 @@ export function channel(c) {
   if (c.data.format === 'ads') return adsChannel(c);
   if (c.data.format === 'talent') return talentChannel(c);
   if (c.data.format === 'teleserye') return seryeChannel(c);
+  if (c.data.format === 'quiz') return quizChannel(c);
   return lineupChannel(c);
 }
 
@@ -156,6 +157,7 @@ export function episode(c, e, partIndex) {
   if (c.data.format === 'ads') return adEpisode(c, e, partIndex);
   if (c.data.format === 'talent') return talentEpisode(c, e, partIndex);
   if (c.data.format === 'teleserye') return seryeEpisode(c, e, partIndex);
+  if (c.data.format === 'quiz') return quizEpisode(c, e, partIndex);
   return lineupEpisode(c, e, partIndex);
 }
 
@@ -165,7 +167,7 @@ function lineupEpisode(c, e, partIndex) {
   const accent = 'var(--yellow)';
   const bg = e.bg || d.bg;
   const base = `/ch/${c.num}/${e.slug}`;
-  const stops = [{ href: base, name: 'OVERVIEW' }, ...e.parts.map((p) => ({ href: `${base}/${p.slug}`, name: p.cardTitle }))];
+  const stops = [{ href: base, name: 'OVERVIEW' }, ...e.parts.map((p) => ({ href: `${base}/${p.slug}`, name: p.cardTitle || p.title }))];
   const at = partIndex == null ? 0 : partIndex + 1;
   const tabAccent = e.accent || (solemn ? 'var(--yellow)' : 'var(--magenta)');
   const tabs = stops.length > 1
@@ -263,7 +265,7 @@ function ctaBar(cta, icon) {
 
 function stopsFor(c, e, partIndex, overviewName) {
   const base = `/ch/${c.num}/${e.slug}`;
-  const stops = [{ href: base, name: overviewName }, ...e.parts.map((p) => ({ href: `${base}/${p.slug}`, name: p.cardTitle }))];
+  const stops = [{ href: base, name: overviewName }, ...e.parts.map((p) => ({ href: `${base}/${p.slug}`, name: p.cardTitle || p.title }))];
   const at = partIndex == null ? 0 : partIndex + 1;
   return { base, stops, at, prev: stops[at - 1], next: stops[at + 1] };
 }
@@ -650,8 +652,265 @@ function seryeEpisode(c, e, partIndex) {
   </div>`;
 }
 
+/* ---------- CH 07 format: primetime quiz show ---------- */
+const peso = (n) => `₱${n.toLocaleString('en-US')}`;
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function prizeLadder(c, here) {
+  const rungs = [];
+  c.data.episodes.forEach((e) =>
+    e.parts.forEach((p, i) => rungs.push({ e, p, i, href: `/ch/${c.num}/${e.slug}/${p.slug}` }))
+  );
+  return `<ol class="ladder" data-ladder="${c.num}">${rungs
+    .reverse()
+    .map(
+      (r, k) => `<li class="${r.p === here ? 'here' : ''}${r.i === 2 ? ' safe' : ''}" style="--rnd:${r.e.color}" data-q="${r.e.slug}/${r.p.slug}">
+        <a href="${r.href}" data-link><span class="rung-n">${rungs.length - k}</span><span class="rung-p">${peso(r.p.prize)}</span><span class="rung-ok" aria-hidden="true">✓</span></a></li>`
+    )
+    .join('')}</ol>`;
+}
+
+function quizChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const rounds = d.episodes
+    .map(
+      (e) => `<a class="rnd" href="/ch/${c.num}/${e.slug}" data-link style="--rnd:${e.color}">
+        <span class="rnd-num">ROUND ${e.ep}</span>
+        <span class="rnd-title an">${esc(e.title)}</span>
+        <span class="rnd-en">${esc(e.en)} · ${esc(e.category)}</span>
+        <span class="rnd-sub">${esc(e.cardSub)}</span>
+        <span class="rnd-prize">${peso(e.parts[0].prize)} – ${peso(e.parts[e.parts.length - 1].prize)}</span>
+        <span class="rnd-go">▶ GAME NA!</span></a>`
+    )
+    .join('');
+  return `
+  <div class="page quiz" style="background:${d.bg}">
+    ${channelHead(c, d, 'background:#070c2e')}
+    <div class="studio">
+      <div class="studio-main">
+        <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="quiz-sub">${esc(d.showSub)}</div>
+        <div class="quiz-logo an">${esc(d.showTitle)}</div>
+        <p class="host"><i class="ti ti-microphone" aria-hidden="true"></i> ${esc(d.hostLine)}</p>
+        <div class="quiz-sched">${esc(d.sched)}</div>
+        <div class="score-line" data-score="${c.num}">YOUR WINNINGS: <b>₱0</b></div>
+      </div>
+      ${prizeLadder(c, null)}
+    </div>
+    <div class="bar quiz-bar"><span class="an">MGA ROUND</span><small>${d.episodes.length} ROUNDS · ${d.episodes.reduce((n, e) => n + e.parts.length, 0)} QUESTIONS · THEN vs. NOW</small></div>
+    <div class="rnds">${rounds}</div>
+    <div style="flex:1"></div>
+    ${ticker(['PUMILI NG ROUND: TAP A ROUND TO PLAY', 'ANSWER RIGHT TO LIGHT UP THE PRIZE LADDER', 'PRIZES ARE FOR FUN ONLY', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function prizeBoard(stats) {
+  if (!stats?.length) return '';
+  return `<div class="board">${stats
+    .map(([big, small]) => `<div class="cell"><div class="an">${esc(big)}</div><div>${esc(small)}</div></div>`)
+    .join('')}</div>`;
+}
+
+function quizScreen(video, photos) {
+  if (!video) return photoGrid(photos);
+  const v = video.youtube
+    ? ytFrame(video, 'quizcam', null)
+    : `<div class="video quizcam"><canvas class="snow" data-snow></canvas><div class="msg"><i class="ti ti-device-tv-old" aria-hidden="true"></i>VIDEO COMING SOON<br><span class="it">${esc(video.label || '')}</span></div></div>`;
+  return v + photoGrid(photos);
+}
+
+function thenNow(page) {
+  return `<div class="tvn">
+    <div class="tvn-then"><h4>NOON · THEN <small>2000s</small></h4><p>${esc(page.then)}</p></div>
+    <div class="tvn-vs an" aria-hidden="true">VS</div>
+    <div class="tvn-now"><h4>NGAYON · NOW</h4><p>${esc(page.now)}</p></div>
+  </div>`;
+}
+
+function quizEpisode(c, e, partIndex) {
+  const d = c.data;
+  const nav = stopsFor(c, e, partIndex, 'ANG ROUND');
+  const page = partIndex == null ? e.overview : e.parts[partIndex];
+  const ei = d.episodes.indexOf(e);
+  let nextUp = null;
+  if (nav.next) nextUp = { href: nav.next.href, label: `NEXT QUESTION · ${peso(e.parts[nav.at].prize)}`, title: e.parts[nav.at].title };
+  else if (d.episodes[ei + 1]) {
+    const ne = d.episodes[ei + 1];
+    nextUp = { href: `/ch/${c.num}/${ne.slug}`, label: `ROUND ${ne.ep}`, title: ne.title };
+  }
+  let question = '';
+  let extra = '';
+  if (partIndex == null) {
+    extra = `<h3 class="an section-head">MGA TANONG</h3><div class="parts">${e.parts
+      .map(
+        (p, i) => `<a class="qcard" href="${nav.base}/${p.slug}" data-link data-q="${e.slug}/${p.slug}"><span class="qcard-tag">TANONG ${i + 1}</span>
+          <div class="cb"><span class="ct an">${peso(p.prize)}</span><span class="cs"><b>${esc(p.title)}</b> · ${esc(p.cardLine)}</span></div>
+          <span class="qcard-go">▶ SAGUTIN</span></a>`
+      )
+      .join('')}</div>`;
+  } else {
+    question = `<div class="qbox" data-quiz="${c.num}" data-key="${e.slug}/${page.slug}" data-answer="${page.answer}" data-prize="${page.prize}">
+      <div class="q-prize an">${peso(page.prize)} QUESTION</div>
+      <p class="q-text">${esc(page.q)}</p>
+      <p class="q-en">${esc(page.qEn)}</p>
+      <div class="opts">${page.options
+        .map((o, i) => `<button type="button" class="opt" data-opt="${i}"><span class="opt-l">${LETTERS[i]}:</span> ${esc(o)}</button>`)
+        .join('')}</div>
+      <div class="lifelines">
+        <button type="button" class="life" data-life="fifty">50:50</button>
+        <button type="button" class="life" data-life="text"><i class="ti ti-device-mobile-message" aria-hidden="true"></i> TEXT A FRIEND</button>
+      </div>
+      <div class="sms" hidden><div class="sms-screen"><div class="sms-from">1 MESSAGE · FROM: BARKADA</div><p>${esc(page.hint)}</p></div></div>
+      <div class="verdict" aria-live="polite" hidden>
+        <div class="verdict-head an"></div>
+        <p>${esc(page.explain)}</p>
+      </div>
+    </div>`;
+  }
+  const cta = partIndex == null ? e.cta : page.cta;
+  return `
+  <div class="page quiz" style="background:${d.bg};--rnd:${e.color}">
+    <div class="now quiz-now"><span class="an quiz-mini">${esc(d.showTitle)}</span><span class="label">ROUND ${e.ep}${partIndex != null ? ` · TANONG ${partIndex + 1}` : ''}</span>
+      <span class="where">${esc(e.category)}${partIndex != null ? ` · ${peso(page.prize)}` : ''}</span>
+      <a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
+    <div class="quiz-title">
+      <div class="kicker">${partIndex == null ? `ROUND ${e.ep} · ${esc(e.en)}` : `TANONG ${partIndex + 1} OF ${e.parts.length}`}</div>
+      <h1 class="an">${esc(partIndex == null ? e.title : page.title)}</h1>
+      <div class="quiz-tsub">${esc(partIndex == null ? page.sub : page.cardLine)}</div>
+    </div>
+    ${tabRow(nav, 'quiz-tabs')}
+    <div class="page-body">
+      ${question}
+      ${prizeBoard(page.stats)}
+      <div class="cols">
+        <div>${quizScreen(page.video, page.photos)}</div>
+        <div>${thenNow(page)}</div>
+      </div>
+      ${extra}
+      ${ctaBar(cta, 'ti-message-2')}
+      ${nextUp ? `<a class="nextq" href="${nextUp.href}" data-link><span class="an">${esc(nextUp.label)}</span><span class="nextq-t">${esc(nextUp.title)} ▶</span></a>` : `<div class="nextq final"><span class="an">Salamat sa paglalaro!</span><span class="nextq-t" data-final="${c.num}">That was the million-peso question. Thanks for playing Then o Now?</span></div>`}
+    </div>
+    <div style="flex:1"></div>
+    ${pagerBar(c, nav, 'quiz-pager')}
+    ${ticker(page.ticker || [])}
+  </div>`;
+}
+
+/* Quiz state lives in this browser only (a light per-viewer convenience). */
+function quizLoad(num) {
+  try {
+    return JSON.parse(localStorage.getItem(`y2k-quiz-${num}`) || '{}');
+  } catch {
+    return {};
+  }
+}
+function quizSave(num, state) {
+  try {
+    localStorage.setItem(`y2k-quiz-${num}`, JSON.stringify(state));
+  } catch {
+    /* storage unavailable: the quiz still works for this visit */
+  }
+}
+
+function quizWinnings(num, state) {
+  const c = CHANNELS.find((x) => x.num === num);
+  let total = 0;
+  c.data.episodes.forEach((e) => e.parts.forEach((p) => { if (state[`${e.slug}/${p.slug}`] === 'right') total += p.prize; }));
+  return total;
+}
+
+function paintQuizState(view, num) {
+  const state = quizLoad(num);
+  view.querySelectorAll('[data-q]').forEach((el) => {
+    const s = state[el.dataset.q];
+    el.classList.toggle('won', s === 'right');
+    el.classList.toggle('lost', s === 'wrong');
+  });
+  const score = view.querySelector(`[data-score="${num}"] b`);
+  if (score) score.textContent = peso(quizWinnings(num, state));
+}
+
+function bindQuiz(view) {
+  const box = view.querySelector('[data-quiz]');
+  const num = box?.dataset.quiz || view.querySelector('[data-ladder]')?.dataset.ladder;
+  if (!num) return;
+  paintQuizState(view, num);
+  if (!box) return;
+  const answer = Number(box.dataset.answer);
+  const key = box.dataset.key;
+  const opts = [...box.querySelectorAll('.opt')];
+  const verdict = box.querySelector('.verdict');
+  const reveal = (picked, instant) => {
+    opts.forEach((b, i) => {
+      b.disabled = true;
+      b.classList.remove('locked');
+      if (i === answer) b.classList.add('right');
+      else if (i === picked) b.classList.add('wrong');
+    });
+    box.querySelectorAll('.life').forEach((b) => (b.disabled = true));
+    const ok = picked === answer;
+    verdict.hidden = false;
+    verdict.classList.toggle('ok', ok);
+    verdict.querySelector('.verdict-head').textContent = ok
+      ? `TAMA! You won ${peso(Number(box.dataset.prize))}!`
+      : `SAYANG! The answer is ${LETTERS[answer]}.`;
+    if (!instant) {
+      const state = quizLoad(num);
+      state[key] = ok ? 'right' : 'wrong';
+      quizSave(num, state);
+      paintQuizState(view, num);
+    }
+  };
+  const prior = quizLoad(num)[key];
+  if (prior) {
+    // Already played on this browser: show the answer, keep a replay button.
+    reveal(prior === 'right' ? answer : -1, true);
+    const again = document.createElement('button');
+    again.type = 'button';
+    again.className = 'life again';
+    again.textContent = '↻ PLAY AGAIN';
+    again.addEventListener('click', () => {
+      const state = quizLoad(num);
+      delete state[key];
+      quizSave(num, state);
+      opts.forEach((b) => { b.disabled = false; b.classList.remove('right', 'wrong', 'gone'); });
+      box.querySelectorAll('.life').forEach((b) => (b.disabled = false));
+      verdict.hidden = true;
+      again.remove();
+      paintQuizState(view, num);
+    });
+    box.querySelector('.lifelines').append(again);
+  }
+  opts.forEach((b, i) =>
+    b.addEventListener('click', () => {
+      if (box.dataset.busy) return;
+      box.dataset.busy = '1';
+      opts.forEach((o) => (o.disabled = true));
+      b.classList.add('locked');
+      verdict.hidden = false;
+      verdict.classList.remove('ok');
+      verdict.querySelector('.verdict-head').textContent = 'FINAL ANSWER? LOCKED IN...';
+      setTimeout(() => {
+        delete box.dataset.busy;
+        reveal(i, false);
+      }, 1400);
+    })
+  );
+  box.querySelector('[data-life="fifty"]').addEventListener('click', (ev) => {
+    const wrong = opts.map((_, i) => i).filter((i) => i !== answer && !opts[i].disabled);
+    wrong.sort(() => Math.random() - 0.5).slice(0, 2).forEach((i) => { opts[i].disabled = true; opts[i].classList.add('gone'); });
+    ev.currentTarget.disabled = true;
+  });
+  box.querySelector('[data-life="text"]').addEventListener('click', (ev) => {
+    box.querySelector('.sms').hidden = false;
+    ev.currentTarget.disabled = true;
+  });
+}
+
 /* ---------- After a screen appears: draw the CH 03 world map ---------- */
 export async function afterRender(view) {
+  bindQuiz(view);
   const box = view.querySelector('[data-worldmap]');
   if (!box) return;
   const c = CHANNELS.find((x) => x.num === box.dataset.worldmap);
