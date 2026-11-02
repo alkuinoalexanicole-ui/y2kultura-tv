@@ -135,6 +135,8 @@ export function sfx(name) {
       noise(0.5, { type: 'lowpass', freq: 600, vol: 0.12, at: 0.05 });
       tone2(8000, 1.2, { vol: 0.012, at: 0.1 });
     }
+    if (name === 'ding') { tone2(880, 0.18, { vol: 0.12 }); tone2(1320, 0.3, { vol: 0.1, at: 0.12 }); }
+    if (name === 'buzz') tone2(140, 0.45, { vol: 0.12, type: 'square' });
     if (name === 'off') { tone2(900, 0.35, { vol: 0.08, to: 70 }); noise(0.12, { type: 'lowpass', freq: 900, vol: 0.08 }); }
   } catch (e) {
     /* Sound is optional; ignore browsers that block it. */
