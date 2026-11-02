@@ -5,6 +5,7 @@ import ch02 from './ch02.js';
 import ch03 from './ch03.js';
 import ch04 from './ch04.js';
 import ch05 from './ch05.js';
+import ch06 from './ch06.js';
 import MEDIA from './media.js';
 
 // Attach videos and photos from media.js to each page.
@@ -21,7 +22,7 @@ function applyMedia(ch) {
   }
   return ch;
 }
-[ch01, ch02, ch03, ch04, ch05].forEach(applyMedia);
+[ch01, ch02, ch03, ch04, ch05, ch06].forEach(applyMedia);
 
 export const CHANNELS = [
   { num: '01', title: 'Heartstrings', aspect: 'Affect, Senses, and Feelings', slot: '7:00 PM', data: ch01 },
@@ -29,7 +30,7 @@ export const CHANNELS = [
   { num: '03', title: 'Global Mix', aspect: 'Globalization', slot: '8:00 PM', data: ch03 },
   { num: '04', title: 'Style File', aspect: 'Body and Self-Image', slot: '8:30 PM', data: ch04 },
   { num: '05', title: 'Starstruck!', aspect: 'Performance', slot: '9:00 PM', data: ch05 },
-  { num: '06', title: 'Place To Be', aspect: 'Space', slot: '9:30 PM' },
+  { num: '06', title: 'Place To Be', aspect: 'Space', slot: '9:30 PM', data: ch06 },
   { num: '07', title: 'Then vs. Now', aspect: 'Time', slot: '10:00 PM' },
   { num: '08', title: 'Behind the Broadcast', aspect: 'About the museum', slot: '10:30 PM' },
   { num: '09', title: 'Credits Roll', aspect: 'Credits and references', slot: '11:00 PM' },
