@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="unplugged">
   <main class="room">
     <div class="set">
       <section class="tv" aria-label="Television">
@@ -27,9 +27,19 @@
           <div class="scanlines" aria-hidden="true"></div>
           <div class="glass" aria-hidden="true"></div>
           <div id="osd" class="osd" aria-hidden="true"></div>
+          <div id="crt" class="crt">
+            <div class="beam" aria-hidden="true"></div>
+            <div class="intro-note" id="intro-note" role="status"></div>
+            <button type="button" class="skip" id="skip-intro">Skip intro ▶</button>
+          </div>
         </div>
         <div class="tv-base">
           <span class="brand">Y2KULTURA</span>
+          <div class="mains" id="mains">
+            <svg class="cord" aria-hidden="true"><path id="cord-path" d=""/></svg>
+            <button type="button" class="plug" id="plug" aria-label="Plug in the TV (drag the plug into the extension cord, or press Enter)"><span class="prongs" aria-hidden="true"><i></i><i></i></span></button>
+            <div class="socket" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="pilot"></span></div>
+          </div>
           <span class="led" aria-hidden="true"></span>
           <span class="knobs" aria-hidden="true"><i></i><i></i><i></i></span>
         </div>
@@ -38,7 +48,7 @@
       <nav class="remote" aria-label="Remote control">
         <div class="remote-display" id="remote-display">CH 00</div>
         <div class="remote-row">
-          <button class="rb rb-power" data-act="home" aria-label="Power: back to the start" title="Home"><i class="ti ti-power"></i></button>
+          <button class="rb rb-power" data-act="power" aria-label="Power" title="Power on/off"><i class="ti ti-power"></i></button>
           <button class="rb" data-act="sound" id="sound-btn" aria-label="Sound on. Tap to turn off" title="Sound on/off"><i class="ti ti-volume"></i></button>
         </div>
         <div class="remote-row">

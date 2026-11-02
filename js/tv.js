@@ -97,6 +97,50 @@ export function toggleSound() {
 
 export const isSoundOn = () => soundOn;
 
+// Small effects for the TV itself: button clicks, plugging in, and the CRT powering on and off.
+function noise(dur, { type = 'bandpass', freq = 2000, q = 1, vol = 0.08, at = 0 } = {}) {
+  const len = Math.max(1, Math.floor(audio.sampleRate * dur));
+  const buf = audio.createBuffer(1, len, audio.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+  const src = audio.createBufferSource();
+  const f = audio.createBiquadFilter();
+  const g = audio.createGain();
+  f.type = type; f.frequency.value = freq; f.Q.value = q; g.gain.value = vol;
+  src.buffer = buf;
+  src.connect(f).connect(g).connect(audio.destination);
+  src.start(audio.currentTime + at);
+}
+function tone2(freq, dur, { vol = 0.1, to = null, type = 'sine', at = 0 } = {}) {
+  const o = audio.createOscillator();
+  const g = audio.createGain();
+  const t = audio.currentTime + at;
+  o.type = type;
+  o.frequency.setValueAtTime(freq, t);
+  if (to) o.frequency.exponentialRampToValueAtTime(to, t + dur);
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(audio.destination);
+  o.start(t);
+  o.stop(t + dur + 0.02);
+}
+export function sfx(name) {
+  if (!soundOn || !canPlay()) return;
+  try {
+    ctxReady();
+    if (name === 'tick') noise(0.025, { type: 'highpass', freq: 3000, vol: 0.12 });
+    if (name === 'plug') { noise(0.05, { freq: 1400, q: 2, vol: 0.35 }); tone2(110, 0.12, { vol: 0.25, to: 60 }); }
+    if (name === 'on') {
+      tone2(70, 0.35, { vol: 0.35, to: 40 });
+      noise(0.5, { type: 'lowpass', freq: 600, vol: 0.12, at: 0.05 });
+      tone2(8000, 1.2, { vol: 0.012, at: 0.1 });
+    }
+    if (name === 'off') { tone2(900, 0.35, { vol: 0.08, to: 70 }); noise(0.12, { type: 'lowpass', freq: 900, vol: 0.08 }); }
+  } catch (e) {
+    /* Sound is optional; ignore browsers that block it. */
+  }
+}
+
 // The 1 kHz test tone that played over the color bars when a station signed off.
 let tone = null;
 export function startTone(seconds = 8, force = false) {
