@@ -789,7 +789,7 @@ function creditsEpisode(c, e) {
       .join('');
   } else {
     const low = ['#0000c0', '#131313', '#c000c0', '#131313', '#00c0c0', '#131313', '#c0c0c0'];
-    body = `<div class="signoff">
+    body = `<div class="signoff" data-tone>
       <div class="smpte">${BARS.map((b) => `<i style="background:${b}"></i>`).join('')}</div>
       <div class="smpte-low">${low.map((b) => `<i style="background:${b}"></i>`).join('')}</div>
       <div class="signoff-card">
@@ -797,7 +797,7 @@ function creditsEpisode(c, e) {
         <p>This concludes our broadcast day. Y2Kultura TV has brought you the sights, sounds, and feelings of Philippine pop culture from 2000 to 2010, across seven channels.</p>
         <p>Thank you for watching, and for remembering with us. Hanggang sa muli!</p>
         <div class="cr-big pf">Salamat sa panonood!</div>
-        <div class="signoff-btns"><a class="btn" href="/" data-link>▶ BACK TO CH 00</a><a class="btn" href="/guide" data-link>CHANNEL GUIDE</a></div>
+        <div class="signoff-btns"><button type="button" class="btn tone-btn" data-tone-btn><i class="ti ti-wave-sine" aria-hidden="true"></i> PLAY THE SIGN-OFF TONE</button><a class="btn" href="/" data-link>▶ BACK TO CH 00</a><a class="btn" href="/guide" data-link>CHANNEL GUIDE</a></div>
       </div>
     </div>
     <div class="cols" style="margin-top:14px"><div>${ytFrame(e.overview.video, 'finalecam', null)}</div>
