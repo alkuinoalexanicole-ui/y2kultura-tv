@@ -214,7 +214,7 @@ export function breakHTML(num, title, nextLabel) {
 function send(payload) {
   if (!SHEET_URL) return Promise.resolve(false);
   // text/plain keeps this a "simple" request that Google Apps Script accepts from any site.
-  return fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+  return fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', credentials: 'omit', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
     .then(() => true)
     .catch(() => false);
 }
