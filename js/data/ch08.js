@@ -211,7 +211,7 @@ export default {
           sub: 'A TV you can carry in your pocket',
           qa: [
             ['How does the "TV" work?', 'The museum is a small website built with HTML, CSS, and JavaScript. Changing channels swaps what is on the screen without reloading the page, so it feels like flipping channels. It works on computers and phones.'],
-            ['Does it save anything about me?', 'Only on your own device. Your quiz winnings on CH 07 are kept in your browser, not collected by the museum. The videos and photos load from YouTube and Wikimedia Commons. There are no ads.'],
+            ['Does it save anything about me?', 'Your CH 07 quiz winnings stay in your own browser. The only things the museum collects are Station Break answers you choose to send: your answer, a nostalgia rating, and any memory, first name, or city you type in. The videos and photos load from YouTube and Wikimedia Commons. There are no ads.'],
           ],
           stats: [['HTML · CSS · JS', 'what it is built with'], ['PHONE OR PC', 'works on both'], ['NO ADS', 'just the 2000s']],
           video: null,
@@ -227,14 +227,14 @@ export default {
       en: 'YOUR TURN',
       headline: 'Ikaw na ang bida sa susunod na episode!',
       color: '#7cff6b',
-      cardSub: 'Fan uploads, games, and a few reminders',
+      cardSub: 'Station Breaks, games, and a few reminders',
       overview: {
-        sub: 'Fan uploads, games, and a few reminders',
+        sub: 'Station Breaks, games, and a few reminders',
         qa: [
-          ['Can viewers be part of the show?', 'Yes. You can already play the CH 07 quiz show, and the yellow boxes on every channel will soon let you share your own 2000s memories.'],
+          ['Can viewers be part of the show?', 'Yes. Finish the last episode of any channel from CH 01 to CH 07 and move on to the next one, and a Station Break game show pops up: a quick question, a nostalgia rating, and a space to share your own 2000s memory. CH 07 is also a full quiz show.'],
           ['What should I keep in mind while watching?', 'Some stories are serious, like the Glorietta blast and the passing of President Cory Aquino. They are told with care, as part of what the decade felt like.'],
         ],
-        stats: [['12', 'quiz questions on CH 07'], ['SOON', 'fan uploads on every channel'], ['FIRST NAME', 'and city only']],
+        stats: [['7', 'Station Break game shows'], ['12', 'quiz questions on CH 07'], ['FIRST NAME', 'and city only']],
         video: v('a 2005 network Christmas station ID'),
         photos: ph('A camera phone'),
         ticker: ['IKAW NAMAN! THE NEXT EXCLUSIVE COULD BE YOURS'],
@@ -242,16 +242,16 @@ export default {
       cta: { title: 'BATI MO SA NETWORK', text: 'Leave a short greeting for Y2Kultura TV. First name and city only.' },
       parts: [
         {
-          slug: 'fan-uploads', title: 'Fan Uploads', en: 'SHARE YOUR MEMORIES', cardLine: 'The yellow boxes on every channel',
-          sub: 'The yellow boxes on every channel',
+          slug: 'station-break', title: 'Station Break', en: 'SHARE YOUR MEMORIES', cardLine: 'A game show between channels',
+          sub: 'A game show between channels',
           qa: [
-            ['What are the yellow "OPENING SOON" boxes?', 'They are where you will be able to share your own memories: your favorite GM, the mall you hung out in, the song your family played on Sundays. Each box asks a question that fits its page.'],
-            ['What will I need to share?', 'Only your first name and your city. Please do not share phone numbers, addresses, or other private details about yourself or anyone else.'],
+            ['What is a Station Break?', 'When you finish the last episode of a channel from CH 01 to CH 07 and move on to the next one, a short game styled after a 2000s TV game show appears: Deal or No Deal, Pinoy Henyo, Wheel of Fortune, Tama o Mali, Fastest Finger First, The Price Is Right, and Pera o Bayong. It is optional, so you can skip it anytime.'],
+            ['What happens to my answers?', 'If you press Send, your answer, your nostalgia rating, and any memory you share are saved in the museum\'s answer sheet. Only share your first name and your city, and please leave out phone numbers, addresses, or private details about yourself or anyone else.'],
           ],
-          stats: [['OPENING SOON', 'fan uploads'], ['FIRST NAME', 'and city only'], ['NO', 'phone numbers or addresses']],
+          stats: [['7', 'game shows, one per channel'], ['OPTIONAL', 'skip anytime'], ['FIRST NAME', 'and city only']],
           video: null,
           photos: ph('A camera phone'),
-          ticker: ['FIRST NAME AND CITY ONLY, PLEASE'],
+          ticker: ['STATION BREAK: FIRST NAME AND CITY ONLY, PLEASE'],
         },
         {
           slug: 'laro', title: 'Laro at Botohan', en: 'GAMES AND VOTING', cardLine: 'The quiz and the vote codes',

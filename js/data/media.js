@@ -280,5 +280,5 @@ export default {
   '08/paano-ginawa/mga-video-at-larawan': { video: yt('pfGuh2Tiz7c', 'GMA sign-off notice, aired 2004 to 2007, archived by a fan', 'Dann Garcia'), photos: [P.controlRoom] },
   '08/paano-ginawa/ang-website': { photos: [P.remote] },
   '08/ikaw-naman': { video: yt('jjldXLLfkZY', 'ABS-CBN Christmas station ID "Magpasaya ng Kapamilya," 2005', 'ABS-CBN Entertainment'), photos: [P.camPhone] },
-  '08/ikaw-naman/fan-uploads': { photos: [P.camPhone] },
+  '08/ikaw-naman/station-break': { photos: [P.camPhone] },
 };
