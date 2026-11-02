@@ -262,9 +262,9 @@ function statTiles(stats, kind) {
     .join('')}</div>`;
 }
 
-function ctaBar(cta, icon) {
-  if (!cta) return '';
-  return `<div class="cta">${icon ? `<i class="ti ${icon}" style="font-size:24px" aria-hidden="true"></i>` : ''}<span class="an">${esc(cta.title)}</span><p>${esc(cta.text)}</p><span class="btn" aria-disabled="true">OPENING SOON</span></div>`;
+// The old "share your memory" boxes were replaced by the Station Break, so this shows nothing.
+function ctaBar() {
+  return '';
 }
 
 function stopsFor(c, e, partIndex, overviewName) {
@@ -546,7 +546,6 @@ function talentEpisode(c, e, partIndex) {
         <div>${panels}</div>
       </div>
       ${extra}
-      ${cta ? `<div class="cta vote-bar"><span class="vote-tag">TEXT TO VOTE</span><span class="an">${esc(cta.title)}</span><p>${esc(cta.text)}</p><span class="btn" aria-disabled="true">LINES OPEN SOON</span></div>` : ''}
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav, 'talent-pager')}
