@@ -76,6 +76,7 @@ export function channel(c) {
   if (c.data.format === 'talent') return talentChannel(c);
   if (c.data.format === 'teleserye') return seryeChannel(c);
   if (c.data.format === 'quiz') return quizChannel(c);
+  if (c.data.format === 'buzz') return buzzChannel(c);
   return lineupChannel(c);
 }
 
@@ -158,6 +159,7 @@ export function episode(c, e, partIndex) {
   if (c.data.format === 'talent') return talentEpisode(c, e, partIndex);
   if (c.data.format === 'teleserye') return seryeEpisode(c, e, partIndex);
   if (c.data.format === 'quiz') return quizEpisode(c, e, partIndex);
+  if (c.data.format === 'buzz') return buzzEpisode(c, e, partIndex);
   return lineupEpisode(c, e, partIndex);
 }
 
@@ -648,6 +650,126 @@ function seryeEpisode(c, e, partIndex) {
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav, 'serye-pager')}
+    ${ticker(page.ticker || [])}
+  </div>`;
+}
+
+/* ---------- CH 08 format: showbiz talk show ---------- */
+function buzzChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const segs = d.episodes
+    .map(
+      (e) => `<a class="tabloid" href="/ch/${c.num}/${e.slug}" data-link style="--seg:${e.color}">
+        <span class="stamp">EXCLUSIVE!</span>
+        <span class="tab-head">${esc(e.headline)}</span>
+        <span class="tab-title">${esc(e.title)} <small>${esc(e.en)}</small></span>
+        <span class="tab-sub">${esc(e.cardSub)}</span>
+        <span class="tab-go">▶ PANOORIN ANG TSIKA</span></a>`
+    )
+    .join('');
+  return `
+  <div class="page buzz" style="background:${d.bg}">
+    ${channelHead(c, d, 'background:#1a0424')}
+    <div class="buzz-set">
+      <div class="sparkle" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="ribbon">EXCLUSIVE</span>
+      <div class="buzz-sub">${esc(d.showSub)}</div>
+      <div class="buzz-logo"><span class="burst an" aria-hidden="true">BUZZ!</span><span class="pf">${esc(d.showTitle)}</span></div>
+      <p class="buzz-host"><i class="ti ti-microphone-2" aria-hidden="true"></i> ${esc(d.hostLine)}</p>
+      <div class="buzz-sched">${esc(d.sched)}</div>
+    </div>
+    <div class="bar buzz-bar"><span class="an">MGA EXCLUSIVE NGAYONG GABI</span><small>${d.episodes.length} SEGMENTS · ALL ABOUT Y2KULTURA TV</small></div>
+    <div class="tabloids">${segs}</div>
+    <div style="flex:1"></div>
+    ${ticker(['BREAKING CHIKA: THE STORY BEHIND Y2KULTURA TV', 'TAP AN EXCLUSIVE TO WATCH', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function monitorWall(c) {
+  return `<div class="wall">${CHANNELS.map(
+    (x) => `<a class="monitor${x === c ? ' on' : ''}" href="/ch/${x.num}" data-link style="--mon:${x.data?.bg || '#222'}">
+      <span class="mon-num an">CH ${x.num}</span><span class="mon-name">${esc(x.title)}</span><span class="mon-asp">${esc(x.aspect)}</span></a>`
+  ).join('')}</div>`;
+}
+
+function interview(qa) {
+  return (qa || [])
+    .map(
+      ([q, a]) => `<div class="qa"><div class="ask"><span class="qa-tag">TANONG</span><i class="ti ti-microphone-2" aria-hidden="true"></i> ${esc(q)}</div>
+        <div class="reply"><span class="qa-tag">SAGOT</span> ${esc(a)}</div></div>`
+    )
+    .join('');
+}
+
+function rundown(list) {
+  if (!list?.length) return '';
+  return `<table class="rundown">${list.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table>`;
+}
+
+function chikaTiles(stats) {
+  if (!stats?.length) return '';
+  return `<div class="chika">${stats
+    .map(([big, small]) => `<div class="bubble"><div class="an">${esc(big)}</div><div>${esc(small)}</div></div>`)
+    .join('')}</div>`;
+}
+
+function buzzScreen(video, photos) {
+  if (!video) return photoGrid(photos);
+  const v = video.youtube
+    ? ytFrame(video, 'buzzcam', null)
+    : `<div class="video buzzcam"><canvas class="snow" data-snow></canvas><div class="msg"><i class="ti ti-video" aria-hidden="true"></i>VIDEO COMING SOON<br><span class="it">${esc(video.label || '')}</span></div></div>`;
+  return v + photoGrid(photos);
+}
+
+function buzzEpisode(c, e, partIndex) {
+  const d = c.data;
+  const nav = stopsFor(c, e, partIndex, 'ANG EXCLUSIVE');
+  const page = partIndex == null ? e.overview : e.parts[partIndex];
+  const ei = d.episodes.indexOf(e);
+  let nextUp = null;
+  if (nav.next) nextUp = { href: nav.next.href, label: 'SUSUNOD NA TSIKA', title: e.parts[nav.at].title };
+  else if (d.episodes[ei + 1]) {
+    const ne = d.episodes[ei + 1];
+    nextUp = { href: `/ch/${c.num}/${ne.slug}`, label: `EXCLUSIVE #${ne.ep}`, title: ne.headline };
+  }
+  let extra = '';
+  if (partIndex == null) {
+    extra = `<h3 class="an section-head">MGA TSIKA</h3><div class="parts">${e.parts
+      .map(
+        (p) => `<a class="segcard" href="${nav.base}/${p.slug}" data-link><span class="segcard-tag">${esc(p.en)}</span>
+          <div class="cb"><span class="ct pf">${esc(p.title)}</span><span class="cs">${esc(p.cardLine)}</span></div>
+          <span class="segcard-go">▶ PANOORIN</span></a>`
+      )
+      .join('')}</div>`;
+  }
+  const media = page.video || page.photos?.length ? buzzScreen(page.video, page.photos) : '';
+  const cta = partIndex == null ? e.cta : page.cta;
+  return `
+  <div class="page buzz" style="background:${d.bg};--seg:${e.color}">
+    <div class="now buzz-now"><span class="pf buzz-mini">${esc(d.showTitle)}</span><span class="label">EXCLUSIVE #${e.ep}</span>
+      <span class="where">${esc(e.title)}${partIndex != null ? ` · ${esc(page.title)}` : ''}</span>
+      <a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
+    <div class="breaking"><span class="brk-tag an">BREAKING CHIKA</span><span class="brk-text">${esc(e.headline)}</span></div>
+    <div class="buzz-title">
+      <div class="kicker">${partIndex == null ? `EXCLUSIVE #${e.ep} · ${esc(e.en)}` : esc(page.en || '')}</div>
+      <h1 class="pf">${esc(partIndex == null ? e.title : page.title)}</h1>
+      <div class="buzz-tsub">${esc(page.sub)}</div>
+    </div>
+    ${tabRow(nav, 'buzz-tabs')}
+    <div class="page-body">
+      ${chikaTiles(page.stats)}
+      ${page.wall ? `<h3 class="an section-head">ANG CONTROL ROOM · TAP A MONITOR</h3>${monitorWall(c)}` : ''}
+      <div class="cols">
+        ${media ? `<div>${media}</div>` : ''}
+        <div>${interview(page.qa)}${rundown(page.list)}</div>
+      </div>
+      ${extra}
+      ${ctaBar(cta, 'ti-message-circle-2')}
+      ${nextUp ? `<a class="nextseg" href="${nextUp.href}" data-link><span class="an">${esc(nextUp.label)}</span><span class="nextseg-t">${esc(nextUp.title)} ▶</span></a>` : `<div class="nextseg final"><span class="pf">Hanggang sa susunod na tsika!</span><span class="nextseg-t">That's all the buzz for now. Stay tuned for CH 09, Credits Roll.</span></div>`}
+    </div>
+    <div style="flex:1"></div>
+    ${pagerBar(c, nav, 'buzz-pager')}
     ${ticker(page.ticker || [])}
   </div>`;
 }
