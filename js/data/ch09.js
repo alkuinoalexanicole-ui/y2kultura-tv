@@ -12,7 +12,7 @@ export default {
   presents: 'Y2KULTURA TV NETWORK',
   tagline: 'Where the 2000s come alive!',
   curatorsLabel: 'CURATED AND PRODUCED BY',
-  curators: ['Alexa', 'Angelica', 'Ash', 'Michael'],
+  curators: ['Abejay, Michael', 'Agas, Rashelle', 'Alkuino, Alexa Nicole', 'Gascon, Decerey', 'Salazar, Angelica'],
   rollVideo: { youtube: 'DnlzKIszk7U', label: 'ABS-CBN sign-off, recorded September 21, 2003', credit: 'Patrick Villegas Samantela Lucas' },
   builtWith: [
     ['Website', 'HTML, CSS, and JavaScript, hosted on Vercel'],
