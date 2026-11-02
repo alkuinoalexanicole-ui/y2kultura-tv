@@ -2,7 +2,7 @@
 import { DIAL, findChannel, CHANNELS } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
-import { noteVisit, wantsBreak, breakHTML, bindBreak } from './breaks.js';
+import { wantsBreak, breakHTML, bindBreak } from './breaks.js';
 import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn, isSoundOn, sfx } from './tv.js';
 
 const BASE = window.Y2K_BASE || '';
@@ -63,7 +63,6 @@ function render(path, { animate = true } = {}) {
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
   else swap();
-  if (state === 'on') noteVisit(path, CHANNELS);
   if (state === 'on' && (channelChanged || animate)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
   currentNum = r.num;
   if (animate) setTimeout(() => view.focus({ preventScroll: true }), 300);
@@ -76,12 +75,16 @@ const closeBreak = () => {
   breakbox.innerHTML = '';
 };
 
-export function go(path) {
-  if (!breakbox.hidden) closeBreak(); // any remote press while a break is open skips it
+export function go(path, { noBreak = false } = {}) {
+  // Any remote press while a break is open skips it.
+  if (!breakbox.hidden) {
+    closeBreak();
+    noBreak = true;
+  }
   if (path === here()) return;
   const from = chOf(here());
   const to = chOf(path);
-  if (state === 'on' && wantsBreak(from, to)) return showBreak(from, path, to);
+  if (!noBreak && state === 'on' && wantsBreak(here(), to, CHANNELS)) return showBreak(from, path, to);
   history.pushState({}, '', BASE + path);
   render(path);
 }
@@ -96,7 +99,7 @@ function showBreak(from, path, to) {
   bindBreak(breakbox, () => {
     if (breakbox.hidden) return;
     closeBreak();
-    go(path);
+    go(path, { noBreak: true });
   });
   setTimeout(() => breakbox.querySelector('.sb-x')?.focus({ preventScroll: true }), 50);
 }

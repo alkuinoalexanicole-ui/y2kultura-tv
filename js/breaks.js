@@ -1,7 +1,7 @@
 // "Station Break": a short, optional mini game between channels, styled after
 // a different 2000s Filipino TV game show for each channel.
-// It shows only between CH 01 and CH 07, when a visitor finishes a channel's last episode
-// and moves on to the next channel, once per channel per visit. Every break ends with a nostalgia rating and an optional memory,
+// It shows only between CH 01 and CH 07, when a visitor is in a channel's last episode
+// and moves on to the next channel. Every break ends with a nostalgia rating and an optional memory,
 // sent to the museum's Google Sheet (see js/config.js and docs/station-break-sheet.gs).
 import { SHEET_URL } from './config.js';
 import { sfx } from './tv.js';
@@ -92,25 +92,20 @@ export const BREAKS = {
 
 const FEELS = ['Bago sa akin', 'Medyo', 'Naaalala ko', 'Miss ko na', 'Grabe, nostalgic!'];
 
-// A Station Break plays only between CH 01 and CH 07: after a visitor reaches a channel's
-// last episode and moves on to the next channel. Once per channel per visit.
-const shown = new Set();
-const reachedEnd = new Set();
+// A Station Break plays only between CH 01 and CH 07: when the visitor is on a page of a
+// channel's last episode (its overview or any of its parts) and moves on to the next channel.
+// Once a visitor sends answers for a channel, that channel's break doesn't show again this visit.
+const answered = new Set();
 
-// Called on every page the visitor watches, with its path, e.g. "/ch/03/hallyu-rising/sorry-sorry-on-myx".
-export function noteVisit(path, channels) {
-  const m = path.match(/^\/ch\/(\d\d)\/([^/]+)/);
-  if (!m || !BREAKS[m[1]]) return;
-  const c = channels.find((x) => x.num === m[1]);
-  const eps = c?.data?.episodes || [];
-  if (eps.length && eps[eps.length - 1].slug === m[2]) reachedEnd.add(m[1]);
-}
-
-// Should leaving `fromNum` for `toNum` show a station break?
-export function wantsBreak(fromNum, toNum) {
-  if (!fromNum || !toNum || !BREAKS[fromNum] || shown.has(fromNum)) return false;
+// Should leaving the page at `fromPath` for channel `toNum` show a station break?
+export function wantsBreak(fromPath, toNum, channels) {
+  const m = fromPath.match(/^\/ch\/(\d\d)\/([^/]+)/);
+  if (!m || !toNum) return false;
+  const fromNum = m[1];
+  if (!BREAKS[fromNum] || answered.has(fromNum)) return false;
   if (Number(toNum) !== Number(fromNum) + 1) return false;
-  return reachedEnd.has(fromNum);
+  const eps = channels.find((x) => x.num === fromNum)?.data?.episodes || [];
+  return eps.length > 0 && eps[eps.length - 1].slug === m[2];
 }
 
 /* ---------- Game boards ---------- */
@@ -175,7 +170,6 @@ function board(b) {
 
 export function breakHTML(num, title, nextLabel) {
   const b = BREAKS[num];
-  shown.add(num);
   return `<div class="sb sb-${b.game}" role="dialog" aria-modal="true" aria-labelledby="sb-title">
     <div class="sb-card">
       <div class="sb-top"><span class="sb-tag an">STATION BREAK</span><span class="sb-ch">After CH ${esc(num)} · ${esc(title)}</span><button type="button" class="sb-x" data-sb-skip aria-label="Skip the station break">SKIP ✕</button></div>
@@ -445,6 +439,7 @@ export function bindBreak(box, done) {
       city: String(f.get('city') || '').trim(),
       website: String(f.get('website') || ''),
     });
+    answered.add(num);
     form.hidden = true;
     box.querySelector('.sb-game').hidden = true;
     result.hidden = true;
