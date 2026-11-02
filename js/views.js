@@ -222,7 +222,6 @@ function lineupEpisode(c, e, partIndex) {
           </div>
         </div>
         ${cards}
-        ${ctaBar(e.cta)}
       </div>`;
     tick = o.ticker;
   } else {
@@ -243,7 +242,6 @@ function lineupEpisode(c, e, partIndex) {
             ${tags(p, d.showTags)}
           </div>
         </div>
-        ${ctaBar(p.cta)}
       </div>`;
     tick = p.ticker;
   }
@@ -260,11 +258,6 @@ function statTiles(stats, kind) {
   return `<div class="tiles tiles-${kind}">${stats
     .map(([big, small]) => `<div class="tile"><div class="an">${esc(big)}</div><div>${esc(small)}</div></div>`)
     .join('')}</div>`;
-}
-
-// The old "share your memory" boxes were replaced by the Station Break, so this shows nothing.
-function ctaBar() {
-  return '';
 }
 
 function stopsFor(c, e, partIndex, overviewName) {
@@ -361,7 +354,6 @@ function newsEpisode(c, e, partIndex) {
       )
       .join('')}</div>`;
   }
-  const cta = partIndex == null ? e.cta : page.cta;
   return `
   <div class="page news" style="background:${c.data.bg}">
     <div class="now news-now"><span class="an">BALITANG GLOBAL</span><span class="label live-bug">LIVE</span>
@@ -377,7 +369,6 @@ function newsEpisode(c, e, partIndex) {
         <div>${panels}</div>
       </div>
       ${extra}
-      ${ctaBar(cta, 'ti-microphone')}
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav)}
@@ -436,7 +427,6 @@ function adEpisode(c, e, partIndex) {
       )
       .join('')}</div>`;
   }
-  const cta = partIndex == null ? e.cta : page.cta;
   return `
   <div class="page ads" style="background:${c.data.bg}">
     <div class="now ad-now"><span class="an">COMMERCIAL BREAK</span><span class="label">CH ${c.num} · AD ${e.ep}${partIndex != null ? ` · ${esc(page.label)} OF ${e.parts.length}` : ''}</span>
@@ -455,7 +445,6 @@ function adEpisode(c, e, partIndex) {
         <div>${panels}</div>
       </div>
       ${extra}
-      ${ctaBar(cta)}
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav, 'ad-pager')}
@@ -527,7 +516,6 @@ function talentEpisode(c, e, partIndex) {
       )
       .join('')}</div>`;
   }
-  const cta = partIndex == null ? e.cta : page.cta;
   return `
   <div class="page talent" style="background:${c.data.bg};--act:${e.color}">
     <div class="now talent-now"><span class="an">${esc(c.data.showTitle)}</span><span class="label live-bug onair">● LIVE</span>
@@ -633,7 +621,6 @@ function seryeEpisode(c, e, partIndex) {
       )
       .join('')}</div>`;
   }
-  const cta = partIndex == null ? e.cta : page.cta;
   return `
   <div class="page serye" style="background:${d.bg};--kab:${e.color}">
     <div class="now serye-now"><span class="pf serye-mini">${esc(d.showTitle)}</span><span class="label">KABANATA ${e.ep}${partIndex != null ? ` · ${esc(page.label)}` : ''}</span>
@@ -654,7 +641,6 @@ function seryeEpisode(c, e, partIndex) {
         <div>${panels}</div>
       </div>
       ${extra}
-      ${ctaBar(cta, 'ti-message-heart')}
       ${nextUp ? `<a class="abangan" href="${nextUp.href}" data-link><span class="pf">Abangan!</span><span class="abangan-next">${esc(nextUp.label)}: <b>${esc(nextUp.title)}</b> ▶</span></a>` : `<div class="abangan wakas"><span class="pf">Wakas</span><span class="abangan-next">The end of our teleserye. Salamat sa panonood!</span></div>`}
     </div>
     <div style="flex:1"></div>
@@ -936,7 +922,6 @@ function buzzEpisode(c, e, partIndex) {
       .join('')}</div>`;
   }
   const media = page.video || page.photos?.length ? buzzScreen(page.video, page.photos) : '';
-  const cta = partIndex == null ? e.cta : page.cta;
   return `
   <div class="page buzz" style="background:${d.bg};--seg:${e.color}">
     <div class="now buzz-now"><span class="pf buzz-mini">${esc(d.showTitle)}</span><span class="label">EXCLUSIVE #${e.ep}</span>
@@ -957,7 +942,6 @@ function buzzEpisode(c, e, partIndex) {
         <div>${interview(page.qa)}${rundown(page.list)}</div>
       </div>
       ${extra}
-      ${ctaBar(cta, 'ti-message-circle-2')}
       ${nextUp ? `<a class="nextseg" href="${nextUp.href}" data-link><span class="an">${esc(nextUp.label)}</span><span class="nextseg-t">${esc(nextUp.title)} ▶</span></a>` : `<div class="nextseg final"><span class="pf">Hanggang sa susunod na tsika!</span><span class="nextseg-t">That's all the buzz for now. Stay tuned for CH 09, Credits Roll.</span></div>`}
     </div>
     <div style="flex:1"></div>
@@ -1082,7 +1066,6 @@ function quizEpisode(c, e, partIndex) {
       </div>
     </div>`;
   }
-  const cta = partIndex == null ? e.cta : page.cta;
   return `
   <div class="page quiz" style="background:${d.bg};--rnd:${e.color}">
     <div class="now quiz-now"><span class="an quiz-mini">${esc(d.showTitle)}</span><span class="label">ROUND ${e.ep}${partIndex != null ? ` · TANONG ${partIndex + 1}` : ''}</span>
@@ -1102,7 +1085,6 @@ function quizEpisode(c, e, partIndex) {
         <div>${thenNow(page)}</div>
       </div>
       ${extra}
-      ${ctaBar(cta, 'ti-message-2')}
       ${nextUp ? `<a class="nextq" href="${nextUp.href}" data-link><span class="an">${esc(nextUp.label)}</span><span class="nextq-t">${esc(nextUp.title)} ▶</span></a>` : `<div class="nextq final"><span class="an">Salamat sa paglalaro!</span><span class="nextq-t" data-final="${c.num}">That was the million-peso question. Thanks for playing Then o Now?</span></div>`}
     </div>
     <div style="flex:1"></div>

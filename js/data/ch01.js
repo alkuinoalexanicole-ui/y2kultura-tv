@@ -30,10 +30,6 @@ export default {
       "cardTitle": "LOVE TEAMS",
       "cardSub": "John Lloyd and Bea",
       "cardMeta": "One More Chance · 2007",
-      "cta": {
-        "title": "KILIG CHECK",
-        "text": "Which 2000s love team made you kilig the most? Share it with your first name and city."
-      },
       "overview": {
         "sub": "John Lloyd and Bea · One More Chance",
         "chips": [
@@ -103,10 +99,6 @@ export default {
       "cardSub": "Manny Pacquiao",
       "cardMeta": "The big fights · 2008-2009",
       "bg": "#12275e",
-      "cta": {
-        "title": "JOIN THE BROADCAST",
-        "text": "Where did you watch the Pacquiao fights? Share your memory with your first name and city."
-      },
       "overview": {
         "sub": "Manny Pacquiao · the big fights, 2008-2009",
         "chips": [
@@ -366,10 +358,6 @@ export default {
       "cardSub": "Hale, Cueshé, and the Eraserheads",
       "cardMeta": "2005-2008",
       "bg": "#160c2e",
-      "cta": {
-        "title": "REQUEST A SONG",
-        "text": "Which 2000s OPM song still gets you? Request it with your first name and city."
-      },
       "overview": {
         "sub": "Hale, Cueshé, and the Eraserheads · 2005-2008",
         "chips": [
@@ -630,10 +618,6 @@ export default {
       "cardMeta": "August 1-5, 2009",
       "bg": "#1f2a44",
       "solemn": true,
-      "cta": {
-        "title": "TIE A YELLOW RIBBON",
-        "text": "Leave a short tribute or memory of August 2009. First name and city only."
-      },
       "overview": {
         "sub": "A nation in yellow · August 1-5, 2009",
         "chips": [
