@@ -1,7 +1,7 @@
 // "Station Break": a short, optional mini game between channels, styled after
 // a different 2000s Filipino TV game show for each channel.
-// It shows when a visitor leaves a channel they actually watched (2+ pages or 30+ seconds),
-// once per channel per visit. Every break ends with a nostalgia rating and an optional memory,
+// It shows only between CH 01 and CH 07, when a visitor finishes a channel's last episode
+// and moves on to the next channel, once per channel per visit. Every break ends with a nostalgia rating and an optional memory,
 // sent to the museum's Google Sheet (see js/config.js and docs/station-break-sheet.gs).
 import { SHEET_URL } from './config.js';
 import { sfx } from './tv.js';
@@ -88,35 +88,29 @@ export const BREAKS = {
     options: ['Karaoke', 'Mall', 'Texting', 'Teleserye'],
     answer: 2,
   },
-  '08': {
-    sheet: 'CH 08 Behind the Broadcast',
-    game: 'survey',
-    show: 'Family Feud',
-    tag: 'Survey says!',
-    q: 'Which channel brought back the most memories for you?',
-    options: ['CH 01 Heartstrings', 'CH 02 Tech Talk 2000', 'CH 03 Global Mix', 'CH 04 Style File', 'CH 05 Starstruck!', 'CH 06 Place To Be', 'CH 07 Then vs. Now'],
-    answer: null,
-  },
 };
 
 const FEELS = ['Bago sa akin', 'Medyo', 'Naaalala ko', 'Miss ko na', 'Grabe, nostalgic!'];
 
-// Remember which channels already had their break, for this visit.
+// A Station Break plays only between CH 01 and CH 07: after a visitor reaches a channel's
+// last episode and moves on to the next channel. Once per channel per visit.
 const shown = new Set();
-const seen = {}; // channel → { pages, since }
+const reachedEnd = new Set();
 
-export function noteVisit(num) {
-  if (!BREAKS[num]) return;
-  const s = (seen[num] = seen[num] || { pages: 0, since: Date.now() });
-  s.pages += 1;
+// Called on every page the visitor watches, with its path, e.g. "/ch/03/hallyu-rising/sorry-sorry-on-myx".
+export function noteVisit(path, channels) {
+  const m = path.match(/^\/ch\/(\d\d)\/([^/]+)/);
+  if (!m || !BREAKS[m[1]]) return;
+  const c = channels.find((x) => x.num === m[1]);
+  const eps = c?.data?.episodes || [];
+  if (eps.length && eps[eps.length - 1].slug === m[2]) reachedEnd.add(m[1]);
 }
 
 // Should leaving `fromNum` for `toNum` show a station break?
 export function wantsBreak(fromNum, toNum) {
-  if (!fromNum || fromNum === toNum || !BREAKS[fromNum] || shown.has(fromNum)) return false;
-  const s = seen[fromNum];
-  if (!s) return false;
-  return s.pages >= 2 || Date.now() - s.since >= 30000;
+  if (!fromNum || !toNum || !BREAKS[fromNum] || shown.has(fromNum)) return false;
+  if (Number(toNum) !== Number(fromNum) + 1) return false;
+  return reachedEnd.has(fromNum);
 }
 
 /* ---------- Game boards ---------- */

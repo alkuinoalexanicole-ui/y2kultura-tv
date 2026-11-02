@@ -183,7 +183,7 @@ function lineupEpisode(c, e, partIndex) {
   const nxt = stops[at + 1];
   const pager = `<div class="pager">
       ${prev ? `<a href="${prev.href}" data-link>◀ ${esc(prev.name)}</a>` : `<a href="/ch/${c.num}" data-link>◀ CH ${c.num} LINE-UP</a>`}
-      ${nxt ? `<a href="${nxt.href}" data-link>NEXT: ${esc(nxt.name)} ▶</a>` : `<a href="/ch/${c.num}" data-link>BACK TO LINE-UP ▶</a>`}
+      ${nxt ? `<a href="${nxt.href}" data-link>NEXT: ${esc(nxt.name)} ▶</a>` : endLink(c, e, `<a href="/ch/${c.num}" data-link>BACK TO LINE-UP ▶</a>`)}
     </div>`;
 
   const now = `<div class="now" style="background:${solemn ? 'var(--yellow)' : 'var(--red)'};color:${solemn ? '#1f2a44' : '#fff'}">
@@ -271,7 +271,7 @@ function stopsFor(c, e, partIndex, overviewName) {
   const base = `/ch/${c.num}/${e.slug}`;
   const stops = [{ href: base, name: overviewName }, ...e.parts.map((p) => ({ href: `${base}/${p.slug}`, name: p.cardTitle || p.title }))];
   const at = partIndex == null ? 0 : partIndex + 1;
-  return { base, stops, at, prev: stops[at - 1], next: stops[at + 1] };
+  return { base, stops, at, prev: stops[at - 1], next: stops[at + 1], e };
 }
 
 function tabRow({ stops, at }, cls = '') {
@@ -280,10 +280,18 @@ function tabRow({ stops, at }, cls = '') {
     .join('')}</div>`;
 }
 
-function pagerBar(c, { prev, next }, cls = '') {
+// On the last page of a channel's last episode, the pager leads on to the next channel.
+function endLink(c, e, fallback) {
+  const last = c.data.episodes[c.data.episodes.length - 1];
+  const nc = CHANNELS[CHANNELS.indexOf(c) + 1];
+  if (e === last && nc) return `<a href="/ch/${nc.num}" data-link>NEXT CHANNEL: CH ${nc.num} ${esc(nc.title.toUpperCase())} ▶</a>`;
+  return fallback;
+}
+
+function pagerBar(c, { prev, next, e }, cls = '') {
   return `<div class="pager ${cls}">
     ${prev ? `<a href="${prev.href}" data-link>◀ ${esc(prev.name)}</a>` : `<a href="/ch/${c.num}" data-link>◀ CH ${c.num} MAIN PAGE</a>`}
-    ${next ? `<a href="${next.href}" data-link>NEXT: ${esc(next.name)} ▶</a>` : `<a href="/ch/${c.num}" data-link>BACK TO CH ${c.num} ▶</a>`}
+    ${next ? `<a href="${next.href}" data-link>NEXT: ${esc(next.name)} ▶</a>` : endLink(c, e, `<a href="/ch/${c.num}" data-link>BACK TO CH ${c.num} ▶</a>`)}
   </div>`;
 }
 
