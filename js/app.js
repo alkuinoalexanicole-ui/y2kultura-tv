@@ -159,7 +159,8 @@ function plugBounds() {
   const w = mains.clientWidth;
   const sock = mains.querySelector('.socket');
   const start = Math.min(w * 0.18, 60);
-  const end = sock.offsetLeft - plug.offsetWidth + 6;
+  // Plugged in, the plug body sits flush against the strip and its prongs disappear inside.
+  const end = sock.offsetLeft - plug.offsetWidth + 1;
   return { start, end: Math.max(start, end) };
 }
 function placePlug(x) {
@@ -179,7 +180,12 @@ function plugIn() {
   const { end } = plugBounds();
   plug.classList.add('sliding');
   placePlug(end);
-  setTimeout(() => plug.classList.remove('sliding'), 260);
+  const sock = mains.querySelector('.socket');
+  setTimeout(() => {
+    plug.classList.remove('sliding');
+    sock.classList.add('zap');
+    setTimeout(() => sock.classList.remove('zap'), 500);
+  }, 260);
   sfx('plug');
   state = 'standby';
   paintState();
