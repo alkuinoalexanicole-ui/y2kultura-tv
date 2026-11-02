@@ -74,6 +74,7 @@ export function channel(c) {
   if (c.data.format === 'news') return newsChannel(c);
   if (c.data.format === 'ads') return adsChannel(c);
   if (c.data.format === 'talent') return talentChannel(c);
+  if (c.data.format === 'teleserye') return seryeChannel(c);
   return lineupChannel(c);
 }
 
@@ -154,6 +155,7 @@ export function episode(c, e, partIndex) {
   if (c.data.format === 'news') return newsEpisode(c, e, partIndex);
   if (c.data.format === 'ads') return adEpisode(c, e, partIndex);
   if (c.data.format === 'talent') return talentEpisode(c, e, partIndex);
+  if (c.data.format === 'teleserye') return seryeEpisode(c, e, partIndex);
   return lineupEpisode(c, e, partIndex);
 }
 
@@ -534,6 +536,116 @@ function talentEpisode(c, e, partIndex) {
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav, 'talent-pager')}
+    ${ticker(page.ticker || [])}
+  </div>`;
+}
+
+/* ---------- CH 06 format: primetime teleserye ---------- */
+function seryeChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const eps = d.episodes
+    .map(
+      (e) => `<a class="kab" href="/ch/${c.num}/${e.slug}" data-link style="--kab:${e.color}">
+        <span class="kab-num">KABANATA ${e.ep}</span>
+        <span class="kab-title pf">${esc(e.title)}</span>
+        <span class="kab-en">${esc(e.en)}</span>
+        <span class="kab-sub">${esc(e.cardSub)}</span>
+        <span class="kab-where"><i class="ti ti-map-pin" aria-hidden="true"></i> ${esc(e.where)}</span>
+        <span class="kab-go">▶ PANOORIN</span></a>`
+    )
+    .join('');
+  return `
+  <div class="page serye" style="background:${d.bg}">
+    ${channelHead(c, d, 'background:#2a0610')}
+    <div class="title-card">
+      <div class="presents">${esc(d.presents)}</div>
+      <div class="serye-logo pf">${esc(d.showTitle)}</div>
+      <div class="serye-tag">${esc(d.tagline)}</div>
+      <div class="serye-sched">${esc(d.sched)}</div>
+    </div>
+    <div class="bar serye-bar"><span class="an">MGA KABANATA</span><small>${d.episodes.length} CHAPTERS · ${esc(d.episodes.map((e) => e.where).join(' · ').toUpperCase())}</small></div>
+    <div class="kabs">${eps}</div>
+    <div style="flex:1"></div>
+    ${ticker(['PUMILI NG KABANATA: TAP A CHAPTER TO WATCH', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function filmStrip(stats) {
+  if (!stats?.length) return '';
+  return `<div class="strip">${stats
+    .map(([big, small]) => `<div class="frame"><div class="an">${esc(big)}</div><div>${esc(small)}</div></div>`)
+    .join('')}</div>`;
+}
+
+function letterbox(video, photos) {
+  if (!video) return photoGrid(photos);
+  const v = video?.youtube
+    ? ytFrame(video, 'letterbox', null)
+    : `<div class="video letterbox"><canvas class="snow" data-snow></canvas><div class="msg"><i class="ti ti-movie" aria-hidden="true"></i>EKSENA COMING SOON<br><span class="it">${esc(video?.label || '')}</span></div></div>`;
+  return v + photoGrid(photos);
+}
+
+function seryeEpisode(c, e, partIndex) {
+  const d = c.data;
+  const nav = stopsFor(c, e, partIndex, 'ANG KABANATA');
+  const page = partIndex == null ? e.overview : e.parts[partIndex];
+  const ei = d.episodes.indexOf(e);
+  // Recap: the scene or chapter right before this one.
+  let recap = null;
+  if (partIndex == null && ei > 0) {
+    const pe = d.episodes[ei - 1];
+    recap = { label: `KABANATA ${pe.ep}: ${pe.title}`, text: pe.recap, href: `/ch/${c.num}/${pe.slug}` };
+  } else if (partIndex != null) {
+    const pp = partIndex === 0 ? e.overview : e.parts[partIndex - 1];
+    recap = { label: partIndex === 0 ? `KABANATA ${e.ep}: ${e.title}` : `${e.parts[partIndex - 1].label}: ${e.parts[partIndex - 1].title}`, text: pp.recap || pp.sub, href: nav.prev.href };
+  }
+  // Abangan: the next scene, or the next chapter.
+  let nextUp = null;
+  if (nav.next) nextUp = { href: nav.next.href, title: e.parts[nav.at].title, label: e.parts[nav.at].label };
+  else if (d.episodes[ei + 1]) {
+    const ne = d.episodes[ei + 1];
+    nextUp = { href: `/ch/${c.num}/${ne.slug}`, title: ne.title, label: `KABANATA ${ne.ep}` };
+  }
+  const panels = page.panels
+    .map(([h, t], i) => `<div class="eksena${i ? ' totoo' : ''}"><h4>${esc(h)}</h4><p>${esc(t)}</p></div>`)
+    .join('');
+  let extra = '';
+  if (partIndex == null) {
+    extra = `<h3 class="an section-head">MGA EKSENA</h3><div class="parts">${e.parts
+      .map(
+        (p) => `<a class="scene" href="${nav.base}/${p.slug}" data-link><span class="scene-tag">${esc(p.label)}</span>
+          <div class="cb"><span class="ct pf">${esc(p.title)}</span><span class="cs">${esc(p.cardLine)}</span></div>
+          <span class="scene-go">▶ PANOORIN</span></a>`
+      )
+      .join('')}</div>`;
+  }
+  const cta = partIndex == null ? e.cta : page.cta;
+  return `
+  <div class="page serye" style="background:${d.bg};--kab:${e.color}">
+    <div class="now serye-now"><span class="pf serye-mini">${esc(d.showTitle)}</span><span class="label">KABANATA ${e.ep}${partIndex != null ? ` · ${esc(page.label)}` : ''}</span>
+      <span class="where"><i class="ti ti-map-pin" aria-hidden="true"></i> ${esc(page.place || e.where)}</span>
+      <a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
+    ${recap ? `<a class="recap" href="${recap.href}" data-link><span class="recap-tag it">Sa nakaraang ${partIndex == null ? 'kabanata' : 'eksena'}...</span><span class="recap-text"><b>${esc(recap.label)}</b> ${esc(recap.text)}</span></a>` : ''}
+    <div class="serye-title">
+      <div class="kicker">${partIndex == null ? `KABANATA ${e.ep}` : esc(page.label)}</div>
+      <h1 class="pf">${esc(partIndex == null ? e.title : page.title)}</h1>
+      <div class="serye-en">${esc(partIndex == null ? e.en : page.en || '')}</div>
+      <div class="serye-sub">${esc(page.sub)}</div>
+    </div>
+    ${tabRow(nav, 'serye-tabs')}
+    <div class="page-body">
+      ${filmStrip(page.stats)}
+      <div class="cols">
+        <div>${letterbox(page.video, page.photos)}</div>
+        <div>${panels}</div>
+      </div>
+      ${extra}
+      ${ctaBar(cta, 'ti-message-heart')}
+      ${nextUp ? `<a class="abangan" href="${nextUp.href}" data-link><span class="pf">Abangan!</span><span class="abangan-next">${esc(nextUp.label)}: <b>${esc(nextUp.title)}</b> ▶</span></a>` : `<div class="abangan wakas"><span class="pf">Wakas</span><span class="abangan-next">The end of our teleserye. Salamat sa panonood!</span></div>`}
+    </div>
+    <div style="flex:1"></div>
+    ${pagerBar(c, nav, 'serye-pager')}
     ${ticker(page.ticker || [])}
   </div>`;
 }
