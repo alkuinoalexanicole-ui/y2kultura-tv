@@ -1,5 +1,5 @@
 // Router and remote control. Every page swaps inside the TV screen, with static in between.
-import { DIAL, findChannel } from './data/channels.js';
+import { DIAL, findChannel, CHANNELS } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
 import { noteVisit, wantsBreak, breakHTML, bindBreak } from './breaks.js';
@@ -63,7 +63,7 @@ function render(path, { animate = true } = {}) {
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
   else swap();
-  if (state === 'on') noteVisit(r.num);
+  if (state === 'on') noteVisit(path, CHANNELS);
   if (state === 'on' && (channelChanged || animate)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
   currentNum = r.num;
   if (animate) setTimeout(() => view.focus({ preventScroll: true }), 300);
