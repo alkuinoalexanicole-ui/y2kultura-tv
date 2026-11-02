@@ -37,7 +37,6 @@ export default {
         photos: ph('A mall', 'A mall atrium', 'A hypermarket'),
         ticker: ['SOURCES: SM PRIME (c. 2008)', 'WIKIPEDIA (SM MALL OF ASIA)'],
       },
-      cta: { title: 'IKAW, SAAN?', text: 'Which mall was your weekend tambayan in the 2000s? First name and city only.' },
       parts: [
         {
           slug: 'weekend-sa-mall', label: 'EKSENA 1', title: 'Weekend sa Mall', en: 'A DAY AT THE MALL', cardLine: 'Malling as the national pastime',
@@ -73,7 +72,6 @@ export default {
           ],
           video: v('a 2007 news report'),
           photos: [],
-          cta: { title: 'IN MEMORY', text: 'Leave a short message for the Glorietta victims. First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (2007 GLORIETTA EXPLOSION)'],
         },
       ],
@@ -98,7 +96,6 @@ export default {
         photos: ph('A computer shop', 'Online gaming'),
         ticker: ['SOURCES: PHILSTAR (DEC 15, 2003)', 'PHILSTAR (SEPT 11, 2006)', 'WIKIPEDIA (VIDEO GAMES IN THE PHILIPPINES)'],
       },
-      cta: { title: 'IKAW, ANONG LARO?', text: 'What game did you play at the computer shop? First name and city only.' },
       parts: [
         {
           slug: 'log-in', label: 'EKSENA 1', title: 'Log In', en: 'THE RAGNAROK YEARS', cardLine: 'The game that filled the internet cafés',
@@ -134,7 +131,6 @@ export default {
           ],
           video: v('a 2000s news report'),
           photos: [],
-          cta: { title: 'CUTTING CLASS?', text: 'Did you ever get caught at the computer shop? First name and city only.' },
           ticker: ['SOURCES: PHILSTAR (JUNE 16, 2006)', 'PHILSTAR (JUNE 20, 2010)'],
         },
       ],
@@ -159,7 +155,6 @@ export default {
         photos: ph('A fiesta', 'A street party', 'A family TV'),
         ticker: ['SOURCES: PHILSTAR (JAN 21, 2009)', 'WIKIPEDIA (FILIPINO SPAGHETTI; DARNA, 2005 TV SERIES)'],
       },
-      cta: { title: 'IKAW, SAAN?', text: 'Which fiesta or family party do you remember most? First name and city only.' },
       parts: [
         {
           slug: 'pista', label: 'EKSENA 1', title: 'Pista', en: 'THE FIESTA', cardLine: 'Sinulog and the barrio-to-barrio fiesta',
@@ -195,7 +190,6 @@ export default {
           ],
           video: v('a 2000s primetime teleserye'),
           photos: ph('A family TV'),
-          cta: { title: 'ANG PAMILYA', text: 'What show did your whole family watch together? First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (DARNA, 2005 TV SERIES; WOWOWEE)'],
         },
       ],
@@ -220,7 +214,6 @@ export default {
         photos: ph('A church', 'A procession'),
         ticker: ['SOURCES: WIKIPEDIA (SIMBANG GABI; SEVEN CHURCHES VISITATION)', 'PHILSTAR (JAN 9, 2010)', 'PHILSTAR (MAY 12, 2009)'],
       },
-      cta: { title: 'IKAW, SAAN?', text: 'Which church or Sunday tradition did your family keep? First name and city only.' },
       parts: [
         {
           slug: 'simbang-gabi', label: 'EKSENA 1', title: 'Simbang Gabi', en: 'NINE DAWN MASSES', cardLine: 'Nine dawns before Christmas',
@@ -256,7 +249,6 @@ export default {
           ],
           video: null,
           photos: [],
-          cta: { title: 'ANG LINGGO MO', text: 'How did your family spend Sundays in the 2000s? First name and city only.' },
           ticker: ['SOURCES: PHILSTAR (MAY 12, 2009)', 'NBC NEWS (2013)'],
         },
       ],

@@ -30,7 +30,6 @@ export default {
         photos: ph('A whitening product shelf', 'A salon chair', 'A before-and-after ad'),
         ticker: ['SOURCES: ESQUIRE PHILIPPINES (2019)', 'INQUIRER PLUS', 'JOURNAL OF PUBLIC HEALTH POLICY (2013)', 'WIKIPEDIA (HAIR STRAIGHTENING)'],
       },
-      cta: { title: 'YOUR STORY', text: 'Did you ever rebond your hair or try a whitening product in the 2000s? How do you feel about it now? First name and city only.' },
       parts: [
         {
           slug: 'whitening-boom', label: 'SPOT 1', cardTitle: 'THE WHITENING BOOM', cardLine: 'A market that took off in the 2000s',
@@ -66,7 +65,6 @@ export default {
           ],
           video: v('a discussion on colorism in the Philippines'),
           photos: ph('Noli Me Tangere', 'Morena and proud'),
-          cta: { title: 'MORENA AND KULOT PRIDE', text: 'Share a word of love for your natural skin or hair. First name and city only.' },
           ticker: ['SOURCES: ESQUIRE PHILIPPINES (2019)', 'JOURNAL OF PUBLIC HEALTH POLICY (2013)'],
         },
       ],
@@ -88,7 +86,6 @@ export default {
         photos: ph('A mall', 'Low-rise jeans', 'A graphic tee'),
         ticker: ['SOURCES: RADAR (SEPT 7, 2026)', 'WIKIPEDIA (LOW-RISE FASHION)', 'PHILSTAR (OCT 31, 2005)'],
       },
-      cta: { title: 'YOUR 2000s OUTFIT', text: 'Describe your go-to mall outfit from the 2000s. First name and city only.' },
       parts: [
         {
           slug: 'illegally-low', label: 'SPOT 1', cardTitle: 'ILLEGALLY LOW', cardLine: 'The jeans that sat below the navel',
@@ -124,7 +121,6 @@ export default {
           ],
           video: v('a 2000s bargain mall'),
           photos: ph('A tiangge', 'Greenhills'),
-          cta: { title: 'YOUR FIRST LOGO TEE', text: 'What brand did you save up for in the 2000s? First name and city only.' },
           ticker: ['SOURCES: PHILSTAR (OCT 31, 2005)'],
         },
       ],
@@ -146,7 +142,6 @@ export default {
         photos: ph('F4', 'Gu Jun-pyo', 'Yoon Ji-hoo'),
         ticker: ['SOURCES: PHILSTAR (SEPT 20, 2003)', 'THE SUMMIT EXPRESS (FEB 3, 2025)', 'PEP.PH (APR 21, 2020)', 'WIKIPEDIA (KKONMINAM)'],
       },
-      cta: { title: 'YOUR F4 HAIRCUT', text: 'Did you or your crush ever copy an F4 hairstyle? First name and city only.' },
       parts: [
         {
           slug: 'the-f4-flow', label: 'SPOT 1', cardTitle: 'THE F4 FLOW', cardLine: 'Meteor Garden and the long-hair comeback',
@@ -182,7 +177,6 @@ export default {
           ],
           video: v("a 2000s men's grooming ad"),
           photos: ph('Kim Joon', 'Gelled hair'),
-          cta: { title: 'GWAPO IS NOT ONE LOOK', text: 'Share what makes someone handsome to you. First name and city only.' },
           ticker: ['SOURCES: PCIJ (SEPT 2005)', 'WIKIPEDIA (KKONMINAM)'],
         },
       ],
@@ -204,7 +198,6 @@ export default {
         photos: ph('Eat Bulaga', 'Joey de Leon', 'A dance-fitness class'),
         ticker: ['SOURCES: WIKIPEDIA (SEXBOMB GIRLS)', 'PHILSTAR (SEPT 22, 2009)'],
       },
-      cta: { title: 'YOUR SEXBOMB MOVES', text: 'Which SexBomb dance did you learn by heart? First name and city only.' },
       parts: [
         {
           slug: 'the-sexbomb-effect', label: 'SPOT 1', cardTitle: 'THE SEXBOMB EFFECT', cardLine: 'Noontime dancers who became stars',
@@ -240,7 +233,6 @@ export default {
           ],
           video: v('a 2000s fitness segment'),
           photos: ph('A dance-fitness class', 'Eat Bulaga'),
-          cta: { title: 'EVERY BODY', text: 'Share a word of love for your body, just as it is. First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (SEXBOMB GIRLS)', 'STAT NEWS (MAY 16, 2016)'],
         },
       ],

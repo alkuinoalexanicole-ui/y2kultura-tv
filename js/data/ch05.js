@@ -31,7 +31,6 @@ export default {
         photos: ph('Eat Bulaga', 'A Wowowee host', 'Joey de Leon'),
         ticker: ['SOURCES: WIKIPEDIA (WOWOWEE)', 'THE SMART LOCAL (MAR 23, 2022)', 'PHILSTAR (FEB 5, 2006)'],
       },
-      cta: { title: 'YOUR NOONTIME DANCE', text: 'Which noontime dance did you know by heart? First name and city only.' },
       parts: [
         {
           slug: 'wowowee', label: 'ROUND 1', cardTitle: 'WOWOWEE!', cardLine: 'The noontime show that promised a jackpot',
@@ -67,7 +66,6 @@ export default {
           ],
           video: v('a 2006 news report'),
           photos: [],
-          cta: { title: 'IN MEMORY', text: 'Leave a short message in memory of the ULTRA victims. First name and city only.' },
           ticker: ['SOURCES: PHILSTAR (FEB 5, 2006)', 'AL JAZEERA (FEB 4, 2006)', 'WIKIPEDIA (WOWOWEE)'],
         },
       ],
@@ -88,7 +86,6 @@ export default {
         photos: ph('A star search winner', 'Reality TV stars', 'The PBB house'),
         ticker: ['SOURCES: WIKIPEDIA (PINOY BIG BROTHER: SEASON 1; PINOY DREAM ACADEMY SEASON 1; PILIPINAS GOT TALENT SEASON 1)', 'PEP.PH (MAY 24, 2019)'],
       },
-      cta: { title: 'TEXT TO VOTE', text: 'Which 2000s reality show did you vote in, or wish you had? First name and city only.' },
       parts: [
         {
           slug: 'star-search', label: 'ROUND 1', cardTitle: 'STAR SEARCH SEASON', cardLine: 'From Star in a Million to Pinoy Dream Academy',
@@ -124,7 +121,6 @@ export default {
           ],
           video: v('a Pilipinas Got Talent audition'),
           photos: [],
-          cta: { title: 'YOUR TALENT', text: 'What talent would you have brought to a 2000s talent show? First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (PILIPINAS GOT TALENT SEASON 1)'],
         },
       ],
@@ -145,7 +141,6 @@ export default {
         photos: ph('Kitchie Nadal', 'Bamboo', 'Rivermaya'),
         ticker: ['SOURCES: PHILSTAR (JUNE 17, 2005)', 'WIKIPEDIA (POGI ROCK)'],
       },
-      cta: { title: 'YOUR BAND', text: 'Which 2000s Pinoy band did you follow? First name and city only.' },
       parts: [
         {
           slug: 'rock-takes-over', label: 'ROUND 1', cardTitle: 'ROCK TAKES OVER', cardLine: 'From novelty songs to band anthems',
@@ -181,7 +176,6 @@ export default {
           ],
           video: v('Pinoy Ako live, 2005'),
           photos: [],
-          cta: { title: 'YOUR ANTHEM', text: 'Which 2000s OPM band song still gets you singing? First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (ORANGE AND LEMONS)'],
         },
       ],
@@ -202,7 +196,6 @@ export default {
         photos: ph('Videoke machines in a mall'),
         ticker: ['SOURCES: PCIJ (MAR-APR 2008)', 'WIKIPEDIA (MAGIC MIC)', 'WIKIPEDIA (MY WAY KILLINGS)'],
       },
-      cta: { title: 'YOUR VIDEOKE SONG', text: 'What was your go-to videoke song in the 2000s? First name and city only.' },
       parts: [
         {
           slug: 'five-pesos-a-song', label: 'ROUND 1', cardTitle: 'FIVE PESOS A SONG', cardLine: 'Videoke on every corner',
@@ -238,7 +231,6 @@ export default {
           ],
           video: v('a family videoke night'),
           photos: [],
-          cta: { title: 'NO JUDGING', text: 'Share a song you love to sing, even off-key. First name and city only.' },
           ticker: ['SOURCES: PCIJ (MAR-APR 2008)', 'WIKIPEDIA (MY WAY KILLINGS)', 'NEW YORK TIMES (FEB 7, 2010)'],
         },
       ],
@@ -259,7 +251,6 @@ export default {
         photos: ph('Angel Locsin', 'Bea Alonzo', 'John Lloyd Cruz'),
         ticker: ['SOURCES: WIKIPEDIA (DARNA; SUPER INGGO; LOVE TEAM)', 'PHILSTAR (AUG 21, 2006)'],
       },
-      cta: { title: 'YOUR PRIMETIME HERO', text: 'Who was your favorite primetime hero or love team? First name and city only.' },
       parts: [
         {
           slug: 'super-inggo', label: 'ROUND 1', cardTitle: 'SUPER INGGO', cardLine: 'A 9-year-old superhero on primetime',
@@ -295,7 +286,6 @@ export default {
           ],
           video: v('a 2008 love team movie trailer'),
           photos: ph('John Lloyd Cruz', 'Sarah Geronimo'),
-          cta: { title: 'REEL OR REAL?', text: 'Did you ever believe a love team was together in real life? First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (LOVE TEAM; A VERY SPECIAL LOVE; KATORSE)'],
         },
       ],

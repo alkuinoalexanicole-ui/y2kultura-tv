@@ -34,7 +34,6 @@ export default {
         photos: ph('A Nokia phone', 'Texting'),
         ticker: ['SOURCES: PHILSTAR (MAY 15, 2001)', 'GMA NEWS (AUG 18, 2010)'],
       },
-      cta: { title: 'ANONG GM MO?', text: 'What GM (group message) did you send most in the 2000s? First name and city only.' },
       parts: [
         {
           slug: 'texting-capital', prize: 1000,
@@ -103,7 +102,6 @@ export default {
         photos: ph('A home TV', 'MariMar stars', 'Manny Pacquiao'),
         ticker: ['SOURCES: PEP (FEB 15, 2008)', 'TVASIA (JUNE 2009)', 'PHILSTAR (OCT 9, 2007)'],
       },
-      cta: { title: 'ANONG PINANOOD MO?', text: 'Which show did your family never miss at night? First name and city only.' },
       parts: [
         {
           slug: 'balita-sa-hapunan', prize: 10000,
@@ -172,7 +170,6 @@ export default {
         photos: ph('A boombox', 'The Divine Mercy image', 'Ogie Alcasid'),
         ticker: ['SOURCES: LOST MEDIA WIKI (3 O\'CLOCK PRAYER)', 'WIKIPEDIA (SOP, ASAP)', 'PHILSTAR (JUNE 24, 2012)'],
       },
-      cta: { title: 'SOUNDTRIP NG LINGGO', text: 'What song played in your house every Sunday morning? First name and city only.' },
       parts: [
         {
           slug: 'sunday-oldies', prize: 100000,
@@ -241,7 +238,6 @@ export default {
         photos: ph('Makati at midnight', 'A call center floor', 'Makati at dawn'),
         ticker: ['SOURCES: AFP VIA GOVERNANCE NOW (DEC 7, 2010)', 'PHILSTAR (SEPT 8, 2008)', 'INQUIRER (FAST FACTS)'],
       },
-      cta: { title: 'PANG-GABI KA BA?', text: 'Did you or someone in your family work the graveyard shift in the 2000s? Share a memory. First name and city only.' },
       parts: [
         {
           slug: 'call-center-capital', prize: 400000,

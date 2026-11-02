@@ -39,7 +39,6 @@ export default {
         photos: ph('A keypad phone', 'A prepaid load card', 'A text on a tiny screen'),
         ticker: ['SOURCES: PHILSTAR (MAY 15, 2001)', 'IEEE SPECTRUM (OCT 2008)', 'PHILSTAR (DEC 20, 2008)', 'NOYPIGEEKS'],
       },
-      cta: { title: 'TEXT IN YOUR MEMORY', text: 'Share your first phone and the first text you remember. First name and city only.' },
       parts: [
         {
           slug: 'p1-a-text', label: 'PART 1', cardTitle: 'P1 A TEXT', cardLine: 'The P1 text, the 160-character message, and the nationwide numbers',
@@ -63,7 +62,6 @@ export default {
           ],
           video: v('a sample GM, a TV ad, or a MYX text feature'),
           photos: ph('A GM on screen', 'An eyeball meetup spot'),
-          cta: { title: 'SEND A GM', text: 'Add a short memory of a textmate or eyeball. Use a first name and city only, with no phone numbers.' },
           ticker: ['Y2KULTURA GROUP RESEARCH'],
         },
         {
@@ -103,7 +101,6 @@ export default {
         photos: ph('An MP3 player', 'Earphones in', 'A playlist on a tiny screen'),
         ticker: ['SOURCES: MACWORLD IPOD TIMELINE', 'VULCAN POST', 'NOYPIGEEKS', 'PHILSTAR (DEC 2008)', 'TECH DIGEST', 'GMA NEWS'],
       },
-      cta: { title: 'REQUEST A SONG', text: 'Tell us the first song on your first MP3 player or iPod. First name and city only.' },
       parts: [
         {
           slug: '1000-songs', label: 'PART 1', cardTitle: '1,000 SONGS', cardLine: 'The first iPod, the shuffle, and the nano',
@@ -128,7 +125,6 @@ export default {
           ],
           video: v('a 2000s music video or a playlist memory'),
           photos: ph('A stack of CDs', 'A computer music library'),
-          cta: { title: 'SHARE YOUR PLAYLIST', text: 'Add one song from your 2000s playlist. First name and city only.' },
           ticker: ['SOURCES: VULCAN POST', 'GMA NEWS (2012)'],
         },
         {
@@ -168,7 +164,6 @@ export default {
         photos: ph('A cable box and remote', 'A DVD player', 'A stack of discs'),
         ticker: ['SOURCES: WIKIPEDIA (SKY CABLE, DESTINY CABLE)', 'IIPA SPECIAL 301 REPORT ON THE PHILIPPINES (2005)', 'AMAUTEURISH (2023)', 'MEDIACOMMONS'],
       },
-      cta: { title: 'WHAT WAS ON YOUR TV?', text: "Tell us your household's favorite cable channel or the first DVD you watched. First name and city only." },
       parts: [
         {
           slug: 'cable-takes-over', label: 'PART 1', cardTitle: 'CABLE TAKES OVER', cardLine: 'Cable operators, mergers, and new channels',
@@ -192,7 +187,6 @@ export default {
           ],
           video: v('a home movie night'),
           photos: ph('A DVD player', 'A movie night at home'),
-          cta: { title: 'MOVIE NIGHT', text: 'Share the first DVD or series your family watched together. First name and city only.' },
           ticker: ['SOURCES: IIPA SPECIAL 301 REPORT (2005)', 'AMAUTEURISH (2023)', 'MEDIACOMMONS'],
         },
         {
@@ -232,7 +226,6 @@ export default {
         photos: ph('A camera phone', 'A photo album, then and now', 'A profile page'),
         ticker: ['SOURCES: WIKIPEDIA (ME AT THE ZOO)', 'NPR (2012)', 'GLOBAL VOICES (2011)', 'TECHCRUNCH (NOV 2007)', 'INQUIRER TECHNOLOGY (2011)'],
       },
-      cta: { title: 'UPLOAD YOUR THROWBACK', text: 'Share a photo from your 2000s digital album. First name and city only.' },
       parts: [
         {
           slug: 'broadcast-yourself', label: 'PART 1', cardTitle: 'BROADCAST YOURSELF', cardLine: 'The first video, and a site that took over the web',
@@ -244,7 +237,6 @@ export default {
           ],
           video: v('"Me at the zoo" or another early YouTube video'),
           photos: ph('An early YouTube page', 'A shared video'),
-          cta: { title: 'YOUR FIRST VIDEO', text: 'Tell us the first YouTube video you remember watching. First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (ME AT THE ZOO)', 'INQUIRER TECHNOLOGY (2011)'],
         },
         {
@@ -269,7 +261,6 @@ export default {
           ],
           video: v('a Friendster or Multiply throwback'),
           photos: ph('A Friendster profile', 'A Multiply album'),
-          cta: { title: 'YOUR PROFILE PIC', text: 'Share a throwback profile picture. Use a first name and city only, and only photos you have permission to share.' },
           ticker: ['SOURCES: GLOBAL VOICES (2011)', 'TECHCRUNCH (NOV 2007)'],
         },
       ],

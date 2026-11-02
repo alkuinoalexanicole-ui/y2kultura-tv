@@ -36,7 +36,6 @@ export default {
         photos: ph('A home TV corner', 'A TV studio', 'A remote control'),
         ticker: ['Y2KULTURA TV: WHERE THE 2000s COME ALIVE!'],
       },
-      cta: { title: 'MAY TSIKA KA?', text: 'Tell us what you remember most about watching TV in the 2000s. First name and city only.' },
       parts: [
         {
           slug: 'bakit-tv', title: 'Bakit TV?', en: 'WHY TV?', cardLine: 'The TV as the center of the house',
@@ -104,7 +103,6 @@ export default {
         photos: ph('A TV studio', 'A newsroom'),
         ticker: ['TAP A MONITOR TO JUMP TO THAT CHANNEL'],
       },
-      cta: { title: 'PABORITONG CHANNEL?', text: 'Which channel brought back the most memories for you? First name and city only.' },
       parts: [
         {
           slug: 'pitong-aspeto', title: 'Pitong Aspeto', en: 'SEVEN ASPECTS', cardLine: 'What each channel is about',
@@ -180,7 +178,6 @@ export default {
         photos: ph('A newsroom', 'Newsroom clocks', 'A TV control room'),
         ticker: ['SOURCES ARE LISTED ON EVERY PAGE AND ON CH 09'],
       },
-      cta: { title: 'MAY NAKITA KANG MALI?', text: 'Spot a wrong date or name? Tell us what to fix. First name and city only.' },
       parts: [
         {
           slug: 'pananaliksik', title: 'Ang Pananaliksik', en: 'THE RESEARCH', cardLine: 'From examples to checked facts',
@@ -239,7 +236,6 @@ export default {
         photos: ph('A camera phone'),
         ticker: ['IKAW NAMAN! THE NEXT EXCLUSIVE COULD BE YOURS'],
       },
-      cta: { title: 'BATI MO SA NETWORK', text: 'Leave a short greeting for Y2Kultura TV. First name and city only.' },
       parts: [
         {
           slug: 'station-break', title: 'Station Break', en: 'SHARE YOUR MEMORIES', cardLine: 'A game show between channels',

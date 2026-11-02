@@ -37,7 +37,6 @@ export default {
         photos: ph('A 2000s album cover', 'A concert crowd', 'A movie poster'),
         ticker: ['SOURCES: LINKINPEDIA', 'WIKIPEDIA (AVRIL LAVIGNE TOURS; MTV PHILIPPINES 1992-2010)', 'PHILSTAR (JULY 29, 2009)'],
       },
-      cta: { title: 'VOX POP', text: 'Which Western song or film defined your 2000s? First name and city only.' },
       parts: [
         {
           slug: 'live-in-manila', label: 'REPORT 1', cardTitle: 'LIVE IN MANILA', cardLine: 'Linkin Park and Avril Lavigne play to Filipino crowds',
@@ -49,7 +48,6 @@ export default {
           ],
           video: v('official concert footage'),
           photos: ph('A concert ticket', 'The crowd'),
-          cta: { title: 'WERE YOU THERE?', text: 'Share your memory of a 2000s concert in the Philippines. First name and city only.' },
           ticker: ['SOURCES: LINKINPEDIA', 'WIKIPEDIA (AVRIL LAVIGNE TOURS)'],
         },
         {
@@ -74,7 +72,6 @@ export default {
           ],
           video: v('an official Harry Potter or Spider-Man trailer'),
           photos: ph('A cinema line', 'A movie ticket'),
-          cta: { title: 'YOUR FIRST BLOCKBUSTER', text: 'What Hollywood movie did you line up for in the 2000s? First name and city only.' },
           ticker: ['SOURCES: PHILSTAR (JULY 29, 2009)'],
         },
       ],
@@ -95,7 +92,6 @@ export default {
         photos: ph('F4 on TV', 'A Koreanovela poster', 'An anime opening'),
         ticker: ['SOURCES: PEP.PH', 'PLARIDEL JOURNAL (2004)', 'WIKIPEDIA (SOUTH KOREAN TV DRAMAS IN THE PHILIPPINES; HERO TV)'],
       },
-      cta: { title: 'VOX POP', text: 'Which Asianovela or anime did you never miss? First name and city only.' },
       parts: [
         {
           slug: 'meteor-fever', label: 'REPORT 1', cardTitle: 'METEOR FEVER', cardLine: 'F4, Tagalog theme songs, and record ratings',
@@ -107,7 +103,6 @@ export default {
           ],
           video: v('the "Byahe" opening or an F4 performance'),
           photos: ph('F4', 'A Meteor Garden VCD'),
-          cta: { title: 'F4 FAN CHECK', text: 'Who was your F4 bias? Tell us, with your first name and city.' },
           ticker: ['SOURCES: PEP.PH', 'PLARIDEL JOURNAL (2004)'],
         },
         {
@@ -132,7 +127,6 @@ export default {
           ],
           video: v('a Hero TV station ID or a Tagalog-dubbed anime opening'),
           photos: ph('An anime on Hero TV', 'A dubbing booth'),
-          cta: { title: 'SING THE OPENING', text: 'Which Tagalog anime theme can you still sing? First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (HERO TV)', 'PLARIDEL JOURNAL (2004)'],
         },
       ],
@@ -153,7 +147,6 @@ export default {
         photos: ph('A K-pop album', 'A fan meetup', 'A dance cover'),
         ticker: ['SOURCES: THE KOREA TIMES (SEPT 6, 2009)', 'PHILSTAR (NOV 15, 2009)', 'WIKIPEDIA (SANDARA PARK; SORRY, SORRY)'],
       },
-      cta: { title: 'VOX POP', text: 'Which K-pop song got you hooked? First name and city only.' },
       parts: [
         {
           slug: 'krung-krung-to-2ne1', label: 'REPORT 1', cardTitle: 'FROM KRUNG-KRUNG TO 2NE1', cardLine: 'Sandara Park, from Star Circle Quest to K-pop',
@@ -177,7 +170,6 @@ export default {
           ],
           video: v('the official "Sorry, Sorry" or "Nobody" music video'),
           photos: ph('The Sorry, Sorry album', 'A music countdown on TV'),
-          cta: { title: 'REQUEST A SONG', text: 'Which 2000s K-pop song should we play next? First name and city only.' },
           ticker: ['SOURCES: THE KOREA TIMES (SEPT 6, 2009)', 'PHILSTAR (NOV 15, 2009)', 'WIKIPEDIA (SORRY, SORRY)'],
         },
         {
@@ -190,7 +182,6 @@ export default {
           ],
           video: v('a 2000s K-pop dance cover, used with permission'),
           photos: ph('A fan club gathering', 'A dance cover group'),
-          cta: { title: 'JOIN THE COVER', text: "Did you join a K-pop cover group? Share your group's name and city." },
           ticker: ['SOURCES: THE KOREA TIMES (SEPT 6, 2009)', 'WIKIPEDIA (SORRY, SORRY)'],
         },
       ],
@@ -211,7 +202,6 @@ export default {
         photos: ph('A Kobe jersey', 'A fast-food counter', 'A Chickenjoy meal'),
         ticker: ['SOURCES: ASSOCIATED PRESS VIA HONOLULU ADVERTISER (JULY 21, 2009)', "WIKIPEDIA (MCDONALD'S PHILIPPINES; JOLLIBEE GROUP)", 'SOUTH CHINA MORNING POST (2021)'],
       },
-      cta: { title: 'VOX POP', text: "Kobe jersey or Jollibee Chickenjoy: what's your strongest 2000s memory? First name and city only." },
       parts: [
         {
           slug: 'mamba-in-manila', label: 'REPORT 1', cardTitle: 'MAMBA IN MANILA', cardLine: 'Kobe\'s 2009 visit and his "home away from home"',
@@ -223,7 +213,6 @@ export default {
           ],
           video: v("news footage of Kobe Bryant's 2009 Manila visit"),
           photos: ph('Fans in Manila', 'The basketball clinic'),
-          cta: { title: 'WERE YOU THERE?', text: 'Did you see Kobe in person? Share your memory. First name and city only.' },
           ticker: ['SOURCES: ASSOCIATED PRESS VIA HONOLULU ADVERTISER (JULY 21, 2009)'],
         },
         {
@@ -248,7 +237,6 @@ export default {
           ],
           video: v('a Jollibee commercial from the 2000s'),
           photos: ph('A Jollibee store abroad', 'A Mang Inasal meal'),
-          cta: { title: 'YOUR ORDER', text: 'What was your go-to 2000s fast-food order? First name and city only.' },
           ticker: ['SOURCES: WIKIPEDIA (JOLLIBEE GROUP)'],
         },
       ],
