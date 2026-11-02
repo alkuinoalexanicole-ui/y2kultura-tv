@@ -2,6 +2,7 @@
 import { DIAL, findChannel } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
+import { noteVisit, wantsBreak, breakHTML, bindBreak } from './breaks.js';
 import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn, isSoundOn, sfx } from './tv.js';
 
 const BASE = window.Y2K_BASE || '';
@@ -62,15 +63,42 @@ function render(path, { animate = true } = {}) {
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
   else swap();
+  if (state === 'on') noteVisit(r.num);
   if (state === 'on' && (channelChanged || animate)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
   currentNum = r.num;
   if (animate) setTimeout(() => view.focus({ preventScroll: true }), 300);
 }
 
+const chOf = (p) => (p.match(/^\/ch\/(\d\d)/) || [])[1] || null;
+const breakbox = document.getElementById('breakbox');
+const closeBreak = () => {
+  breakbox.hidden = true;
+  breakbox.innerHTML = '';
+};
+
 export function go(path) {
+  if (!breakbox.hidden) closeBreak(); // any remote press while a break is open skips it
   if (path === here()) return;
+  const from = chOf(here());
+  const to = chOf(path);
+  if (state === 'on' && wantsBreak(from, to)) return showBreak(from, path, to);
   history.pushState({}, '', BASE + path);
   render(path);
+}
+
+// Station Break: an optional mini quiz between channels.
+function showBreak(from, path, to) {
+  const c = findChannel(from);
+  const label = to ? `CH ${to}` : path === '/guide' ? 'GUIDE' : 'CH 00';
+  breakbox.innerHTML = breakHTML(from, c.title, label);
+  breakbox.hidden = false;
+  sfx('tick');
+  bindBreak(breakbox, () => {
+    if (breakbox.hidden) return;
+    closeBreak();
+    go(path);
+  });
+  setTimeout(() => breakbox.querySelector('.sb-x')?.focus({ preventScroll: true }), 50);
 }
 
 window.addEventListener('popstate', () => render(here()));
@@ -308,6 +336,7 @@ document.addEventListener('keydown', (ev) => {
   else if (ev.key === 'PageDown' || ev.key === '-') { ev.preventDefault(); step(-1); }
   else if (/^[0-9]$/.test(ev.key)) typeDigit(ev.key);
   else if (ev.key === 'g' || ev.key === 'G') go('/guide');
+  else if (ev.key === 'Escape' && !breakbox.hidden) { const p = breakbox.querySelector('[data-sb-skip]'); p?.click(); }
   else if (ev.key === 'Escape' || ev.key === 'Backspace') { ev.preventDefault(); up(); }
 });
 
