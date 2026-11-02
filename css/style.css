@@ -854,9 +854,7 @@ body.on .crt:not(.turning-off) { display: none; }
 .intro-note span { font-size: clamp(12px, 1.8cqw, 15px); }
 .intro-note:empty { display: none; }
 .intro-note.nudge { animation: wiggle .4s; }
-.skip { position: absolute; right: 12px; bottom: 10px; background: none; border: 0; color: #5d6478; font-size: 12px; cursor: pointer; text-decoration: underline; }
-.skip:hover, .skip:focus-visible { color: #c9d0e2; }
-body.on .skip, .crt.turning-on .skip, .crt.turning-on .intro-note, .crt.turning-off .intro-note, .crt.turning-off .skip { display: none; }
+.crt.turning-on .intro-note, .crt.turning-off .intro-note { display: none; }
 
 .crt.turning-on { animation: crt-clear .62s forwards; }
 .crt.turning-on::before { opacity: 0; }
