@@ -268,10 +268,6 @@ function togglePower() {
   if (state === 'on') return powerOff();
 }
 
-document.getElementById('skip-intro').addEventListener('click', () => {
-  if (state === 'unplugged') plugIn();
-  if (state === 'standby') powerOn();
-});
 
 /* ---------- Remote ---------- */
 function dialIndex() {
