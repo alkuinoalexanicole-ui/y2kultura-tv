@@ -2,7 +2,7 @@
 import { DIAL, findChannel } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
-import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn, isSoundOn } from './tv.js';
+import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn, isSoundOn, sfx } from './tv.js';
 
 const BASE = window.Y2K_BASE || '';
 const here = () => location.pathname.slice(BASE.length) || '/';
@@ -51,18 +51,18 @@ function render(path, { animate = true } = {}) {
     view.innerHTML = r.html;
     view.scrollTop = 0;
     document.title = r.title;
-    display.textContent = r.num === '--' ? 'GUIDE' : `CH ${r.num}`;
+    if (state === 'on') display.textContent = r.num === '--' ? 'GUIDE' : `CH ${r.num}`;
     startSnow();
     fixLinks(view);
     afterRender(view).then(() => fixLinks(view));
     // Color bars on the sign-off page come with the long test-tone beep.
-    if (view.querySelector('[data-tone]')) setTimeout(() => { if (view.querySelector('[data-tone]')) startTone(8); }, 250);
+    if (state === 'on' && view.querySelector('[data-tone]')) setTimeout(() => { if (view.querySelector('[data-tone]')) startTone(8); }, 250);
     else stopTone();
   };
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
   else swap();
-  if (channelChanged || animate) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
+  if (state === 'on' && (channelChanged || animate)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
   currentNum = r.num;
   if (animate) setTimeout(() => view.focus({ preventScroll: true }), 300);
 }
@@ -98,6 +98,155 @@ function paintSoundBtn() {
   b.setAttribute('aria-pressed', String(on));
 }
 paintSoundBtn();
+
+/* ---------- Power: plug in the TV, then switch it on with the remote ---------- */
+const crt = document.getElementById('crt');
+const note = document.getElementById('intro-note');
+const plug = document.getElementById('plug');
+const mains = document.getElementById('mains');
+const cordPath = document.getElementById('cord-path');
+const powerBtn = document.querySelector('[data-act="power"]');
+let state = 'unplugged'; // unplugged → standby → on (and back to standby when switched off)
+try {
+  if (sessionStorage.getItem('y2k-plugged') === '1') state = 'standby';
+} catch (e) {
+  /* storage unavailable: start unplugged */
+}
+
+const NOTES = {
+  unplugged: '<b>① Isaksak muna ang TV!</b><span>Drag the plug into the extension cord below the screen, or just tap the plug.</span>',
+  standby: '<b>② Pindutin ang POWER</b><span>Press the red power button on the remote to turn on the TV.</span>',
+};
+
+function paintState() {
+  document.body.classList.remove('unplugged', 'standby', 'on');
+  document.body.classList.add(state);
+  note.innerHTML = NOTES[state] || '';
+  if (state === 'unplugged') display.textContent = '- - -';
+  if (state === 'standby') display.textContent = 'STANDBY';
+  powerBtn.setAttribute('aria-label', state === 'on' ? 'Power: turn the TV off' : 'Power: turn the TV on');
+  plug.disabled = state !== 'unplugged';
+  plug.setAttribute('aria-label', state === 'unplugged' ? 'Plug in the TV (drag the plug into the extension cord, or press Enter)' : 'The TV is plugged in');
+}
+
+// Plug position along the base, from where the cord leaves the TV to the extension cord's socket.
+let plugX = 0;
+function plugBounds() {
+  const w = mains.clientWidth;
+  const sock = mains.querySelector('.socket');
+  const start = Math.min(w * 0.18, 60);
+  const end = sock.offsetLeft - plug.offsetWidth + 6;
+  return { start, end: Math.max(start, end) };
+}
+function placePlug(x) {
+  plugX = x;
+  plug.style.left = `${x}px`;
+  const h = mains.clientHeight;
+  const y = h / 2;
+  cordPath.setAttribute('d', `M0,${y - 4} C${x * 0.35},${h - 2} ${x * 0.7},${h - 2} ${x + 2},${y}`);
+}
+function resetPlug() {
+  const { start, end } = plugBounds();
+  placePlug(state === 'unplugged' ? start : end);
+}
+
+function plugIn() {
+  if (state !== 'unplugged') return;
+  const { end } = plugBounds();
+  plug.classList.add('sliding');
+  placePlug(end);
+  setTimeout(() => plug.classList.remove('sliding'), 260);
+  sfx('plug');
+  state = 'standby';
+  try {
+    sessionStorage.setItem('y2k-plugged', '1');
+  } catch (e) {
+    /* storage unavailable: plugged in for this visit only */
+  }
+  paintState();
+}
+
+let drag = null;
+plug.addEventListener('pointerdown', (ev) => {
+  if (state !== 'unplugged') return;
+  drag = { x0: ev.clientX, p0: plugX, moved: false };
+  plug.setPointerCapture(ev.pointerId);
+});
+plug.addEventListener('pointermove', (ev) => {
+  if (!drag) return;
+  const { start, end } = plugBounds();
+  const dx = ev.clientX - drag.x0;
+  if (Math.abs(dx) > 4) drag.moved = true;
+  placePlug(Math.min(end, Math.max(start, drag.p0 + dx)));
+});
+plug.addEventListener('pointerup', () => {
+  if (!drag) return;
+  const { start, end } = plugBounds();
+  const moved = drag.moved;
+  drag = null;
+  if (!moved || plugX > end - 30) return plugIn();
+  plug.classList.add('sliding');
+  placePlug(start);
+  setTimeout(() => plug.classList.remove('sliding'), 260);
+});
+plug.addEventListener('click', (ev) => {
+  // Keyboard (Enter/Space) arrives as a click with no pointer drag.
+  if (ev.detail === 0) plugIn();
+});
+window.addEventListener('resize', resetPlug);
+
+function nudge() {
+  sfx('tick');
+  const el = state === 'unplugged' ? plug : powerBtn;
+  display.textContent = state === 'unplugged' ? 'NO POWER' : 'PRESS ⏻';
+  el.classList.remove('nudge');
+  void el.offsetWidth;
+  el.classList.add('nudge');
+  note.classList.remove('nudge');
+  void note.offsetWidth;
+  note.classList.add('nudge');
+}
+
+function powerOn() {
+  state = 'warming';
+  display.textContent = 'POWER ON';
+  sfx('on');
+  crt.classList.remove('turning-off');
+  crt.classList.add('turning-on');
+  document.body.classList.remove('standby');
+  document.body.classList.add('warming');
+  setTimeout(() => {
+    crt.classList.remove('turning-on');
+    document.body.classList.remove('warming');
+    state = 'on';
+    paintState();
+    render(here(), { animate: true });
+  }, reduced ? 50 : 650);
+}
+
+function powerOff() {
+  state = 'cooling';
+  stopTone();
+  sfx('off');
+  crt.classList.add('turning-off');
+  document.body.classList.remove('on');
+  setTimeout(() => {
+    crt.classList.remove('turning-off');
+    state = 'standby';
+    paintState();
+  }, reduced ? 50 : 600);
+}
+
+function togglePower() {
+  if (state === 'unplugged') return nudge();
+  if (state === 'standby') return powerOn();
+  if (state === 'on') return powerOff();
+}
+
+document.getElementById('skip-intro').addEventListener('click', () => {
+  if (state === 'unplugged') plugIn();
+  if (state === 'standby') powerOn();
+});
 
 /* ---------- Remote ---------- */
 function dialIndex() {
@@ -152,6 +301,10 @@ const actions = {
 document.querySelector('.remote').addEventListener('click', (ev) => {
   const b = ev.target.closest('button');
   if (!b) return;
+  if (b.dataset.act === 'power') return togglePower();
+  // With the TV off, every other button clicks but does nothing, like a real remote.
+  if (state !== 'on') return nudge();
+  sfx('tick');
   if (b.dataset.num) typeDigit(b.dataset.num);
   else actions[b.dataset.act]?.();
 });
@@ -159,6 +312,7 @@ document.querySelector('.remote').addEventListener('click', (ev) => {
 document.addEventListener('keydown', (ev) => {
   if (ev.target.closest('input, textarea, select')) return;
   if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+  if (state !== 'on') return;
   if (ev.key === 'PageUp' || ev.key === '+' || ev.key === '=') { ev.preventDefault(); step(1); }
   else if (ev.key === 'PageDown' || ev.key === '-') { ev.preventDefault(); step(-1); }
   else if (/^[0-9]$/.test(ev.key)) typeDigit(ev.key);
@@ -191,4 +345,7 @@ function startSnow() {
 
 /* ---------- Start ---------- */
 if (!reduced) view.classList.add('flicker');
-render(here(), { animate: true });
+paintState();
+resetPlug();
+// The page loads behind the dark screen; it appears once the viewer turns the TV on.
+render(here(), { animate: false });
