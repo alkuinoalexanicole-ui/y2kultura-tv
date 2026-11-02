@@ -725,3 +725,76 @@ a.nextseg:hover { box-shadow: 0 0 14px rgba(255,210,63,.6); }
 .buzz-pager { background: #1a0424; border-top: 2px solid var(--b-pink); }
 .buzz-pager a { color: var(--b-gold); }
 @media (max-width: 560px) { .burst { left: -8px; top: -18px; font-size: 12px; } .reply { margin-left: 8px; } }
+
+/* ---------- CH 09: Credits Roll ---------- */
+.credits { color: #f2f2f2; }
+.finale { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; padding: 14px 16px; background: radial-gradient(ellipse at 30% 30%, #1b1b2e, #000 70%); border-bottom: 2px solid #444; }
+.finale-video .cr-role { margin-top: 0; }
+.video.finalecam { border: 2px solid #555; }
+.roll-wrap { display: flex; flex-direction: column; gap: 8px; }
+.roll { position: relative; height: 380px; overflow: hidden; text-align: center; border: 1px solid #222; background: #000; outline: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
+.roll:focus-visible { box-shadow: 0 0 0 2px #fff; }
+.roll-in { padding: 0 12px; }
+@media (prefers-reduced-motion: no-preference) {
+  .roll-in { animation: credits-roll 75s linear infinite; }
+  .roll:hover .roll-in, .roll.paused .roll-in { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) { .roll { overflow-y: auto; -webkit-mask-image: none; mask-image: none; } .roll-btn { display: none; } }
+@keyframes credits-roll { from { transform: translateY(40px); } to { transform: translateY(-100%); } }
+.roll-btn { align-self: center; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #fff; background: #111; border: 1px solid #666; border-radius: 20px; padding: 4px 14px; cursor: pointer; }
+.roll-btn:hover { border-color: #fff; }
+.cr-block { padding: 18px 0; }
+.cr-small { font-size: 11px; letter-spacing: 3px; color: #aaa; text-transform: uppercase; }
+.cr-big { font-size: clamp(26px, 4cqw, 40px); color: #fff; margin: 4px 0; }
+.cr-role { font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 3px; color: #f3c969; margin: 14px 0 6px; }
+.cr-name { font-family: 'Oswald', sans-serif; font-size: 20px; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+.cr-line { font-size: 14px; color: #eee; margin: 6px 0; line-height: 1.4; }
+.cr-line span { color: #aaa; font-size: 12px; }
+.credits-bar { background: #111; border-top: 1px solid #333; border-bottom: 1px solid #333; }
+.credits-bar .an { color: #f3c969; }
+.endcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; padding: 12px 16px; }
+.endcard { display: flex; flex-direction: column; gap: 2px; padding: 12px; text-decoration: none; background: #0d0d0d; border: 1px solid #444; }
+.endcard:hover, .endcard:focus-visible { border-color: #f3c969; outline: none; background: #151515; }
+.endcard-n { font-family: 'Oswald', sans-serif; font-size: 12px; color: #f3c969; letter-spacing: 2px; }
+.endcard-t { font-size: 22px; color: #fff; }
+.endcard-en { font-size: 11px; letter-spacing: 2px; color: #aaa; }
+.endcard-s { font-size: 12px; color: #ccc; }
+.credits-now { background: #0b0b0b; border-bottom: 1px solid #444; }
+.credits-now .label { background: #f3c969; color: #000; }
+.credits-now .where { color: #ddd; letter-spacing: 2px; font-size: 12px; }
+.cr-title { text-align: center; padding: 14px 16px 2px; }
+.cr-title .kicker { font-size: 11px; letter-spacing: 3px; color: #f3c969; font-weight: 700; }
+.cr-title h1 { margin: 2px 0 0; font-size: clamp(30px, 4.6cqw, 46px); color: #fff; }
+.cr-tsub { font-size: 14px; color: #bbb; margin-top: 2px; }
+.credits-tabs { text-align: center; --accent: #f3c969; padding-top: 8px; }
+.credits-tabs .tab.on { color: #000; }
+.cr-sheet { background: #0b0b0b; border: 1px solid #333; padding: 10px 14px 12px; margin-bottom: 12px; }
+.cr-names { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.cr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cr-table th { text-align: left; padding: 4px 12px 4px 0; white-space: nowrap; vertical-align: top; color: #f3c969; font-weight: 700; }
+.cr-table th a { color: #f3c969; }
+.cr-table td { padding: 4px 0; border-bottom: 1px solid #222; color: #ddd; }
+.cr-list { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; color: #ddd; }
+.cr-ch { margin: 0 0 6px; font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 17px; letter-spacing: .5px; }
+.cr-ch a { color: #fff; text-decoration: none; }
+.cr-ch a:hover { color: #f3c969; }
+.cr-ch small { font-family: inherit; font-size: 12px; color: #999; letter-spacing: 0; }
+.cr-refs { margin: 0; padding: 0; list-style: none; columns: 2 220px; column-gap: 20px; font-size: 12px; line-height: 1.5; color: #ddd; }
+.cr-refs li { break-inside: avoid; padding: 2px 0 2px 10px; text-indent: -10px; }
+.cr-refs li::before { content: '▸ '; color: #f3c969; }
+.cr-media { margin: 0; padding-left: 16px; font-size: 12px; line-height: 1.5; color: #ddd; }
+.cr-media a { color: #fff; }
+.cr-media span { color: #999; }
+.cr-note { font-size: 12px; color: #999; text-align: center; }
+.cr-p { margin: 0; font-size: 14px; line-height: 1.55; color: #ddd; }
+.signoff { position: relative; min-height: 280px; display: grid; place-items: center; border: 2px solid #333; }
+.signoff .smpte, .signoff .smpte-low { position: absolute; left: 0; right: 0; display: flex; }
+.signoff .smpte { top: 0; height: 70%; } .signoff .smpte-low { bottom: 0; height: 30%; }
+.signoff .smpte i, .signoff .smpte-low i { flex: 1; }
+.signoff-card { position: relative; max-width: 520px; margin: 24px 16px; padding: 16px 18px; text-align: center; background: rgba(0,0,0,.85); border: 1px solid #666; }
+.signoff-card p { margin: 6px 0; font-size: 14px; line-height: 1.55; color: #eee; }
+.signoff-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.credits-pager { background: #0b0b0b; border-top: 1px solid #444; }
+.credits-pager a { color: #f3c969; }
+@media (max-width: 700px) { .finale { grid-template-columns: minmax(0, 1fr); } .roll { height: 320px; } }

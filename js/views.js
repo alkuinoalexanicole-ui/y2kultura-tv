@@ -48,7 +48,7 @@ export function guide() {
       <span class="badge" style="background:var(--yellow);color:#0b2a5c">TONIGHT ON Y2KULTURA</span>
     </div>
     <ul class="listing">${rows}</ul>
-    ${ticker(['PICK A CHANNEL OR TYPE ITS NUMBER ON THE REMOTE', 'P+ / P- TO CHANGE CHANNEL', 'ABANGAN! MORE CHANNELS COMING SOON'])}
+    ${ticker(['PICK A CHANNEL OR TYPE ITS NUMBER ON THE REMOTE', 'P+ / P- TO CHANGE CHANNEL', 'ALL 9 CHANNELS NOW ON AIR']) }
   </div>`;
 }
 
@@ -77,6 +77,7 @@ export function channel(c) {
   if (c.data.format === 'teleserye') return seryeChannel(c);
   if (c.data.format === 'quiz') return quizChannel(c);
   if (c.data.format === 'buzz') return buzzChannel(c);
+  if (c.data.format === 'credits') return creditsChannel(c);
   return lineupChannel(c);
 }
 
@@ -160,6 +161,7 @@ export function episode(c, e, partIndex) {
   if (c.data.format === 'teleserye') return seryeEpisode(c, e, partIndex);
   if (c.data.format === 'quiz') return quizEpisode(c, e, partIndex);
   if (c.data.format === 'buzz') return buzzEpisode(c, e, partIndex);
+  if (c.data.format === 'credits') return creditsEpisode(c, e);
   return lineupEpisode(c, e, partIndex);
 }
 
@@ -654,6 +656,189 @@ function seryeEpisode(c, e, partIndex) {
   </div>`;
 }
 
+/* ---------- CH 09 format: closing credits and sign-off ---------- */
+function allPages(ch) {
+  const out = [];
+  ch.data.episodes.forEach((e) => {
+    out.push({ e, page: e.overview, href: `/ch/${ch.num}/${e.slug}` });
+    (e.parts || []).forEach((p) => out.push({ e, page: p, href: `/ch/${ch.num}/${e.slug}/${p.slug}` }));
+  });
+  return out;
+}
+
+// Sources are the ticker items from "SOURCES:" onward on each page.
+function channelSources(ch) {
+  const set = new Set();
+  allPages(ch).forEach(({ page }) => {
+    let on = false;
+    (page?.ticker || []).forEach((t) => {
+      if (/^SOURCES?:/i.test(t)) on = true;
+      if (!on) return;
+      let depth = 0, cur = '';
+      const items = [];
+      for (const ch2 of t.replace(/^SOURCES?:\s*/i, '')) {
+        if (ch2 === '(') depth++;
+        if (ch2 === ')') depth--;
+        if (ch2 === ',' && depth === 0) { items.push(cur); cur = ''; } else cur += ch2;
+      }
+      items.push(cur);
+      items.forEach((it) => {
+        const m = it.trim().match(/^(.*?)\s*\((.*)\)$/);
+        if (m && m[2].includes(';')) m[2].split(';').forEach((x) => set.add(`${m[1]} (${x.trim()})`));
+        else if (it.trim()) set.add(it.trim());
+      });
+    });
+  });
+  return [...set].sort((a, b) => a.localeCompare(b));
+}
+
+function channelMedia(ch) {
+  const photos = new Map();
+  const videos = new Map();
+  const add = (page, href) => {
+    (page?.photos || []).forEach((p) => { if (p.src && !photos.has(p.src)) photos.set(p.src, { ...p, href }); });
+    if (page?.video?.youtube && !videos.has(page.video.youtube)) videos.set(page.video.youtube, { ...page.video, href });
+  };
+  allPages(ch).forEach(({ page, href }) => add(page, href));
+  return { photos: [...photos.values()], videos: [...videos.values()] };
+}
+
+function creditsChannel(c) {
+  const d = c.data;
+  const shows = CHANNELS.filter((x) => x.data && x !== c);
+  let nPhotos = 0, nVideos = 0, nRefs = 0;
+  CHANNELS.filter((x) => x.data).forEach((x) => {
+    const m = channelMedia(x);
+    nPhotos += m.photos.length;
+    nVideos += m.videos.length;
+    nRefs += channelSources(x).length;
+  });
+  const roll = `
+    <div class="cr-block"><div class="cr-small">${esc(d.presents)}</div><div class="cr-big pf">Y2Kultura TV</div><div class="cr-small">${esc(d.tagline)}</div></div>
+    <div class="cr-block"><div class="cr-role">${esc(d.curatorsLabel)}</div>${d.curators.map((n) => `<div class="cr-name">${esc(n)}</div>`).join('')}</div>
+    <div class="cr-block"><div class="cr-role">NOW SHOWING</div>${shows.map((x) => `<div class="cr-line"><b>CH ${x.num} · ${esc(x.title)}</b><br><span>${esc(x.aspect)}</span></div>`).join('')}</div>
+    <div class="cr-block"><div class="cr-role">REFERENCES</div><div class="cr-line">${nRefs} sources cited across the channels<br><span>Full list: Mga Sanggunian</span></div></div>
+    <div class="cr-block"><div class="cr-role">PHOTOS AND VIDEOS</div><div class="cr-line">${nPhotos} photos from Wikimedia Commons<br>${nVideos} videos from YouTube<br><span>Full list: Mga Larawan at Video</span></div></div>
+    <div class="cr-block"><div class="cr-role">BUILT WITH</div>${d.builtWith.map(([k, v]) => `<div class="cr-line"><b>${esc(k)}</b><br><span>${esc(v)}</span></div>`).join('')}</div>
+    <div class="cr-block"><div class="cr-role">SPECIAL THANKS</div>${d.thanks.map((t) => `<div class="cr-line">${esc(t)}</div>`).join('')}</div>
+    <div class="cr-block"><div class="cr-small">All shows, songs, brands, and footage belong to their respective owners.<br>An educational, non-commercial digital museum.</div></div>
+    <div class="cr-block"><div class="cr-big pf">Salamat sa panonood!</div></div>`;
+  const cards = d.episodes
+    .map(
+      (e) => `<a class="endcard" href="/ch/${c.num}/${e.slug}" data-link><span class="endcard-n">${pad(e.ep)}</span>
+        <span class="endcard-t pf">${esc(e.title)}</span><span class="endcard-en">${esc(e.en)}</span><span class="endcard-s">${esc(e.cardSub)}</span></a>`
+    )
+    .join('');
+  return `
+  <div class="page credits" style="background:${d.bg}">
+    ${channelHead(c, d, 'background:#0b0b0b')}
+    <div class="finale">
+      <div class="finale-video">
+        <div class="cr-role">BEHIND THE SCENES · THE LAST BROADCAST</div>
+        ${ytFrame(d.rollVideo, 'finalecam', null)}
+      </div>
+      <div class="roll-wrap">
+        <div class="roll" data-roll tabindex="0" aria-label="Closing credits"><div class="roll-in">${roll}</div></div>
+        <button type="button" class="roll-btn" data-roll-btn aria-pressed="false"><i class="ti ti-player-pause" aria-hidden="true"></i> PAUSE CREDITS</button>
+      </div>
+    </div>
+    <div class="bar credits-bar"><span class="an">ANG BUONG CREDITS</span><small>THE FULL CREDITS, REFERENCES, AND SIGN-OFF</small></div>
+    <div class="endcards">${cards}</div>
+    <div style="flex:1"></div>
+    ${ticker(['SALAMAT SA PANONOOD!', 'THE FULL REFERENCE LIST IS IN MGA SANGGUNIAN', 'P+ TO GO BACK TO THE START OF THE NETWORK'])}
+  </div>`;
+}
+
+function creditsEpisode(c, e) {
+  const d = c.data;
+  const shows = CHANNELS.filter((x) => x.data && x !== c);
+  let body = '';
+  if (e.kind === 'team') {
+    body = `<div class="cr-sheet">
+      <div class="cr-role">${esc(d.curatorsLabel)}</div>
+      <div class="cr-names">${d.curators.map((n) => `<span class="cr-name">${esc(n)}</span>`).join('')}</div>
+      <div class="cr-role">THE CHANNELS</div>
+      <table class="cr-table">${CHANNELS.filter((x) => x.data).map((x) => `<tr><th><a href="/ch/${x.num}" data-link>CH ${x.num}</a></th><td><b>${esc(x.title)}</b> · ${esc(x.aspect)}</td></tr>`).join('')}</table>
+      <div class="cr-role">BUILT WITH</div>
+      <table class="cr-table">${d.builtWith.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table>
+      <div class="cr-role">SPECIAL THANKS</div>
+      <ul class="cr-list">${d.thanks.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+    </div>`;
+  } else if (e.kind === 'refs') {
+    body = shows
+      .map((x) => {
+        const refs = channelSources(x);
+        if (!refs.length) return '';
+        return `<section class="cr-sheet"><h3 class="cr-ch"><a href="/ch/${x.num}" data-link>CH ${x.num} · ${esc(x.title)}</a> <small>${esc(x.aspect)}</small></h3>
+          <ul class="cr-refs">${refs.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></section>`;
+      })
+      .join('') + `<p class="cr-note">Sources are listed as they are cited on each page. Figures are given as they were reported at the time.</p>`;
+  } else if (e.kind === 'media') {
+    body = shows
+      .map((x) => {
+        const { photos, videos } = channelMedia(x);
+        if (!photos.length && !videos.length) return '';
+        return `<section class="cr-sheet"><h3 class="cr-ch"><a href="/ch/${x.num}" data-link>CH ${x.num} · ${esc(x.title)}</a> <small>${photos.length} photos · ${videos.length} videos</small></h3>
+          ${videos.length ? `<div class="cr-role">VIDEOS (YOUTUBE)</div><ul class="cr-media">${videos
+            .map((v) => `<li><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">${esc(v.label)}</a> <span>· uploaded by ${esc(v.credit || 'YouTube user')}</span></li>`)
+            .join('')}</ul>` : ''}
+          ${photos.length ? `<div class="cr-role">PHOTOS (WIKIMEDIA COMMONS)</div><ul class="cr-media">${photos
+            .map((p) => `<li><a href="${esc(p.link || p.src)}" target="_blank" rel="noopener">${esc(p.caption)}</a> <span>· ${esc(p.credit || '')}</span></li>`)
+            .join('')}</ul>` : ''}</section>`;
+      })
+      .join('');
+  } else {
+    const low = ['#0000c0', '#131313', '#c000c0', '#131313', '#00c0c0', '#131313', '#c0c0c0'];
+    body = `<div class="signoff">
+      <div class="smpte">${BARS.map((b) => `<i style="background:${b}"></i>`).join('')}</div>
+      <div class="smpte-low">${low.map((b) => `<i style="background:${b}"></i>`).join('')}</div>
+      <div class="signoff-card">
+        <div class="cr-small">Y2KULTURA TV NETWORK</div>
+        <p>This concludes our broadcast day. Y2Kultura TV has brought you the sights, sounds, and feelings of Philippine pop culture from 2000 to 2010, across seven channels.</p>
+        <p>Thank you for watching, and for remembering with us. Hanggang sa muli!</p>
+        <div class="cr-big pf">Salamat sa panonood!</div>
+        <div class="signoff-btns"><a class="btn" href="/" data-link>▶ BACK TO CH 00</a><a class="btn" href="/guide" data-link>CHANNEL GUIDE</a></div>
+      </div>
+    </div>
+    <div class="cols" style="margin-top:14px"><div>${ytFrame(e.overview.video, 'finalecam', null)}</div>
+      <div class="cr-sheet"><div class="cr-role">REMEMBER THIS?</div><p class="cr-p">Every night in the 2000s, stations signed off with a prayer, the national anthem, and a notice like this one, before the screen went to color bars and static. Some viewers stayed up just to see it.</p></div></div>`;
+  }
+  const i = d.episodes.indexOf(e);
+  const prev = d.episodes[i - 1];
+  const next = d.episodes[i + 1];
+  return `
+  <div class="page credits" style="background:${d.bg}">
+    <div class="now credits-now"><span class="label">CH ${c.num} · CREDITS ROLL</span><span class="where">${esc(e.en)}</span>
+      <a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
+    <div class="cr-title">
+      <div class="kicker">${pad(e.ep)} · ${esc(e.en)}</div>
+      <h1 class="pf">${esc(e.title)}</h1>
+      <div class="cr-tsub">${esc(e.overview.sub)}</div>
+    </div>
+    <div class="tabs credits-tabs">${d.episodes.map((x) => `<a class="tab${x === e ? ' on' : ''}" href="/ch/${c.num}/${x.slug}" data-link>${esc(x.title)}</a>`).join('')}</div>
+    <div class="page-body">${body}</div>
+    <div style="flex:1"></div>
+    <div class="pager credits-pager">
+      ${prev ? `<a href="/ch/${c.num}/${prev.slug}" data-link>◀ ${esc(prev.title)}</a>` : `<a href="/ch/${c.num}" data-link>◀ CH ${c.num} MAIN PAGE</a>`}
+      ${next ? `<a href="/ch/${c.num}/${next.slug}" data-link>NEXT: ${esc(next.title)} ▶</a>` : `<a href="/" data-link>BACK TO CH 00 ▶</a>`}
+    </div>
+    ${ticker(e.overview.ticker || [])}
+  </div>`;
+}
+
+function bindRoll(view) {
+  const roll = view.querySelector('[data-roll]');
+  const btn = view.querySelector('[data-roll-btn]');
+  if (!roll || !btn) return;
+  const set = (paused) => {
+    roll.classList.toggle('paused', paused);
+    btn.setAttribute('aria-pressed', String(paused));
+    btn.innerHTML = paused ? '<i class="ti ti-player-play" aria-hidden="true"></i> PLAY CREDITS' : '<i class="ti ti-player-pause" aria-hidden="true"></i> PAUSE CREDITS';
+  };
+  btn.addEventListener('click', () => set(!roll.classList.contains('paused')));
+  roll.addEventListener('focus', () => set(true));
+}
+
 /* ---------- CH 08 format: showbiz talk show ---------- */
 function buzzChannel(c) {
   const d = c.data;
@@ -1033,6 +1218,7 @@ function bindQuiz(view) {
 /* ---------- After a screen appears: draw the CH 03 world map ---------- */
 export async function afterRender(view) {
   bindQuiz(view);
+  bindRoll(view);
   const box = view.querySelector('[data-worldmap]');
   if (!box) return;
   const c = CHANNELS.find((x) => x.num === box.dataset.worldmap);

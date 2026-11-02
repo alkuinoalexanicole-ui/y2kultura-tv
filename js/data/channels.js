@@ -8,6 +8,7 @@ import ch05 from './ch05.js';
 import ch06 from './ch06.js';
 import ch07 from './ch07.js';
 import ch08 from './ch08.js';
+import ch09 from './ch09.js';
 import MEDIA from './media.js';
 
 // Attach videos and photos from media.js to each page.
@@ -35,7 +36,7 @@ export const CHANNELS = [
   { num: '06', title: 'Place To Be', aspect: 'Space', slot: '9:30 PM', data: ch06 },
   { num: '07', title: 'Then vs. Now', aspect: 'Time', slot: '10:00 PM', data: ch07 },
   { num: '08', title: 'Behind the Broadcast', aspect: 'About the museum', slot: '10:30 PM', data: ch08 },
-  { num: '09', title: 'Credits Roll', aspect: 'Credits and references', slot: '11:00 PM' },
+  { num: '09', title: 'Credits Roll', aspect: 'Credits and references', slot: '11:00 PM', data: ch09 },
 ];
 
 export function findChannel(num) {
