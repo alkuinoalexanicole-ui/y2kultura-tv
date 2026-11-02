@@ -106,12 +106,8 @@ const plug = document.getElementById('plug');
 const mains = document.getElementById('mains');
 const cordPath = document.getElementById('cord-path');
 const powerBtn = document.querySelector('[data-act="power"]');
+// Every page load or refresh starts with the TV unplugged.
 let state = 'unplugged'; // unplugged → standby → on (and back to standby when switched off)
-try {
-  if (sessionStorage.getItem('y2k-plugged') === '1') state = 'standby';
-} catch (e) {
-  /* storage unavailable: start unplugged */
-}
 
 const NOTES = {
   unplugged: '<b>① Isaksak muna ang TV!</b><span>Drag the plug into the extension cord below the screen, or just tap the plug.</span>',
@@ -158,11 +154,6 @@ function plugIn() {
   setTimeout(() => plug.classList.remove('sliding'), 260);
   sfx('plug');
   state = 'standby';
-  try {
-    sessionStorage.setItem('y2k-plugged', '1');
-  } catch (e) {
-    /* storage unavailable: plugged in for this visit only */
-  }
   paintState();
 }
 
