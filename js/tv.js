@@ -4,7 +4,21 @@ const osd = document.getElementById('osd');
 const ctx = canvas.getContext('2d');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-let soundOn = false;
+// Sound is on by default; a viewer who turns it off stays off on their next visit.
+let soundOn = true;
+try {
+  if (localStorage.getItem('y2k-sound') === 'off') soundOn = false;
+} catch (e) {
+  /* storage unavailable: keep the default */
+}
+
+// Browsers only allow sound after the viewer has clicked or tapped the page once.
+const canPlay = () => !navigator.userActivation || navigator.userActivation.hasBeenActive;
+function ctxReady() {
+  audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+  if (audio.state === 'suspended') audio.resume();
+  return audio;
+}
 let audio = null;
 let osdTimer = null;
 
@@ -21,9 +35,9 @@ function drawNoise() {
 }
 
 function hiss(ms) {
-  if (!soundOn) return;
+  if (!soundOn || !canPlay()) return;
   try {
-    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    ctxReady();
     const len = Math.floor(audio.sampleRate * (ms / 1000));
     const buf = audio.createBuffer(1, len, audio.sampleRate);
     const data = buf.getChannelData(0);
@@ -73,6 +87,11 @@ export function showOSD(num, name) {
 export function toggleSound() {
   soundOn = !soundOn;
   if (!soundOn) stopTone();
+  try {
+    localStorage.setItem('y2k-sound', soundOn ? 'on' : 'off');
+  } catch (e) {
+    /* storage unavailable: the choice lasts for this visit */
+  }
   return soundOn;
 }
 
@@ -81,11 +100,10 @@ export const isSoundOn = () => soundOn;
 // The 1 kHz test tone that played over the color bars when a station signed off.
 let tone = null;
 export function startTone(seconds = 8, force = false) {
-  if (!soundOn && !force) return;
+  if ((!soundOn && !force) || !canPlay()) return;
   stopTone();
   try {
-    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
-    if (audio.state === 'suspended') audio.resume();
+    ctxReady();
     const osc = audio.createOscillator();
     const gain = audio.createGain();
     const t = audio.currentTime;
