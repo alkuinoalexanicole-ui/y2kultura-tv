@@ -2,7 +2,7 @@
 import { DIAL, findChannel } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
-import { changeChannel, showOSD, toggleSound } from './tv.js';
+import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn } from './tv.js';
 
 const BASE = window.Y2K_BASE || '';
 const here = () => location.pathname.slice(BASE.length) || '/';
@@ -55,6 +55,9 @@ function render(path, { animate = true } = {}) {
     startSnow();
     fixLinks(view);
     afterRender(view).then(() => fixLinks(view));
+    // Color bars on the sign-off page come with the long test-tone beep.
+    if (view.querySelector('[data-tone]')) setTimeout(() => { if (view.querySelector('[data-tone]')) startTone(8); }, 250);
+    else stopTone();
   };
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
@@ -77,6 +80,14 @@ document.addEventListener('click', (ev) => {
   if (!a || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
   ev.preventDefault();
   go(strip(a.getAttribute('href')));
+});
+
+// The "play tone" button on the sign-off page works even when the remote's sound is off.
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-tone-btn]');
+  if (!b) return;
+  if (toneOn()) stopTone();
+  else startTone(8, true);
 });
 
 /* ---------- Remote ---------- */
@@ -124,6 +135,7 @@ const actions = {
   down: () => step(-1),
   sound: () => {
     const on = toggleSound();
+    if (on && view.querySelector('[data-tone]')) startTone(8);
     const b = document.getElementById('sound-btn');
     b.innerHTML = `<i class="ti ${on ? 'ti-volume' : 'ti-volume-off'}"></i>`;
     b.setAttribute('aria-label', on ? 'Sound on' : 'Sound off');

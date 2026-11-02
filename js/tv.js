@@ -72,5 +72,51 @@ export function showOSD(num, name) {
 
 export function toggleSound() {
   soundOn = !soundOn;
+  if (!soundOn) stopTone();
   return soundOn;
 }
+
+export const isSoundOn = () => soundOn;
+
+// The 1 kHz test tone that played over the color bars when a station signed off.
+let tone = null;
+export function startTone(seconds = 8, force = false) {
+  if (!soundOn && !force) return;
+  stopTone();
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    if (audio.state === 'suspended') audio.resume();
+    const osc = audio.createOscillator();
+    const gain = audio.createGain();
+    const t = audio.currentTime;
+    osc.type = 'sine';
+    osc.frequency.value = 1000;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.05, t + 0.04);
+    gain.gain.setValueAtTime(0.05, t + seconds - 0.08);
+    gain.gain.linearRampToValueAtTime(0, t + seconds);
+    osc.connect(gain).connect(audio.destination);
+    osc.start(t);
+    osc.stop(t + seconds + 0.05);
+    tone = { osc, gain };
+    osc.onended = () => { if (tone?.osc === osc) tone = null; };
+  } catch (e) {
+    /* Sound is optional; ignore browsers that block it. */
+  }
+}
+
+export function stopTone() {
+  if (!tone || !audio) return;
+  const { osc, gain } = tone;
+  tone = null;
+  try {
+    gain.gain.cancelScheduledValues(audio.currentTime);
+    gain.gain.setValueAtTime(gain.gain.value, audio.currentTime);
+    gain.gain.linearRampToValueAtTime(0, audio.currentTime + 0.05);
+    osc.stop(audio.currentTime + 0.06);
+  } catch (e) {
+    /* already stopped */
+  }
+}
+
+export const toneOn = () => !!tone;
