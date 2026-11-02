@@ -2,7 +2,7 @@
 import { DIAL, findChannel } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
-import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn } from './tv.js';
+import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn, isSoundOn } from './tv.js';
 
 const BASE = window.Y2K_BASE || '';
 const here = () => location.pathname.slice(BASE.length) || '/';
@@ -90,6 +90,15 @@ document.addEventListener('click', (ev) => {
   else startTone(8, true);
 });
 
+function paintSoundBtn() {
+  const on = isSoundOn();
+  const b = document.getElementById('sound-btn');
+  b.innerHTML = `<i class="ti ${on ? 'ti-volume' : 'ti-volume-off'}"></i>`;
+  b.setAttribute('aria-label', on ? 'Sound on. Tap to turn off' : 'Sound off. Tap to turn on');
+  b.setAttribute('aria-pressed', String(on));
+}
+paintSoundBtn();
+
 /* ---------- Remote ---------- */
 function dialIndex() {
   const p = here().replace(/\/+$/, '') || '/';
@@ -136,9 +145,7 @@ const actions = {
   sound: () => {
     const on = toggleSound();
     if (on && view.querySelector('[data-tone]')) startTone(8);
-    const b = document.getElementById('sound-btn');
-    b.innerHTML = `<i class="ti ${on ? 'ti-volume' : 'ti-volume-off'}"></i>`;
-    b.setAttribute('aria-label', on ? 'Sound on' : 'Sound off');
+    paintSoundBtn();
   },
 };
 
