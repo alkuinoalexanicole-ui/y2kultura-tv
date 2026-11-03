@@ -1018,3 +1018,39 @@ body.standby .rb-power { animation: pulse-power 1.6s ease-in-out infinite; }
 .g-bonus { margin-top: 12px; padding: 10px; background: #fff3c4; border: 2px dashed #e0a800; }
 .bonus-tag { display: inline-block; background: #e3202e; color: #fff; padding: 1px 10px; font-size: 14px; letter-spacing: 1px; margin-bottom: 6px; transform: rotate(-2deg); }
 .sb-card [hidden] { display: none !important; }
+
+/* ---------- Readability: bigger informational text on every channel ----------
+   Sizes grow with the TV screen (cqw = 1% of the screen's width) and stop at a
+   comfortable maximum, so text is easy to read on a laptop without crowding a phone. */
+.page { font-size: clamp(15px, 1.75cqw, 17px); }
+/* Body paragraphs */
+.explain p, .panel p, .desc, .report p, .pitch p, .judges p, .eksena p, .tvn p, .verdict p,
+.reply, .cr-p, .signoff-card p, .note, .standby-card p, .cr-line, .sms-screen p {
+  font-size: clamp(15px, 1.75cqw, 17.5px); line-height: 1.6;
+}
+.ask, .host, .buzz-host { font-size: clamp(15px, 1.7cqw, 17px); }
+.explain h3 { font-size: clamp(17px, 2cqw, 20px); }
+/* Section headings inside panels */
+.panel h4, .report h4, .pitch h4, .judges h4, .eksena h4, .tvn h4 { font-size: clamp(16px, 1.9cqw, 19px); }
+/* Subtitles under page titles */
+.ep-title .sub, .spot-sub, .serye-sub, .quiz-tsub, .buzz-tsub, .cr-tsub, .slate-sub, .slate-fine, .q-en, .brk-text {
+  font-size: clamp(15px, 1.7cqw, 17px);
+}
+/* Fact tables and lists */
+.facts, .rundown, .cr-table, .cr-list { font-size: clamp(14px, 1.6cqw, 16.5px); }
+/* Card descriptions, captions, and small print */
+.photo figcaption, .vcap, .card .cs, .field .cs, .spot-card .cs, .round .cs, .scene .cs, .qcard .cs, .segcard .cs,
+.act-sub, .kab-sub, .rnd-sub, .tab-sub, .ad-sub, .ad-fine, .story-text small, .tile, .paddle .why, .frame div:last-child,
+.cell div:last-child, .bubble div:last-child, .cr-refs, .cr-media, .endcard-s, .abangan-next, .nextq-t, .nextseg-t,
+.lower-sub, .recap-text, .mon-asp, .cr-line span {
+  font-size: clamp(13px, 1.45cqw, 15px); line-height: 1.45;
+}
+.card .ct, .field .ct, .spot-card .ct, .round .ct { font-size: clamp(16px, 1.9cqw, 19px); }
+/* Station Break text */
+.sb-q legend { font-size: clamp(15px, 1.8cqw, 18px); }
+.sb-opt, .tom p, .henyo-clues, .banker-call, .ord, .feud-a { font-size: clamp(14px, 1.6cqw, 16px); }
+.sb-sub, .g-hint, .sb-result, .ord-msg, .sb-field { font-size: clamp(13.5px, 1.5cqw, 15px); }
+.sb-feel span { font-size: clamp(11px, 1.25cqw, 13px); }
+.sb-privacy, .tom-ans { font-size: clamp(12px, 1.3cqw, 13.5px); }
+/* Tabs and the bottom pager */
+.tab, .pager a, .pager span { font-size: clamp(12.5px, 1.4cqw, 14px); }
