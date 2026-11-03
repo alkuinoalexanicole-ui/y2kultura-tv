@@ -1066,3 +1066,4 @@ body.standby .rb-power { animation: pulse-power 1.6s ease-in-out infinite; }
 .poll-l { font-weight: 700; color: var(--q-gold); font-size: clamp(13px, 1.5cqw, 15px); }
 .poll-note { margin-top: 6px; font-size: clamp(11px, 1.25cqw, 12.5px); color: #aab4e6; font-style: italic; }
 @media (prefers-reduced-motion: reduce) { .poll-bar i { transition: none; } }
+.sms[hidden] { display: none; }
