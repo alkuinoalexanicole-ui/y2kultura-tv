@@ -1,6 +1,6 @@
 // CH 07: Then vs. Now (Time), presented as a 2000s primetime quiz show.
 // Each episode is a "round"; each part is a "tanong" (question) on the prize ladder.
-// `answer` is the index of the correct option. `hint` is no longer shown (the second lifeline is now Ask the Audience).
+// `answer` is the index of the correct option. `hint` is the "Text a Friend" lifeline; `hintFrom` is who the text is from.
 const v = (label) => ({ label, youtube: null });
 const ph = (...captions) => captions.map((caption) => ({ caption, src: null }));
 
@@ -43,6 +43,7 @@ export default {
           options: ['3 million', '10 million', 'More than 30 million', '300 million'],
           answer: 2,
           hint: 'pre s dami ng ngte2xt s jeep kanina, dpat sampu-sampung milyon n yan! :)',
+          hintFrom: 'BARKADA',
           explain: 'More than 30 million a day, at one peso per text, from about 4.5 million mobile phone users. During the last days of the impeachment trial of President Estrada in January 2001, the count hit a record 70 million a day.',
           stats: [['30M+', 'texts a day, 2001'], ['70M', 'record day during the 2001 impeachment trial'], ['4.5M', 'mobile users, more than twice the internet users']],
           then: 'A text cost one peso and fit 160 characters, so people squeezed words into "txtspk": "gud am," "ingat," "d2 n me." Phones were passed around at the dinner table to read a funny forwarded joke.',
@@ -59,6 +60,7 @@ export default {
           options: ['Smart', 'Globe', 'Sun Cellular', "Talk 'N Text"],
           answer: 2,
           hint: 'bes ung bagong network nung 2003... hnd Smart, hnd Globe :p',
+          hintFrom: 'BESTIE',
           explain: 'Sun Cellular. It launched in March 2003, rolled out 24/7 call and text unlimited in October 2004, and in March 2005 added Text Unlimited at ₱50 for seven days or ₱150 a month. Its subscribers grew from about 700,000 to 1.5 million. Smart and Globe answered with their own "unli" promos.',
           stats: [['OCT 2004', 'Sun launches 24/7 call and text'], ['₱50', 'one week of Sun Text Unlimited, 2005'], ['1.5M', 'Sun subscribers by March 2005']],
           then: 'Unli turned texting into an all-night habit: a long GM to the whole phonebook, a textmate you had never met, and a "gud nyt" that turned into a conversation until dawn.',
@@ -75,6 +77,7 @@ export default {
           options: ['₱2', '₱10', '₱15', '₱30'],
           answer: 0,
           hint: 'ui pasaload nmn kht konti lng... kht ilang piso! wla n me load :(',
+          hintFrom: 'BARKADA',
           explain: 'As little as ₱2. Smart Load, launched in May 2003, sold small top-ups of ₱30, ₱60, and ₱115, and in 2004 it won a GSM Association award in Cannes. Pasa Load let subscribers pass even tinier amounts to each other.',
           stats: [['MAY 2003', 'Smart Load launches'], ['₱30', 'smallest Smart Load top-up'], ['₱2', 'smallest Pasa Load transfer']],
           then: 'Few students could afford a ₱300 prepaid card. They bought small e-loads at the sari-sari store, rationed every text, and begged a friend for pasaload when they ran out.',
@@ -111,6 +114,7 @@ export default {
           options: ['Saksi', '24 Oras', 'Frontline', 'Balitanghali'],
           answer: 1,
           hint: 'kapuso, ilang oras b s isang araw? ;)',
+          hintFrom: 'KAPITBAHAY',
           explain: '24 Oras, anchored by Mike Enriquez and Mel Tiangco. Its very first live interviewee was Senator Panfilo Lacson, then running for president. ABS-CBN answered later that year with a new look, TV Patrol World.',
           stats: [['MAR 15, 2004', '24 Oras premieres'], ['DEC 2004', 'TV Patrol World opening'], ['2', 'flagship newscasts, head to head']],
           then: 'Dinner came with the news. TV Patrol and 24 Oras went head to head in the early evening, and the TV in the sala decided which anchor the family trusted.',
@@ -127,6 +131,7 @@ export default {
           options: ['Kamandag', 'MariMar', 'Lobo', 'Joaquin Bordado'],
           answer: 1,
           hint: 'ung remake ng Mexican telenovela n pinanood din ntn nung 90s! :D',
+          hintFrom: 'ATE',
           explain: "MariMar, GMA's remake of the Mexican telenovela, starring Marian Rivera and Dingdong Dantes. That night Kamandag drew 40.5%, while ABS-CBN's Lobo drew 22.5% (AGB Nielsen, Mega Manila). GMA called its primetime block Telebabad; ABS-CBN's was Primetime Bida.",
           stats: [['44.2%', 'MariMar, Feb 12, 2008'], ['40.5%', 'Kamandag, the same night'], ['22.5%', 'Lobo on ABS-CBN']],
           then: 'Teleseryes aired five nights a week, and every episode ended on an "Abangan!" cliffhanger. Waiting until tomorrow night was part of the fun.',
@@ -143,6 +148,7 @@ export default {
           options: ['15%', '30%', '50%', '75%'],
           answer: 3,
           hint: 'tol ang luwag ng EDSA kanina, prang Holy Week!',
+          hintFrom: 'TROPA',
           explain: 'About 75 percent, said NCRPO chief Geary Barias, and police reported no crimes during the fight. Those who missed the live pay-per-view waited for the delayed free-TV telecast: GMA\'s broadcast of Pacquiao–Hatton in May 2009 drew 41.9% of viewers.',
           stats: [['75%', 'less traffic, Oct 7, 2007'], ['ZERO', 'crimes reported during the bout'], ['41.9%', 'GMA delayed telecast, Pacquiao–Hatton']],
           then: 'On fight Sundays, the whole country kept the same clock. Streets emptied in the morning, and people waiting for the delayed telecast tried hard not to hear the result first.',
@@ -179,6 +185,7 @@ export default {
           options: ['Oldies on the radio or speaker', 'A phone alarm app', 'A streaming playlist', 'A smart speaker'],
           answer: 0,
           hint: 'anak gising n! c Tito ngpatugtog n nmn ng Carpenters s sala',
+          hintFrom: 'MAMA',
           explain: 'Oldies on the radio or the family speaker, as loud as the neighbors would allow. Weekend radio kept the old songs alive: DZMM\'s "Music and Memories," which began in 2008, played hits from the \'50s to the \'70s by Nat King Cole, Frank Sinatra, Connie Francis, and the Beatles.',
           stats: [['SUNDAY', 'the soundtrip starts early'], ['2008', 'DZMM\'s "Music and Memories" begins'], ['\'50s–\'70s', 'the hits it played']],
           then: 'As soon as the sun rose, someone turned on the radio or the speaker, and the whole street woke up to the same love songs and oldies while breakfast was cooked and the house was cleaned.',
@@ -195,6 +202,7 @@ export default {
           options: ['The 3 o\'clock prayer', 'The national anthem', 'The weather report', 'A noontime show'],
           answer: 0,
           hint: 'anak alas-3 na, tigil muna s laro... yuko tau saglit',
+          hintFrom: 'PAPA',
           explain: 'The 3 o\'clock prayer, for the "Hour of Great Mercy." Made by the Divine Mercy "Say a Little Prayer" movement, it showed the Divine Mercy image and asked viewers to stop and pray. ABS-CBN aired a version until 2002, then launched its own prayer segment, and NBN 4 aired a later version in the mid- to late 2000s.',
           stats: [['3:00 PM', 'the hour of the prayer'], ['2002', 'ABS-CBN launches its own prayer segment'], ['SIESTA', 'the afternoon nap for kids']],
           then: 'For many kids, 3 p.m. meant siesta: a forced nap after lunch before merienda and play. The prayer on TV marked the hour, and the house went quiet for a minute.',
@@ -211,6 +219,7 @@ export default {
           options: ['SOP', 'Party Pilipinas', 'Sunday Pinasaya', 'Eat Bulaga'],
           answer: 0,
           hint: 'ung kina Ogie, Janno at Regine! sobrang okey pare! ;)',
+          hintFrom: 'PARE',
           explain: 'SOP, which ran from February 2, 1997, to February 28, 2010, with Ogie Alcasid, Janno Gibbs, Regine Velasquez, and Jaya. ABS-CBN\'s ASAP answered with new names almost every year: ASAP Mania in 2003 after SOP Rules took the ratings lead, then ASAP \'05 through ASAP \'09, and ASAP XV in January 2010.',
           stats: [['1997–2010', 'SOP\'s run on GMA'], ['2003', 'ASAP becomes ASAP Mania'], ['JAN 3, 2010', 'ASAP XV']],
           then: 'After Sunday Mass came lunch in front of the TV. Families picked a side, ASAP or SOP, and watched the big production numbers live every week.',
@@ -247,6 +256,7 @@ export default {
           options: ['50,000', '150,000', '330,000', 'More than 500,000'],
           answer: 3,
           hint: 'bes mas marami n dw tau kaysa s India! grabe noh',
+          hintFrom: 'BESTIE',
           explain: 'More than 500,000, against about 330,000 in India, according to the Contact Center Association of the Philippines in December 2010. Philippine call center revenue reached $5.5 billion in 2009, edging out India\'s $5.3 billion, from an industry described as a "virtual non-entity" in 2001.',
           stats: [['500,000+', 'Philippines, 2010'], ['330,000', 'India, 2010'], ['$5.5B', 'PH call center revenue, 2009']],
           then: 'Call center jobs exploded in under a decade. Fresh graduates lined up for interviews and accent training, and "call center agent" became one of the decade\'s new dream jobs.',
@@ -263,6 +273,7 @@ export default {
           options: ['Lunch', 'Night', 'Sunday', 'Christmas'],
           answer: 1,
           hint: 'gcng k p? ako ppasok p lng s work hehe',
+          hintFrom: 'PINSAN (NIGHT SHIFT)',
           explain: 'At night. eTelecare opened in Eastwood City, Libis, in 2001, when the area was far from a cyber hub. "We had to convince people to go here at night!" Vina Villegas recalled in 2008. By then eTelecare had over 3,000 staff there, workers kept "the oddest hours," and 24-hour convenience stores served them.',
           stats: [['2001', 'eTelecare opens in Eastwood'], ['3,000+', 'eTelecare staff in Eastwood, 2008'], ['24 HOURS', 'stores open for the night crowd']],
           then: 'Night-shift workers ate "lunch" after midnight, went home at sunrise against the morning rush, and slept while the rest of the family was awake.',
@@ -279,6 +290,7 @@ export default {
           options: ['₱84,000', '₱180,000', '₱384,000', '₱1.2 million'],
           answer: 2,
           hint: 'bes mga 30k a month dw s bpo... totoo b?',
+          hintFrom: 'BESTIE',
           explain: 'About ₱383,863 a year, one reason the night shift drew so many graduates. The IT-BPO industry employed about 523,000 people in 2010, and call centers earned $5.3 billion that year.',
           stats: [['₱383,863', 'average yearly call center pay, 2010'], ['523,000', 'IT-BPO workers, 2010'], ['$5.3B', 'call center revenue, 2010']],
           then: 'The pay could support a whole family, but it came with a different clock: sleeping by day, working while the country slept, and catching family time on rest days.',

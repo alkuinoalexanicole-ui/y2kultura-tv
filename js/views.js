@@ -1058,7 +1058,9 @@ function quizEpisode(c, e, partIndex) {
       <div class="lifelines">
         <button type="button" class="life" data-life="fifty">50:50</button>
         <button type="button" class="life" data-life="audience"><i class="ti ti-users" aria-hidden="true"></i> ASK THE AUDIENCE</button>
+        <button type="button" class="life" data-life="text"><i class="ti ti-device-mobile-message" aria-hidden="true"></i> TEXT A FRIEND</button>
       </div>
+      <div class="sms" hidden><div class="sms-screen"><div class="sms-from">1 MESSAGE · FROM: ${esc(page.hintFrom || 'BARKADA')}</div><p>${esc(page.hint)}</p></div></div>
       <div class="poll" hidden aria-live="polite"><div class="poll-head an">STUDIO AUDIENCE SAYS...</div><div class="poll-bars">${page.options
         .map((o, i) => `<div class="poll-col" data-poll="${i}"><span class="poll-pct">0%</span><span class="poll-bar"><i></i></span><span class="poll-l">${LETTERS[i]}</span></div>`)
         .join('')}</div><div class="poll-note">A pretend studio audience, just for fun.</div></div>
@@ -1175,6 +1177,7 @@ function bindQuiz(view) {
       opts.forEach((b) => { b.disabled = false; b.classList.remove('right', 'wrong', 'gone'); });
       box.querySelectorAll('.life').forEach((b) => (b.disabled = false));
       box.querySelector('.poll').hidden = true;
+      box.querySelector('.sms').hidden = true;
       verdict.hidden = true;
       again.remove();
       paintQuizState(view, num);
@@ -1199,6 +1202,10 @@ function bindQuiz(view) {
   box.querySelector('[data-life="fifty"]').addEventListener('click', (ev) => {
     const wrong = opts.map((_, i) => i).filter((i) => i !== answer && !opts[i].disabled);
     wrong.sort(() => Math.random() - 0.5).slice(0, 2).forEach((i) => { opts[i].disabled = true; opts[i].classList.add('gone'); });
+    ev.currentTarget.disabled = true;
+  });
+  box.querySelector('[data-life="text"]').addEventListener('click', (ev) => {
+    box.querySelector('.sms').hidden = false;
     ev.currentTarget.disabled = true;
   });
   // Ask the Audience: a pretend studio poll that leans toward the right answer,
