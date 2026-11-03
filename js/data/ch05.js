@@ -244,12 +244,12 @@ export default {
       overview: {
         sub: 'Superheroes, fantaseryes, and love teams after dinner',
         panels: [
-          ['THE PERFORMANCE', 'After dinner, families gathered for primetime. Darna flew on GMA, a 9-year-old became Super Inggo on ABS-CBN, and love teams like John Lloyd Cruz and Bea Alonzo, John Lloyd and Sarah Geronimo, and Enchong Dee and Erich Gonzales made viewers kilig.'],
+          ['THE PERFORMANCE', 'After dinner, families gathered for primetime, and the decade\'s heroes came from Filipino komiks and the network studios. Darna flew on GMA in 2005 and Captain Barbell followed in 2006, while ABS-CBN answered with Panday in 2005 and a 9-year-old Super Inggo in 2006. Love teams like John Lloyd Cruz and Bea Alonzo made viewers kilig between the fights.'],
           ["JUDGES' NOTES", 'Primetime asked stars to perform beyond the script. Heroes had to look the part, and love teams were sold as couples off-screen too.'],
         ],
-        video: v('a 2000s primetime trailer'),
-        photos: ph('Angel Locsin', 'Bea Alonzo', 'John Lloyd Cruz'),
-        ticker: ['SOURCES: WIKIPEDIA (DARNA; SUPER INGGO; LOVE TEAM)', 'PHILSTAR (AUG 21, 2006)'],
+        video: v('a 2006 primetime superhero teaser'),
+        photos: ph('Darna', 'Primetime love team', 'The family TV'),
+        ticker: ['SOURCES: WIKIPEDIA (DARNA; SUPER INGGO; CAPTAIN BARBELL; PANDAY; LOVE TEAM)', 'PHILSTAR (AUG 21, 2006)'],
       },
       parts: [
         {
