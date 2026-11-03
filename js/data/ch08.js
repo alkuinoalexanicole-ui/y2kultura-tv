@@ -256,7 +256,7 @@ export default {
             ['Is there anything to play?', 'Yes. CH 07 is a full quiz show: twelve questions, two lifelines, and a prize ladder up to one million pesos. Your winnings are saved in your browser, and you can play any question again.'],
             ['Can I vote on CH 05?', 'The "text to vote" codes on Starstruck! are part of the look of a 2000s talent show. They are for display only, so there is no need to text anything.'],
           ],
-          stats: [['₱1,000,000', 'the top prize (just for fun)'], ['2', 'lifelines: 50:50 and Text a Friend'], ['DISPLAY ONLY', 'CH 05 vote codes']],
+          stats: [['₱1,000,000', 'the top prize (just for fun)'], ['2', 'lifelines: 50:50 and Ask the Audience'], ['DISPLAY ONLY', 'CH 05 vote codes']],
           video: null,
           photos: [],
           ticker: ['PRIZES AND VOTE CODES ARE FOR FUN ONLY'],

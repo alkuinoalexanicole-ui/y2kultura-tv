@@ -1057,9 +1057,11 @@ function quizEpisode(c, e, partIndex) {
         .join('')}</div>
       <div class="lifelines">
         <button type="button" class="life" data-life="fifty">50:50</button>
-        <button type="button" class="life" data-life="text"><i class="ti ti-device-mobile-message" aria-hidden="true"></i> TEXT A FRIEND</button>
+        <button type="button" class="life" data-life="audience"><i class="ti ti-users" aria-hidden="true"></i> ASK THE AUDIENCE</button>
       </div>
-      <div class="sms" hidden><div class="sms-screen"><div class="sms-from">1 MESSAGE · FROM: BARKADA</div><p>${esc(page.hint)}</p></div></div>
+      <div class="poll" hidden aria-live="polite"><div class="poll-head an">STUDIO AUDIENCE SAYS...</div><div class="poll-bars">${page.options
+        .map((o, i) => `<div class="poll-col" data-poll="${i}"><span class="poll-pct">0%</span><span class="poll-bar"><i></i></span><span class="poll-l">${LETTERS[i]}</span></div>`)
+        .join('')}</div><div class="poll-note">A pretend studio audience, just for fun.</div></div>
       <div class="verdict" aria-live="polite" hidden>
         <div class="verdict-head an"></div>
         <p>${esc(page.explain)}</p>
@@ -1172,6 +1174,7 @@ function bindQuiz(view) {
       quizSave(num, state);
       opts.forEach((b) => { b.disabled = false; b.classList.remove('right', 'wrong', 'gone'); });
       box.querySelectorAll('.life').forEach((b) => (b.disabled = false));
+      box.querySelector('.poll').hidden = true;
       verdict.hidden = true;
       again.remove();
       paintQuizState(view, num);
@@ -1198,8 +1201,27 @@ function bindQuiz(view) {
     wrong.sort(() => Math.random() - 0.5).slice(0, 2).forEach((i) => { opts[i].disabled = true; opts[i].classList.add('gone'); });
     ev.currentTarget.disabled = true;
   });
-  box.querySelector('[data-life="text"]').addEventListener('click', (ev) => {
-    box.querySelector('.sms').hidden = false;
+  // Ask the Audience: a pretend studio poll that leans toward the right answer,
+  // skipping any choices the 50:50 already removed.
+  box.querySelector('[data-life="audience"]').addEventListener('click', (ev) => {
+    const live = opts.map((_, i) => i).filter((i) => !opts[i].classList.contains('gone'));
+    const pct = {};
+    let left = 100;
+    pct[answer] = live.length <= 2 ? 62 + Math.floor(Math.random() * 18) : 46 + Math.floor(Math.random() * 20);
+    left -= pct[answer];
+    const others = live.filter((i) => i !== answer).sort(() => Math.random() - 0.5);
+    others.forEach((i, k) => {
+      const share = k === others.length - 1 ? left : Math.floor(left * (0.35 + Math.random() * 0.3));
+      pct[i] = share;
+      left -= share;
+    });
+    const poll = box.querySelector('.poll');
+    poll.hidden = false;
+    poll.querySelectorAll('.poll-col').forEach((col) => {
+      const v = pct[Number(col.dataset.poll)] || 0;
+      col.querySelector('.poll-pct').textContent = `${v}%`;
+      requestAnimationFrame(() => (col.querySelector('.poll-bar i').style.height = `${v}%`));
+    });
     ev.currentTarget.disabled = true;
   });
 }
