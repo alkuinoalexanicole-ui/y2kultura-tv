@@ -1015,3 +1015,6 @@ body.standby .rb-power { animation: pulse-power 1.6s ease-in-out infinite; }
   .price-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tom { grid-template-columns: 24px 1fr; } .tom-btns { grid-column: 2; } .tom-ans { grid-column: 2; }
 }
+.g-bonus { margin-top: 12px; padding: 10px; background: #fff3c4; border: 2px dashed #e0a800; }
+.bonus-tag { display: inline-block; background: #e3202e; color: #fff; padding: 1px 10px; font-size: 14px; letter-spacing: 1px; margin-bottom: 6px; transform: rotate(-2deg); }
+.sb-card [hidden] { display: none !important; }

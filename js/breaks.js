@@ -21,6 +21,8 @@ export const BREAKS = {
       { q: 'Which band sang the 2005 heartbreak anthem "The Day You Said Goodnight"?', options: ['Hale', 'Cueshé', 'Rivermaya', 'Eraserheads'], answer: 0 },
       { q: 'Which love team starred in the 2007 film One More Chance?', options: ['Kim Chiu and Gerald Anderson', 'John Lloyd Cruz and Bea Alonzo', 'Marian Rivera and Dingdong Dantes', 'Sarah Geronimo and Gerald Anderson'], answer: 1 },
       { q: 'In what year did the nation mourn the passing of President Cory Aquino?', options: ['2006', '2008', '2009', '2010'], answer: 2 },
+      { q: 'Pacquiao beat Miguel Cotto on November 14, 2009. In which two rounds did he knock Cotto down, and what record did the win set?', options: ['Rounds 1 and 12 · his sixth title in six weight divisions', 'Rounds 3 and 4 · a world title in a record seventh weight division', 'Rounds 5 and 9 · the fastest knockout of the decade', 'Rounds 2 and 7 · his first title at welterweight'], answer: 1 },
+      { q: 'Which song opened the Eraserheads reunion concert on August 30, 2008, at the Bonifacio Global City Open Grounds?', options: ['Ang Huling El Bimbo', 'Pare Ko', 'Alapaap', 'Ligaya'], answer: 2 },
     ],
   },
   '02': {
@@ -33,6 +35,7 @@ export const BREAKS = {
     q: 'Pinoy Henyo: what is the secret word?',
     options: ['Multiply', 'Friendster', 'YouTube', 'Yahoo! Messenger'],
     answer: 1,
+    bonus: { q: 'The Philippines was called the "texting capital of the world." How many characters fit in one text message?', options: ['100 characters', '140 characters', '160 characters', '200 characters'], answer: 2 },
   },
   '03': {
     sheet: 'CH 03 Global Mix',
@@ -40,7 +43,7 @@ export const BREAKS = {
     show: 'Wheel of Fortune',
     tag: 'Paikutin ang gulong!',
     pool: [
-      { label: 'DRAMA', q: 'Which Taiwanese drama started "Meteor fever" in Filipino homes?', options: ['Full House', 'Boys Over Flowers', 'Meteor Garden', 'Endless Love'], answer: 2 },
+      { label: 'DRAMA', q: 'Which Taiwanese drama, dubbed in Tagalog, started the F4 craze when ABS-CBN aired it in 2003?', options: ['Full House', 'Boys Over Flowers', 'Meteor Garden', 'Lovers in Paris'], answer: 2 },
       { label: 'K-POP', q: 'Which Star Circle Quest star, the "Pambansang Krung-Krung," debuted with 2NE1 in 2009?', options: ['Sandara Park', 'Charice', 'Yeng Constantino', 'Sarah Geronimo'], answer: 0 },
       { label: 'NBA', q: 'Which NBA star called the Philippines "like a home away from home" on his 2009 visit?', options: ['LeBron James', 'Shaquille O\'Neal', 'Kobe Bryant', 'Michael Jordan'], answer: 2 },
     ],
@@ -68,6 +71,7 @@ export const BREAKS = {
       { s: 'Pinoy Big Brother (first Big Winner)', y: 2005 },
       { s: 'Pilipinas Got Talent (first season)', y: 2010 },
     ],
+    bonus: { q: 'Which network launched StarStruck in October 2003, and who won the first season?', options: ['ABS-CBN · Hero Angeles and Sandara Park', 'GMA · Mark Herras and Jennylyn Mercado', 'GMA · Rainier Castillo and Yasmien Kurdi', 'ABS-CBN · Erik Santos and Sarah Geronimo'], answer: 1 },
   },
   '06': {
     sheet: 'CH 06 Place To Be',
@@ -78,6 +82,7 @@ export const BREAKS = {
     options: ['₱10', '₱25', '₱50', '₱100'],
     answer: 1,
     item: 'ONE HOUR AT THE COMPUTER SHOP, 2003',
+    bonus: { q: 'Which online game filled Philippine computer shops from 2003?', options: ['DotA', 'Ragnarok Online', 'Counter-Strike', 'Audition'], answer: 1 },
   },
   '07': {
     sheet: 'CH 07 Then vs Now',
@@ -209,7 +214,24 @@ function send(payload) {
 
 /* ---------- Game logic ---------- */
 // Each game reports its outcome through `report({ question, answer, correct })`.
-function bindGame(box, b, report, done) {
+function bindGame(box, b, report0, done) {
+  // Some games add a BONUS ROUND question once the main game is played.
+  let bonusShown = false;
+  const report = (o) => {
+    report0(o);
+    if (b.bonus && !bonusShown) {
+      bonusShown = true;
+      setTimeout(showBonus, 700);
+    }
+  };
+  function showBonus() {
+    const wrap = document.createElement('div');
+    wrap.className = 'g-bonus';
+    wrap.innerHTML = `<div class="bonus-tag an">BONUS ROUND!</div>${mcq(b.bonus.q, b.bonus.options)}`;
+    g.append(wrap);
+    wireMcq(wrap, b.bonus);
+    sfx('tick');
+  }
   const g = box.querySelector('.sb-game');
   const result = box.querySelector('.sb-result');
   const say = (text, ok) => {
@@ -410,16 +432,16 @@ export function bindBreak(box, done) {
   const num = form.dataset.sb;
   const b = BREAKS[num];
   const result = box.querySelector('.sb-result');
-  let outcome = null;
+  const outcomes = [];
   box.querySelectorAll('[data-sb-skip]').forEach((x) => x.addEventListener('click', done));
-  bindGame(box, b, (o) => (outcome = o), done);
+  bindGame(box, b, (o) => outcomes.push(o), done);
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     const f = new FormData(form);
     const memory = String(f.get('memory') || '').trim();
     const nostalgia = f.get('nostalgia');
-    if (!outcome && !nostalgia && !memory) {
+    if (!outcomes.length && !nostalgia && !memory) {
       result.textContent = 'Play the game, pick a feeling, or share a memory first, or just skip.';
       result.className = 'sb-result no';
       return;
@@ -430,9 +452,10 @@ export function bindBreak(box, done) {
     await send({
       channel: b.sheet,
       game: b.show,
-      question: outcome?.question || '',
-      answer: outcome?.answer || '',
-      correct: outcome?.correct ?? '',
+      // A main question plus a bonus are joined with " | " in one row.
+      question: outcomes.map((o) => o.question).join(' | '),
+      answer: outcomes.map((o) => o.answer).join(' | '),
+      correct: outcomes.some((o) => typeof o.correct === 'boolean') ? outcomes.filter((o) => typeof o.correct === 'boolean').every((o) => o.correct) : '',
       nostalgia: nostalgia || '',
       memory,
       name: String(f.get('name') || '').trim(),
