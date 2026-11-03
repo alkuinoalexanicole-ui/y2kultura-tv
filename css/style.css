@@ -1054,3 +1054,15 @@ body.standby .rb-power { animation: pulse-power 1.6s ease-in-out infinite; }
 .sb-privacy, .tom-ans { font-size: clamp(12px, 1.3cqw, 13.5px); }
 /* Tabs and the bottom pager */
 .tab, .pager a, .pager span { font-size: clamp(12.5px, 1.4cqw, 14px); }
+/* CH 07 lifeline: Ask the Audience poll */
+.poll { margin: 12px auto 0; max-width: 340px; background: #000; border: 2px solid var(--q-gold); border-radius: 10px; padding: 8px 12px 10px; }
+.poll[hidden] { display: none; }
+.poll-head { color: var(--q-gold); font-size: clamp(14px, 1.6cqw, 16px); letter-spacing: 1px; margin-bottom: 6px; }
+.poll-bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: end; height: 130px; }
+.poll-col { display: flex; flex-direction: column; align-items: center; height: 100%; gap: 3px; }
+.poll-pct { font-weight: 700; font-size: clamp(12px, 1.4cqw, 14px); color: #fff; }
+.poll-bar { flex: 1; width: 70%; background: rgba(255,255,255,.08); display: flex; align-items: flex-end; border-radius: 3px 3px 0 0; overflow: hidden; }
+.poll-bar i { display: block; width: 100%; height: 0; background: linear-gradient(180deg, #8ea2ff, #2a3cc9); transition: height .9s ease-out; }
+.poll-l { font-weight: 700; color: var(--q-gold); font-size: clamp(13px, 1.5cqw, 15px); }
+.poll-note { margin-top: 6px; font-size: clamp(11px, 1.25cqw, 12.5px); color: #aab4e6; font-style: italic; }
+@media (prefers-reduced-motion: reduce) { .poll-bar i { transition: none; } }

@@ -1,6 +1,6 @@
 // CH 07: Then vs. Now (Time), presented as a 2000s primetime quiz show.
 // Each episode is a "round"; each part is a "tanong" (question) on the prize ladder.
-// `answer` is the index of the correct option. `hint` is the "Text a Friend" lifeline.
+// `answer` is the index of the correct option. `hint` is no longer shown (the second lifeline is now Ask the Audience).
 const v = (label) => ({ label, youtube: null });
 const ph = (...captions) => captions.map((caption) => ({ caption, src: null }));
 
