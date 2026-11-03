@@ -235,7 +235,7 @@ export default {
   '05/videoke-nation/five-pesos-a-song': { video: yt('deJSfVV5N4k', 'WOW! Magic Sing "Walang Kasing Pinoy" TV ad, 2005', 'Raine justin santos'), photos: [P.videokeBooth] },
   '05/videoke-nation/magic-sing': { video: yt('hH5GHO8nGzo', 'Xtreme Magic Sing TV ad with Sarah Geronimo, 2008', 'Through Dime Mainit Archive'), photos: [P.sarahG] },
   '05/videoke-nation/my-way': { video: yt('bKYxh_vhGZc', 'A family videoke night at a 68th birthday, February 15, 2009', 'rocksgmany'), photos: [] },
-  '05/primetime-heroes': { video: yt('ZmuQJg6ZTRU', 'One More Chance trailer, 2007', 'ABS-CBN Star Cinema'), photos: [P.angelLocsin, P.bea, P.love1] },
+  '05/primetime-heroes': { video: yt('ehnC0jzH6ro', 'Captain Barbell teaser on GMA, 2006', 'UndustFixation'), photos: [P.angelLocsin2, P.marianDingdong, P.tvCorner] },
   '05/primetime-heroes/super-inggo': { video: yt('P-BGLSEKeCg', 'Rocksteddy, "Superhero," the Super Inggo theme song', 'beepee13'), photos: [] },
   '05/primetime-heroes/darna-fever': { video: yt('_2fa0BB7okU', 'GMA teaser for Darna, March 2005', 'Philippine Television Archives'), photos: [P.angelLocsin2, P.angelLocsin] },
   '05/primetime-heroes/reel-to-real': { video: yt('kJDFdNzk9-c', 'A Very Special Love trailer, 2008', 'ABS-CBN Star Cinema'), photos: [P.love1, P.sarahG] },
