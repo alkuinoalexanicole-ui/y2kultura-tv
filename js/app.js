@@ -46,7 +46,7 @@ function resolve(path) {
 
 let currentNum = null;
 
-function render(path, { animate = true } = {}) {
+function render(path, { animate = true, osd = false } = {}) {
   const r = resolve(path);
   const swap = () => {
     view.innerHTML = r.html;
@@ -63,7 +63,7 @@ function render(path, { animate = true } = {}) {
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
   else swap();
-  if (state === 'on' && (channelChanged || animate)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
+  if (state === 'on' && (channelChanged || animate || osd)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
   currentNum = r.num;
   if (animate) setTimeout(() => view.focus({ preventScroll: true }), 300);
 }
@@ -248,7 +248,8 @@ function powerOn() {
     document.body.classList.remove('warming');
     state = 'on';
     paintState();
-    render(here(), { animate: true });
+    // No static when the TV switches on: the warm-up goes straight to the picture.
+    render(here(), { animate: false, osd: true });
   }, reduced ? 50 : 650);
 }
 
