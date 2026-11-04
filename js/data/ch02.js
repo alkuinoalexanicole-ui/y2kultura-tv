@@ -8,7 +8,7 @@ export default {
   num: '02',
   title: 'Tech Talk 2000',
   aspect: 'Technology: the gadgets that changed how we connect',
-  format: 'lineup',
+  format: 'desktop',
   bg: '#0b2a5c',
   what: 'Technology as pop culture: the phones, players, screens, and websites that changed how Filipinos talked, listened, watched, and shared. In the 2000s, owning and using a gadget became part of everyday entertainment.',
   felt: 'Fast and new. A text could reach a friend in seconds, a song could fit in your pocket, and a video could travel across the world. Everything felt more immediate, and more of it was yours to join in.',

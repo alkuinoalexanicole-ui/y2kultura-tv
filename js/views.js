@@ -71,8 +71,10 @@ export function standby(c) {
 
 /* ---------- Channel main page (line-up format) ---------- */
 export function channel(c) {
+  if (c.data.format === 'mmk') return mmkChannel(c);
+  if (c.data.format === 'desktop') return deskChannel(c);
+  if (c.data.format === 'mag') return magChannel(c);
   if (c.data.format === 'news') return newsChannel(c);
-  if (c.data.format === 'ads') return adsChannel(c);
   if (c.data.format === 'talent') return talentChannel(c);
   if (c.data.format === 'teleserye') return seryeChannel(c);
   if (c.data.format === 'quiz') return quizChannel(c);
@@ -155,8 +157,10 @@ function factsTable(rows, accent) {
 }
 
 export function episode(c, e, partIndex) {
+  if (c.data.format === 'mmk') return mmkEpisode(c, e, partIndex);
+  if (c.data.format === 'desktop') return deskEpisode(c, e, partIndex);
+  if (c.data.format === 'mag') return magEpisode(c, e, partIndex);
   if (c.data.format === 'news') return newsEpisode(c, e, partIndex);
-  if (c.data.format === 'ads') return adEpisode(c, e, partIndex);
   if (c.data.format === 'talent') return talentEpisode(c, e, partIndex);
   if (c.data.format === 'teleserye') return seryeEpisode(c, e, partIndex);
   if (c.data.format === 'quiz') return quizEpisode(c, e, partIndex);
@@ -376,78 +380,362 @@ function newsEpisode(c, e, partIndex) {
   </div>`;
 }
 
-/* ---------- CH 04 format: commercial break ---------- */
-function adsChannel(c) {
-  const d = c.data;
-  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
-  const ads = d.episodes
-    .map((e) => {
-      const ready = !!e.overview;
-      const inner = `<span class="ad-label">AD ${e.ep} · ADVERTISEMENT</span>
-        <span class="ad-slogan">${esc(e.title)}</span>
-        <span class="ad-sub">${esc(e.cardSub)}</span>
-        <span class="ad-fine it">${esc(e.fine)}</span>
-        <span class="ad-go">${ready ? '▶ WATCH AD' : 'COMING UP AFTER THE BREAK'}</span>`;
-      return ready
-        ? `<a class="ad" style="background:${e.color}" href="/ch/${c.num}/${e.slug}" data-link>${inner}</a>`
-        : `<div class="ad soon" style="background:${e.color}">${inner}</div>`;
-    })
-    .join('');
-  return `
-  <div class="page ads" style="background:${d.bg}">
-    ${channelHead(c, d, 'background:var(--magenta);color:#2a0f4a')}
-    <div class="bar ad-bar"><span class="an">COMMERCIAL BREAK</span><small>WE'LL BE RIGHT BACK</small></div>
-    <div class="ad-grid">${ads}</div>
-    <div style="flex:1"></div>
-    ${ticker(['TAP AN AD TO WATCH', 'THESE ARE NOT REAL PRODUCTS', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+/* ---------- CH 01 format: letter-reading drama ----------
+   Each story is read like a letter on stationery, named after a keepsake,
+   with a host's welcome on the channel page and a memory box for the tags. */
+function mmkMemoryBox(page, show, note) {
+  const tuck = note ? `<div class="mmk-tuck"><b>GOOD TO KNOW</b> ${esc(note)}</div>` : '';
+  if (!show || !page.affect) return tuck;
+  return `<div class="memory-box">
+    <div class="mb-lid"><i class="ti ti-box" aria-hidden="true"></i> MEMORY BOX</div>
+    <div class="mb-in">
+      <h4>AFFECT</h4><div>${page.affect.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+      <h4 class="s">SENSES</h4><div>${page.senses.map((t) => `<span class="chip sense">${esc(t)}</span>`).join('')}</div>
+      ${tuck}
+    </div>
   </div>`;
 }
 
-function adSpot(video, photos) {
-  const v = video?.youtube
-    ? ytFrame(video, 'spot', null)
-    : `<div class="video spot"><canvas class="snow" data-snow></canvas><span class="cam-tag spot-tag">TV SPOT</span><span class="cam-rec">0:30</span><div class="msg"><i class="ti ti-player-play" aria-hidden="true"></i>SPOT COMING SOON<br><span class="it">${esc(video?.label || '')}</span></div></div>`;
-  return v + photoGrid(photos);
+function mmkReplay(video) {
+  if (!video?.youtube) return media(video, [], null);
+  return `<div class="mmk-replay"><span class="mmk-replay-tag">BALIKAN</span>${ytFrame(video, '', null)}</div>`;
 }
 
-function adEpisode(c, e, partIndex) {
-  if (!e.overview) return standby({ num: c.num, title: e.title.replace(/"/g, ''), aspect: 'Coming up after the break' });
-  const nav = stopsFor(c, e, partIndex, 'THE AD');
-  const page = partIndex == null ? e.overview : e.parts[partIndex];
-  const panels = page.panels
-    .map(([h, t]) => `<div class="pitch${/REALITY/.test(h) ? ' rc' : ''}"><h4>${esc(h)}</h4><p>${esc(t)}</p></div>`)
+function mmkChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const env = d.episodes
+    .map(
+      (e, i) => `
+    <a class="envelope${e.solemn ? ' solemn' : ''}" href="/ch/${c.num}/${e.slug}" data-link style="--stamp:${e.thumb}">
+      <span class="env-stamp" aria-hidden="true"><i class="ti ${e.icon}"></i></span>
+      <span class="env-post">LIHAM ${e.ep} · ${esc(d.times[i] || '')}</span>
+      <span class="env-k pf">${esc(e.keepsake)}</span>
+      <span class="env-t">${esc(e.title)}</span>
+      <span class="env-s">${esc(e.cardSub)} · ${esc(e.cardMeta)}</span>
+      <span class="env-go">▶ BUKSAN ANG LIHAM</span>
+    </a>`
+    )
     .join('');
-  let extra = '';
-  if (partIndex == null) {
-    extra = `<h3 class="an section-head" style="color:var(--yellow)">NOW AIRING: ${e.parts.length} SPOTS</h3><div class="parts">${e.parts
-      .map(
-        (p) => `<a class="spot-card" href="${nav.base}/${p.slug}" data-link><span class="spot-tag2">${esc(p.label)}</span>
-          <div class="cb"><span class="ct">${esc(p.cardTitle)}</span><span class="cs">${esc(p.cardLine)}</span></div>
-          <span class="spot-go">▶ WATCH SPOT</span></a>`
-      )
-      .join('')}</div>`;
-  }
   return `
-  <div class="page ads" style="background:${c.data.bg}">
-    <div class="now ad-now"><span class="an">COMMERCIAL BREAK</span><span class="label">CH ${c.num} · AD ${e.ep}${partIndex != null ? ` · ${esc(page.label)} OF ${e.parts.length}` : ''}</span>
-      <span class="where"></span><a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
-    <div class="slate">
-      <div class="kicker">${partIndex == null ? 'ADVERTISEMENT' : esc(page.label)}</div>
-      <h1 class="an">${esc(partIndex == null ? e.title : page.title)}</h1>
-      <div class="slate-sub">${esc(page.sub)}</div>
-      <div class="it slate-fine">${esc(partIndex == null ? e.fine : page.fine)}</div>
-    </div>
-    ${tabRow(nav, 'ad-tabs')}
-    <div class="page-body">
-      ${statTiles(page.stats, 'ads')}
-      <div class="cols">
-        <div>${adSpot(page.video, page.photos)}</div>
-        <div>${panels}</div>
+  <div class="page mmk" style="background:${d.bg}">
+    <header class="mmk-head">
+      <span class="badge" style="background:var(--yellow);color:#0b2a5c">CH ${c.num}</span>
+      <div class="mmk-logo"><span class="pf">${esc(d.title)}</span><small>${esc(d.aspect)}</small></div>
+      <span class="mmk-onair">MGA LIHAM NG 2000s</span>
+    </header>
+    <div class="mmk-host">
+      <div class="host-chair" aria-hidden="true"><i class="ti ti-armchair"></i></div>
+      <div class="host-say">
+        <div class="mmk-kicker">MAGANDANG GABI</div>
+        <h3>WHAT IS IT?</h3><p>${esc(d.what)}</p>
+        <h3>HOW THE 2000s FELT</h3><p>${esc(d.felt)}</p>
+        <p class="host-cue">Ngayong gabi: ${d.episodes.length} na liham para sa inyo, bawat isa may itinagong alaala.</p>
       </div>
-      ${extra}
+    </div>
+    <div class="envelopes">${env}</div>
+    <div style="flex:1"></div>
+    ${ticker(['TAP A LETTER TO OPEN IT', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function mmkEpisode(c, e, partIndex) {
+  const d = c.data;
+  const nav = stopsFor(c, e, partIndex, 'ANG LIHAM');
+  const solemn = !!e.solemn;
+  const p = partIndex == null ? null : e.parts[partIndex];
+  const page = p || e.overview;
+  const pageNo = partIndex == null ? 1 : partIndex + 2;
+  const total = e.parts.length + 1;
+  const body = [];
+  if (!p && page.desc) body.push(`<p>${esc(page.desc)}</p>`);
+  (page.panels || []).forEach(([h, t]) => body.push(`<h4>${esc(h)}</h4><p>${esc(t)}</p>`));
+  if (!p && page.extra) body.push(`<p>${esc(page.extra)}</p>`);
+  const facts = page.facts?.length
+    ? `<div class="index-card"><h4>${esc((p && p.factsTitle) || 'MGA DETALYE')}</h4>${factsTable(page.facts, solemn ? '#6b5200' : '#a3275f')}</div>`
+    : '';
+  const stamps = !p && page.chips ? `<div class="mmk-stamps">${page.chips.map((t) => `<span>${esc(t)}</span>`).join('')}</div>` : '';
+  const more =
+    !p && e.parts.length
+      ? `<h3 class="mmk-more">ANG MGA SUSUNOD NA PAHINA</h3><div class="folded">${e.parts
+          .map(
+            (q, i) => `<a class="fold" href="${nav.base}/${q.slug}" data-link><span class="fold-n">PAHINA ${i + 2} · ${esc(q.label)}</span>
+              <span class="ct">${esc(q.cardTitle)}</span><span class="cs">${esc(q.cardLine)}</span><span class="fold-go">▶ BASAHIN</span></a>`
+          )
+          .join('')}</div>`
+      : '';
+  return `
+  <div class="page mmk${solemn ? ' mmk-solemn' : ''}" style="background:${e.bg || d.bg}">
+    <div class="now mmk-now"><span class="label">LIHAM ${e.ep}</span><span class="where pf">${esc(e.keepsake)}</span>
+      <span class="mmk-pg">PAHINA ${pageNo} NG ${total}</span><a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
+    ${total > 1 ? tabRow(nav, 'mmk-tabs') : ''}
+    <div class="page-body">
+      <div class="mmk-grid">
+        <article class="letter">
+          ${p && p.strip ? `<div class="mmk-ribbon">${esc(p.strip)}</div>` : ''}
+          <div class="letter-top"><span>${esc(e.keepsakeEn)}</span><span>${pageNo}/${total}</span></div>
+          <h1 class="pf">${esc(p ? p.title : e.title)}</h1>
+          <div class="letter-sub">${esc(page.sub)}</div>
+          <p class="dear">Mahal kong manonood,</p>
+          ${body.join('')}
+          ${stamps}
+          <p class="sign">${solemn ? 'Nakikiramay,' : 'Nagmamahal,'}<br><span>${esc(d.title)}, CH ${c.num}</span></p>
+        </article>
+        <aside class="mmk-side">
+          ${mmkReplay(page.video)}
+          <div class="polaroids">${photoGrid(page.photos)}</div>
+          ${facts}
+          ${mmkMemoryBox(page, d.showTags, !p && page.note)}
+        </aside>
+      </div>
+      ${more}
     </div>
     <div style="flex:1"></div>
-    ${pagerBar(c, nav, 'ad-pager')}
+    ${pagerBar(c, nav, 'mmk-pager')}
+    ${ticker(page.ticker?.length ? page.ticker : ['P+ / P- TO CHANGE CHANNEL'], solemn)}
+  </div>`;
+}
+
+/* ---------- CH 02 format: "Y2K OS" computer desktop ----------
+   The channel page is a desktop with icons; each story opens as a window,
+   with a music player for the video and a phone for the quick facts. */
+function xpBar(title, icon) {
+  return `<div class="xp-title"><i class="ti ${icon}" aria-hidden="true"></i><span class="xp-tt">${esc(title)}</span><span class="xp-ctl" aria-hidden="true"><b>_</b><b>□</b><b class="x">×</b></span></div>`;
+}
+
+function xpTaskbar(c, items, clock) {
+  const d = c.data;
+  const menu = d.episodes
+    .map(
+      (e) => `<a href="/ch/${c.num}/${e.slug}" data-link><span class="xp-mi" style="background:${e.thumb}"><i class="ti ${e.icon}" aria-hidden="true"></i></span>
+        <span><b>${esc(e.cardTitle)}</b><small>${esc(e.cardSub)}</small></span></a>`
+    )
+    .join('');
+  return `<div class="xp-taskbar">
+    <details class="xp-start"><summary><span class="xp-orb" aria-hidden="true"><i></i><i></i><i></i><i></i></span>start</summary>
+      <div class="xp-startmenu">
+        <div class="xp-sm-head"><span class="xp-av"><i class="ti ti-user" aria-hidden="true"></i></span>Y2K OS · ${esc(d.title)}</div>
+        <div class="xp-sm-list">${menu}</div>
+        <div class="xp-sm-foot"><a href="/ch/${c.num}" data-link><i class="ti ti-device-desktop" aria-hidden="true"></i> Desktop</a><a href="/guide" data-link><i class="ti ti-list" aria-hidden="true"></i> Channel Guide</a></div>
+      </div>
+    </details>
+    <div class="xp-tasks">${items
+      .map((s) => (s.href ? `<a class="xp-task${s.on ? ' on' : ''}" href="${s.href}" data-link>${esc(s.name)}</a>` : `<span class="xp-task on">${esc(s.name)}</span>`))
+      .join('')}</div>
+    <div class="xp-tray"><i class="ti ti-volume" aria-hidden="true"></i><i class="ti ti-antenna-bars-5" aria-hidden="true"></i><span>${esc(clock || '')}</span></div>
+  </div>`;
+}
+
+function winamp(video) {
+  if (!video?.youtube) return media(video, [], null);
+  return `<section class="winamp">
+    <div class="wa-title"><span>Y2KAMP</span><span class="xp-ctl" aria-hidden="true"><b>_</b><b class="x">×</b></span></div>
+    <div class="wa-lcd" aria-hidden="true"><span class="wa-time">▶ 0:00</span><div class="wa-marquee"><span>${esc(video.label)} ***</span></div><span class="wa-kbps">128 kbps · 44 kHz · stereo</span></div>
+    ${ytFrame(video, 'wa-vid', null)}
+    <div class="wa-keys" aria-hidden="true"><i class="ti ti-player-skip-back"></i><i class="ti ti-player-play"></i><i class="ti ti-player-pause"></i><i class="ti ti-player-stop"></i><i class="ti ti-player-skip-forward"></i>
+      <span class="wa-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+  </section>`;
+}
+
+function nokiaWin(stats, chips) {
+  const rows = stats?.length
+    ? stats.map(([b, s]) => `<li><b>${esc(b)}</b><span>${esc(s)}</span></li>`).join('')
+    : (chips || []).map((t) => `<li><b>${esc(t)}</b></li>`).join('');
+  if (!rows) return '';
+  return `<section class="xp-win xp-phone">${xpBar('Phone Suite · Inbox', 'ti-device-mobile')}
+    <div class="nokia"><div class="nk-screen"><div class="nk-top"><span aria-hidden="true">▂▄▆</span><span>${stats?.length ? 'QUICK FACTS' : 'TAGS'}</span><span aria-hidden="true">▮▮▯</span></div><ul>${rows}</ul></div>
+    <div class="nk-keys" aria-hidden="true"><i>1</i><i>2 abc</i><i>3 def</i><i>4 ghi</i><i>5 jkl</i><i>6 mno</i><i>7 pqrs</i><i>8 tuv</i><i>9 wxyz</i></div></div>
+  </section>`;
+}
+
+function deskChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const icons = d.episodes
+    .map(
+      (e) => `<a class="xp-icon" href="/ch/${c.num}/${e.slug}" data-link><span class="xp-ico" style="background:${e.thumb}"><i class="ti ${e.icon}" aria-hidden="true"></i></span>
+        <span class="xp-lbl">${esc(e.cardTitle)}</span><span class="xp-meta">${esc(e.cardSub)}</span></a>`
+    )
+    .join('');
+  return `
+  <div class="page xp" style="--acc:#19B5F0">
+    <div class="xp-desk home">
+      <div class="xp-icons">${icons}</div>
+      <section class="xp-win xp-note">
+        ${xpBar(`Welcome to ${d.title}.txt - Notepad`, 'ti-file-text')}
+        <div class="xp-menu-row" aria-hidden="true"><span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span></div>
+        <div class="xp-paper">
+          <h1>${esc(d.title)}<small>CH ${c.num} · ${esc(d.aspect)}</small></h1>
+          <h3>WHAT IS IT?</h3><p>${esc(d.what)}</p>
+          <h3>HOW THE 2000s FELT</h3><p>${esc(d.felt)}</p>
+          <p class="xp-hint">Click an icon on the desktop, or open the start menu, to open a story.</p>
+        </div>
+      </section>
+    </div>
+    <div style="flex:1"></div>
+    ${ticker(['CLICK AN ICON TO OPEN A STORY', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+    ${xpTaskbar(c, [{ name: `${d.title}.txt` }], d.times?.[0])}
+  </div>`;
+}
+
+function deskEpisode(c, e, partIndex) {
+  const d = c.data;
+  const nav = stopsFor(c, e, partIndex, 'Overview');
+  const p = partIndex == null ? null : e.parts[partIndex];
+  const page = p || e.overview;
+  const path = `C:\\${d.title}\\EP ${e.ep} ${e.title}${p ? `\\${p.cardTitle}` : ''}`;
+  const panels = page.panels.map(([h, t]) => `<h3>${esc(h)}</h3><p>${esc(t)}</p>`).join('');
+  const files =
+    !p && e.parts.length
+      ? `<h3 class="xp-sec">${esc(e.partsHeading || 'FILES IN THIS FOLDER')}</h3><div class="xp-files">${e.parts
+          .map(
+            (q) => `<a class="xp-file" href="${nav.base}/${q.slug}" data-link><i class="ti ti-folder" aria-hidden="true"></i>
+              <span><small>${esc(q.label)}</small><b>${esc(q.cardTitle)}</b><span>${esc(q.cardLine)}</span></span></a>`
+          )
+          .join('')}</div>`
+      : '';
+  return `
+  <div class="page xp" style="--acc:${e.accent || '#19B5F0'}">
+    <div class="xp-desk">
+      <section class="xp-win xp-main">
+        ${xpBar(`${p ? p.cardTitle : e.title} - Y2K Explorer`, 'ti-folder-open')}
+        <div class="xp-addr"><b>Address</b><span>${esc(path)}</span></div>
+        <div class="xp-doc">
+          <div class="xp-kicker">CH ${c.num} · EP ${e.ep}${p ? ` · ${esc(p.label)} OF ${e.parts.length}` : ''}</div>
+          <h1>${esc(p ? p.title : e.title)}</h1>
+          <div class="xp-sub">${esc(page.sub)}</div>
+          ${panels}
+          ${files}
+        </div>
+        ${ticker(page.ticker?.length ? page.ticker : ['P+ / P- TO CHANGE CHANNEL'])}
+      </section>
+      <div class="xp-side">
+        ${winamp(page.video)}
+        ${nokiaWin(page.stats, page.chips)}
+        ${page.photos?.length ? `<section class="xp-win xp-pics">${xpBar('My Pictures', 'ti-photo')}<div class="xp-pbody">${photoGrid(page.photos)}</div></section>` : ''}
+      </div>
+    </div>
+    <div style="flex:1"></div>
+    ${pagerBar(c, nav, 'xp-pager')}
+    ${xpTaskbar(c, nav.stops.map((s, i) => ({ ...s, on: i === nav.at })), d.times?.[e.ep - 1])}
+  </div>`;
+}
+
+/* ---------- CH 04 format: 2000s teen magazine ----------
+   Each story gets its own cover; inside, the pages turn like a glossy mag,
+   with a style quiz in the sidebar and the reality check as an editor's note. */
+function magQuiz(stats) {
+  if (!stats?.length) return '';
+  return `<aside class="mag-quiz"><div class="mq-head"><span class="an">STYLE QUIZ</span><small>Hulaan mo! Tap a clue to see the answer.</small></div>
+    <ol>${stats.map(([big, small]) => `<li><details><summary>${esc(small)}</summary><b class="an">${esc(big)}</b></details></li>`).join('')}</ol></aside>`;
+}
+
+function magTv(video) {
+  return `<div class="mag-tv"><span class="mag-tv-k an">AS SEEN ON TV</span>${video?.youtube ? ytFrame(video, '', null) : media(video, [], null)}</div>`;
+}
+
+function magArticles(panels, title) {
+  return panels
+    .map(([h, t]) =>
+      /REALITY/.test(h)
+        ? `<div class="ed-note"><div class="en-k an">EDITOR'S NOTE</div><h4>${esc(h)}</h4><p>${esc(t)}</p><span class="en-sign pf">The Editors, ${esc(title)}</span></div>`
+        : `<section class="mag-art"><h4>${esc(h)}</h4><p>${esc(t)}</p></section>`
+    )
+    .join('');
+}
+
+function magCover(c, e, { big = false, link = true } = {}) {
+  const ph = e.overview.photos?.find((x) => x.src);
+  const img = ph ? `<img src="${esc(ph.src)}" alt="${esc(ph.caption)}" loading="lazy"${ph.pos && ph.pos !== 'contain' ? ` style="object-position:${esc(ph.pos)}"` : ''}>` : '';
+  const lines = e.parts
+    .map((p) => (big ? `<a href="/ch/${c.num}/${e.slug}/${p.slug}" data-link>${esc(p.cardTitle)} <small>${esc(p.cardLine)}</small></a>` : `<span>${esc(p.cardTitle)}</span>`))
+    .join('');
+  const inner = `${img}<span class="cv-shade" aria-hidden="true"></span>
+    <span class="cv-mast an">${esc(c.data.title)}</span>
+    <span class="cv-issue">ISSUE ${e.ep} · THE 2000s</span>
+    <span class="cv-lines">${lines}</span>
+    <span class="cv-head an">${esc(e.title)}</span>
+    <span class="cv-sub">${esc(e.cardSub)}</span>
+    <span class="cv-fine it">${esc(e.fine)}</span>
+    ${ph?.credit ? (link ? `<span class="cv-credit">Cover photo: ${esc(ph.credit)}</span>` : `<a class="cv-credit" href="${esc(ph.link || ph.src)}" target="_blank" rel="noopener">Cover: ${esc(ph.caption)} · Photo: ${esc(ph.credit)}</a>`) : ''}
+    ${link ? '<span class="cv-go">▶ BASAHIN</span>' : ''}`;
+  return link
+    ? `<a class="cover" href="/ch/${c.num}/${e.slug}" data-link style="--c:${e.color}">${inner}</a>`
+    : `<div class="cover big" style="--c:${e.color}">${inner}</div>`;
+}
+
+function magChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  return `
+  <div class="page mag" style="background:${d.bg}">
+    <header class="mag-mast"><span class="badge" style="background:var(--yellow);color:#0b2a5c">CH ${c.num}</span><span class="mm-logo an">${esc(d.title)}</span><span class="mm-meta">${esc(d.aspect)} · THE 2000s ISSUES</span></header>
+    <div class="mag-ed">
+      <div class="ed-k an">FROM THE EDITOR</div>
+      <div class="ed-cols"><div><h3>WHAT IS IT?</h3><p>${esc(d.what)}</p></div><div><h3>HOW THE 2000s FELT</h3><p>${esc(d.felt)}</p></div></div>
+    </div>
+    <div class="mag-rack">${d.episodes.map((e) => magCover(c, e)).join('')}</div>
+    <div style="flex:1"></div>
+    ${ticker(['PICK AN ISSUE TO READ', 'THESE ARE NOT REAL PRODUCTS', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function magEpisode(c, e, partIndex) {
+  const d = c.data;
+  const nav = stopsFor(c, e, partIndex, 'COVER');
+  const p = partIndex == null ? null : e.parts[partIndex];
+  const page = p || e.overview;
+  const pageNo = partIndex == null ? 1 : partIndex + 2;
+  const isNote = p && p.slug === 'reality-check';
+  const toc = `<nav class="mag-toc"><span class="an">IN THIS ISSUE</span>${nav.stops
+    .map((s, i) => `<a class="${i === nav.at ? 'on' : ''}" href="${s.href}" data-link><b>${i + 1}</b>${esc(s.name)}</a>`)
+    .join('')}</nav>`;
+  let spread;
+  if (!p) {
+    spread = `<div class="mag-spread">
+      ${magCover(c, e, { big: true, link: false })}
+      <div class="mag-pg">
+        <div class="mag-kicker">COVER STORY</div>
+        <h1 class="an">${esc(e.title)}</h1>
+        <div class="mag-dek">${esc(page.sub)}</div>
+        ${magArticles(page.panels, d.title)}
+        ${magTv(page.video)}
+        ${photoGrid(page.photos.slice(1))}
+      </div>
+    </div>`;
+  } else if (isNote) {
+    spread = `<div class="mag-spread">
+      <div class="mag-pg letterhead">
+        <div class="en-k an">EDITOR'S NOTE</div>
+        <h1 class="pf">${esc(p.title)}</h1>
+        <div class="mag-dek">${esc(p.sub)}</div>
+        ${p.panels.map(([h, t]) => `<section class="${/REALITY/.test(h) ? 'en-hl' : ''}"><h4>${esc(h)}</h4><p>${esc(t)}</p></section>`).join('')}
+        <div class="en-sign pf">The Editors, ${esc(d.title)}</div>
+        <div class="mag-fine it">${esc(p.fine)}</div>
+      </div>
+      <div class="mag-pg side">${magTv(p.video)}${photoGrid(p.photos)}${magQuiz(p.stats)}</div>
+    </div>`;
+  } else {
+    spread = `<div class="mag-spread">
+      <div class="mag-pg">
+        <div class="mag-kicker">${esc(p.label)}</div>
+        <h1 class="an">${esc(p.title)}</h1>
+        <div class="mag-dek">${esc(p.sub)}</div>
+        ${magArticles(p.panels, d.title)}
+        <div class="mag-fine it">${esc(p.fine)}</div>
+      </div>
+      <div class="mag-pg side">${magTv(p.video)}${photoGrid(p.photos)}${magQuiz(p.stats)}</div>
+    </div>`;
+  }
+  return `
+  <div class="page mag" style="background:${d.bg};--c:${e.color}">
+    <div class="now mag-now"><span class="an">${esc(d.title)}</span><span class="label">ISSUE ${e.ep}</span>
+      <span class="where">PAGE ${pageNo} OF ${nav.stops.length}</span><a class="btn ghost back" href="/ch/${c.num}" data-link>◀ ALL ISSUES</a></div>
+    ${toc}
+    <div class="page-body">${spread}</div>
+    <div class="mag-folio"><span>${esc(d.title.toUpperCase())} · ISSUE ${e.ep}</span><span>${pageNo}</span></div>
+    <div style="flex:1"></div>
+    ${pagerBar(c, nav, 'mag-pager')}
     ${ticker(page.ticker || [])}
   </div>`;
 }
