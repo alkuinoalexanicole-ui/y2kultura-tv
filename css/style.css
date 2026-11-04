@@ -1493,3 +1493,5 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
 .roll { height: clamp(200px, 30cqh, 360px); }
 .tab-head { font-size: clamp(17px, min(2.3cqw, 2.7cqh), 30px); }
 .rnd-title { font-size: clamp(20px, min(2.8cqw, 3.3cqh), 38px); }
+.mmk-head { padding: clamp(6px, 1.2cqh, 12px) 16px; }
+.finale { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
