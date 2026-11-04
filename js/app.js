@@ -235,10 +235,6 @@ function nudge() {
   note.classList.add('nudge');
 }
 
-// The first time the TV is switched on after the page loads (or reloads), it starts at
-// CH 00, the home screen, so visitors enter the museum again from the beginning.
-let firstPowerOn = true;
-
 function powerOn() {
   state = 'warming';
   display.textContent = 'POWER ON';
@@ -252,10 +248,6 @@ function powerOn() {
     document.body.classList.remove('warming');
     state = 'on';
     paintState();
-    if (firstPowerOn) {
-      firstPowerOn = false;
-      if (here() !== '/') history.replaceState({}, '', BASE + '/');
-    }
     render(here(), { animate: true });
   }, reduced ? 50 : 650);
 }
@@ -380,5 +372,8 @@ function startSnow() {
 if (!reduced) view.classList.add('flicker');
 paintState();
 resetPlug();
+// Every page load starts at CH 00, so visitors enter the museum again from the beginning.
+// Switching the address before the first render means no other channel ever flashes on screen.
+if (here() !== '/') history.replaceState({}, '', BASE + '/');
 // The page loads behind the dark screen; it appears once the viewer turns the TV on.
 render(here(), { animate: false });
