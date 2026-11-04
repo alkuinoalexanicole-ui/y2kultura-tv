@@ -235,6 +235,10 @@ function nudge() {
   note.classList.add('nudge');
 }
 
+// The first time the TV is switched on after the page loads (or reloads), it starts at
+// CH 00, the home screen, so visitors enter the museum again from the beginning.
+let firstPowerOn = true;
+
 function powerOn() {
   state = 'warming';
   display.textContent = 'POWER ON';
@@ -248,6 +252,10 @@ function powerOn() {
     document.body.classList.remove('warming');
     state = 'on';
     paintState();
+    if (firstPowerOn) {
+      firstPowerOn = false;
+      if (here() !== '/') history.replaceState({}, '', BASE + '/');
+    }
     render(here(), { animate: true });
   }, reduced ? 50 : 650);
 }
