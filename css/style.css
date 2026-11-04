@@ -1476,3 +1476,16 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
 .buzz-host { font-size: clamp(14px, min(1.57cqw, 2.1cqh), 20px); }
 .roll { height: clamp(220px, 40cqh, 420px); }
 .mag-ed { padding: clamp(8px, 1.6cqh, 14px) 16px; }
+/* Line-up card text also respects the screen height */
+.act-sub, .kab-sub, .rnd-sub, .tab-sub, .endcard-s, .env-s, .cv-sub { font-size: clamp(13px, min(1.62cqw, 2.05cqh), 20px); }
+.act-num { font-size: clamp(36px, min(6.4cqw, 7.6cqh), 84px); }
+.act-name, .tab-head, .env-t { font-size: clamp(18px, min(2.6cqw, 3.1cqh), 34px); }
+.kab-title, .rnd-title, .env-k { font-size: clamp(21px, min(3.2cqw, 3.8cqh), 42px); }
+.endcard-t { font-size: clamp(20px, min(3cqw, 3.6cqh), 38px); }
+.act-go, .kab-go, .rnd-go, .tab-go, .env-go { padding-top: clamp(3px, .7cqh, 8px); padding-bottom: clamp(3px, .7cqh, 8px); }
+.envelope { padding: clamp(10px, 1.8cqh, 22px) clamp(12px, 1.8cqw, 22px); }
+.env-post { min-height: 0; }
+.envelopes, .acts, .kabs, .rnds, .tabloids, .page.credits .endcards, .mag-rack { padding-top: clamp(8px, 1.6cqh, 16px); padding-bottom: clamp(8px, 1.6cqh, 16px); }
+.roll { height: clamp(200px, 33cqh, 380px); }
+.quiz-logo { margin: 4px 0 6px; }
+.mag-rack .cover { min-height: clamp(260px, 36cqh, 600px); }
