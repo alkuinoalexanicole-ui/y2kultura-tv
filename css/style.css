@@ -1458,3 +1458,21 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
   .envelopes, .mag-rack, .kabs, .rnds, .tabloids, .page.credits .endcards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .acts { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
+/* Channel intros and title cards size by the screen's height too, so the line-up below stays in view */
+.explain p, .host-say p, .ed-cols p, .xp-desk.home .xp-paper p { font-size: clamp(14.5px, min(1.85cqw, 2.45cqh), 23px); line-height: 1.5; }
+.explain > div { padding: clamp(8px, 1.6cqh, 16px) clamp(14px, 2cqw, 24px); }
+.mmk-host { padding: clamp(10px, 1.8cqh, 18px) 16px; }
+.host-say h3, .explain h3, .ed-cols h3 { margin-top: clamp(4px, .8cqh, 8px); }
+.stage-head { padding: clamp(16px, 3.4cqh, 34px) 16px clamp(8px, 1.6cqh, 14px); }
+.marquee { font-size: clamp(26px, min(5.15cqw, 6.6cqh), 64px); }
+.title-card { padding: clamp(10px, 2.2cqh, 22px) 16px clamp(8px, 1.6cqh, 16px); }
+.serye-logo { font-size: clamp(34px, min(7.84cqw, 9.5cqh), 90px); }
+.studio-main { padding: clamp(12px, 2.6cqh, 26px) 16px clamp(8px, 1.6cqh, 16px); }
+.quiz-logo { font-size: clamp(34px, min(6.72cqw, 8.4cqh), 87px); }
+.ladder { gap: 0; padding: 6px 8px; }
+.ladder a { font-size: clamp(11px, min(1.35cqw, 1.75cqh), 17px); padding: 1px 8px; }
+.buzz-set { padding: clamp(14px, 2.8cqh, 28px) 16px clamp(10px, 1.8cqh, 18px); }
+.buzz-logo .pf { font-size: clamp(36px, min(7.17cqw, 8.6cqh), 90px); }
+.buzz-host { font-size: clamp(14px, min(1.57cqw, 2.1cqh), 20px); }
+.roll { height: clamp(220px, 40cqh, 420px); }
+.mag-ed { padding: clamp(8px, 1.6cqh, 14px) 16px; }
