@@ -1,4 +1,4 @@
-// CH 04: Style File (Body and Self-Image), presented as a TV commercial break.
+// CH 04: Style File (Body and Self-Image), presented as a 2000s teen magazine.
 // Slogans are invented for the museum; no real brands are used.
 // An ad without `overview` shows on the channel page as "coming up after the break."
 const v = (label) => ({ label, youtube: null });
@@ -8,7 +8,7 @@ export default {
   num: '04',
   title: 'Style File',
   aspect: 'Body and self-image: the looks the 2000s sold us',
-  format: 'ads',
+  format: 'mag',
   bg: '#3a1a5c',
   what: 'Body and self-image is how people see their own looks, and what shapes that view. In the 2000s, celebrities, fashion, beauty products, and fitness on TV told Filipinos what "beautiful" and "handsome" should look like.',
   felt: 'Exciting and pressured at once. A new haircut from a teleserye or a pair of low-rise jeans could make you feel in style, while ads and public judgment set standards that not everyone could, or should have to, meet.',

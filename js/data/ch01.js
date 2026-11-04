@@ -7,7 +7,7 @@ export default {
   "slug": "ch01",
   "title": "Heartstrings",
   "aspect": "Affect, Senses, and Feelings",
-  "format": "lineup",
+  "format": "mmk",
   "bg": "#4b2470",
   "what": "Affect is the feeling that moves through our bodies and between people, set off by what we see, hear, and touch. Pop culture teaches us what to feel and how to show it.",
   "felt": "Filipinos felt together: kilig over love teams, pride in a boxing hero's fights, love songs from homegrown bands, and shared grief when a beloved president passed.",
@@ -23,6 +23,8 @@ export default {
   "episodes": [
     {
       "slug": "love-teams",
+      "keepsake": "Ang Ticket Stub",
+      "keepsakeEn": "A movie ticket stub",
       "ep": 1,
       "icon": "ti-heart",
       "thumb": "#E83BD0",
@@ -91,6 +93,8 @@ export default {
     },
     {
       "slug": "filipino-pride",
+      "keepsake": "Ang Boxing Gloves",
+      "keepsakeEn": "A pair of boxing gloves",
       "ep": 2,
       "icon": "ti-trophy",
       "thumb": "#0A3FBF",
@@ -350,6 +354,8 @@ export default {
     },
     {
       "slug": "opm-bands",
+      "keepsake": "Ang Mixtape",
+      "keepsakeEn": "A mixtape of love songs",
       "ep": 3,
       "icon": "ti-music",
       "thumb": "#19B5F0",
@@ -609,6 +615,8 @@ export default {
     },
     {
       "slug": "cory-aquino",
+      "keepsake": "Ang Dilaw na Laso",
+      "keepsakeEn": "A yellow ribbon",
       "ep": 4,
       "icon": "ti-flower",
       "thumb": "#FFD21F",
