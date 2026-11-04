@@ -1453,3 +1453,8 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
 .kab, .rnd, .act, .tabloid, .endcard { justify-content: flex-start; }
 .kab-sub, .rnd-sub, .act-sub, .tab-sub { flex: 1; }
 .cv-mast { font-size: clamp(28px, 4.2cqw, 54px); white-space: nowrap; }
+/* Keep each line-up on one row on laptop and desktop screens */
+@media (min-width: 700px) {
+  .envelopes, .mag-rack, .kabs, .rnds, .tabloids, .page.credits .endcards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .acts { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
