@@ -1489,3 +1489,7 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
 .roll { height: clamp(200px, 33cqh, 380px); }
 .quiz-logo { margin: 4px 0 6px; }
 .mag-rack .cover { min-height: clamp(260px, 36cqh, 600px); }
+.finale { align-items: start; padding-top: clamp(8px, 1.6cqh, 14px); padding-bottom: clamp(8px, 1.6cqh, 14px); }
+.roll { height: clamp(200px, 30cqh, 360px); }
+.tab-head { font-size: clamp(17px, min(2.3cqw, 2.7cqh), 30px); }
+.rnd-title { font-size: clamp(20px, min(2.8cqw, 3.3cqh), 38px); }
