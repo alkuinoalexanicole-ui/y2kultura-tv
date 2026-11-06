@@ -420,7 +420,7 @@ function mmkChannel(c) {
     )
     .join('');
   return `
-  <div class="page mmk" style="background:${d.bg}">
+  <div class="page mmk mmk-home" style="background:${d.bg}">
     <header class="mmk-head">
       <span class="badge" style="background:var(--yellow);color:#0b2a5c">CH ${c.num}</span>
       <div class="mmk-logo"><span class="pf">${esc(d.title)}</span><small>${esc(d.aspect)}</small></div>
