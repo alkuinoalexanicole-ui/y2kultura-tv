@@ -78,7 +78,7 @@ export function changeChannel(swap) {
 }
 
 export function showOSD(num, name) {
-  osd.innerHTML = num === 'GUIDE' ? 'GUIDE' : `CH ${num}${name ? `<small>${name}</small>` : ''}`;
+  osd.innerHTML = num === 'GUIDE' ? 'GUIDE' : num === 'HOME' ? `HOME${name ? `<small>${name}</small>` : ''}` : `CH ${num}${name ? `<small>${name}</small>` : ''}`;
   osd.classList.add('on');
   clearTimeout(osdTimer);
   osdTimer = setTimeout(() => osd.classList.remove('on'), 2000);

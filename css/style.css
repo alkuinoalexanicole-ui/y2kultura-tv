@@ -124,6 +124,8 @@ a { color: inherit; }
 .rb i { font-size: 18px; vertical-align: -3px; }
 .rb-power { background: var(--red); flex: 0 0 44px; border-radius: 50%; height: 44px; }
 .rb-power:hover { background: #ff3d4a; }
+.rb-home { background: #1f8a4c; }
+.rb-home:hover { background: #27a85d; }
 .rb-ch { background: var(--royal); font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 19px; min-height: 42px; }
 .rb-ch:hover { background: #1a55e0; }
 .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }

@@ -70,7 +70,8 @@ export default {
           ],
           list: [
             ['P+ / P−', 'Next or previous channel (keyboard: Page Up / Page Down, or + and −)'],
-            ['0 to 9', 'Type a channel number, like 0 then 7 for CH 07'],
+            ['0 to 9', 'Type a channel number: 8 or 0 then 8 for CH 08, 1 then 0 for CH 10'],
+            ['HOME', 'The house button goes back to the welcome screen (keyboard: H)'],
             ['GUIDE', 'Open the channel guide (keyboard: G)'],
             ['BACK', 'Go one step back (keyboard: Esc or Backspace)'],
             ['TABS', 'Jump to any part of a program'],
