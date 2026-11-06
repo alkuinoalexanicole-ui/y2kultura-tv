@@ -1612,3 +1612,28 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
   .future[data-era="then"] .fx-cell[data-col="then"], .future[data-era="now"] .fx-cell[data-col="now"], .future[data-era="future"] .fx-cell[data-col="future"] { display: block; transform: none; }
   .fx-row + .fx-row { margin-top: 8px; }
 }
+
+/* ---------- Channel guide: all channels on one screen, sized by the screen's height too ---------- */
+.guide-head { padding: clamp(6px, 1.6cqh, 18px) clamp(14px, 2.4cqw, 26px); }
+.guide-head .pf { font-size: clamp(22px, min(5cqw, 6cqh), 52px); }
+.guide-head .badge { font-size: clamp(11px, min(1.4cqw, 1.8cqh), 15px); }
+.listing { grid-auto-rows: minmax(0, 1fr); gap: clamp(3px, .8cqh, 10px); padding: clamp(6px, 1.4cqh, 16px) clamp(14px, 2.4cqw, 26px); }
+.listing a { min-height: 0; padding-top: 2px; padding-bottom: 2px; }
+.listing .num { font-size: clamp(16px, min(3.6cqw, 4.6cqh), 40px); line-height: 1; }
+.listing .slot { font-size: clamp(11px, min(1.6cqw, 2cqh), 18px); }
+.listing .name { font-size: clamp(14px, min(2.9cqw, 3.4cqh), 32px); line-height: 1.05; }
+.listing .name small { font-size: clamp(10.5px, min(1.6cqw, 1.95cqh), 17px); margin-top: 1px; }
+.status { font-size: clamp(9.5px, min(1.35cqw, 1.7cqh), 15px); padding: 2px clamp(6px, 1cqw, 10px); }
+@media (max-width: 560px) {
+  .listing a { gap: 8px; padding: 2px 10px; }
+  .listing .num { font-size: clamp(16px, 3.2cqh, 24px); }
+  .listing .name { font-size: clamp(14px, 2.6cqh, 20px); }
+  .listing .name small { font-size: clamp(10.5px, 1.75cqh, 13px); }
+  .status { font-size: clamp(9px, 1.4cqh, 11px); }
+}
+@media (max-width: 560px) {
+  .listing .status { font-size: 0; padding: 0; width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: 0 0 6px var(--red); }
+  .listing .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .listing .name small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .listing a > * { min-width: 0; }
+}

@@ -48,7 +48,7 @@ export function guide() {
       <span class="badge" style="background:var(--yellow);color:#0b2a5c">TONIGHT ON Y2KULTURA</span>
     </div>
     <ul class="listing">${rows}</ul>
-    ${ticker(['PICK A CHANNEL OR TYPE ITS NUMBER ON THE REMOTE', 'P+ / P- TO CHANGE CHANNEL', 'ALL 9 CHANNELS NOW ON AIR']) }
+    ${ticker(['PICK A CHANNEL OR TYPE ITS NUMBER ON THE REMOTE', 'P+ / P- TO CHANGE CHANNEL', `ALL ${CHANNELS.filter((c) => c.data).length} CHANNELS NOW ON AIR`]) }
   </div>`;
 }
 
