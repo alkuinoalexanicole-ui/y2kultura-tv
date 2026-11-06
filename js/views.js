@@ -74,6 +74,7 @@ export function channel(c) {
   if (c.data.format === 'mmk') return mmkChannel(c);
   if (c.data.format === 'desktop') return deskChannel(c);
   if (c.data.format === 'mag') return magChannel(c);
+  if (c.data.format === 'future') return futureChannel(c);
   if (c.data.format === 'news') return newsChannel(c);
   if (c.data.format === 'talent') return talentChannel(c);
   if (c.data.format === 'teleserye') return seryeChannel(c);
@@ -160,6 +161,7 @@ export function episode(c, e, partIndex) {
   if (c.data.format === 'mmk') return mmkEpisode(c, e, partIndex);
   if (c.data.format === 'desktop') return deskEpisode(c, e, partIndex);
   if (c.data.format === 'mag') return magEpisode(c, e, partIndex);
+  if (c.data.format === 'future') return futureEpisode(c, e);
   if (c.data.format === 'news') return newsEpisode(c, e, partIndex);
   if (c.data.format === 'talent') return talentEpisode(c, e, partIndex);
   if (c.data.format === 'teleserye') return seryeEpisode(c, e, partIndex);
@@ -740,6 +742,150 @@ function magEpisode(c, e, partIndex) {
   </div>`;
 }
 
+/* ---------- CH 08 format: "Abante 2030" time machine ----------
+   A time dial moves every story from the 2000s, to today (2026), to the 2030 forecast.
+   The whole screen changes with the dial: phosphor green for the 2000s,
+   dark phone UI for today, and glassy hologram for 2030. */
+const ERA_KEYS = ['then', 'now', 'future'];
+let futureEra = 'future';
+let fxBooted = false;
+const cap = (t) => (t ? t[0].toUpperCase() + t.slice(1) : t);
+
+function eraDial(d) {
+  const idx = ERA_KEYS.indexOf(futureEra);
+  return `<div class="fx-dial" role="group" aria-label="Time dial">
+    <span class="fx-dial-k"><i class="ti ti-clock-hour-4" aria-hidden="true"></i> TIME DIAL</span>
+    <div class="fx-stops">${d.eras
+      .map((x) => `<button type="button" class="fx-stop" data-era-btn="${x.key}" aria-pressed="${x.key === futureEra}">
+        <i class="ti ${x.icon}" aria-hidden="true"></i><b>${esc(x.label)}</b><small>${esc(x.sub)}</small></button>`)
+      .join('')}</div>
+    <input class="fx-range" type="range" min="0" max="2" step="1" value="${idx}" data-era-range aria-label="Drag through the years: 2000s, today, 2030">
+  </div>`;
+}
+
+function fxSwap(then, now, future) {
+  const pick = { then, now, future }[futureEra];
+  return `<span data-swap data-then="${esc(then)}" data-now="${esc(now)}" data-future="${esc(future)}">${esc(pick)}</span>`;
+}
+
+function futureChannel(c) {
+  const d = c.data;
+  const next = CHANNELS[CHANNELS.indexOf(c) + 1];
+  const tiles = d.episodes
+    .map((e) => {
+      const ev = e.rows[0];
+      return `<a class="fx-tile" href="/ch/${c.num}/${e.slug}" data-link style="--c:${e.color}">
+        <span class="fx-orb" aria-hidden="true"><i class="ti ${e.icon}"></i></span>
+        <span class="fx-dom">SECTOR ${String(e.ep).padStart(2, '0')} · ${esc(e.en)}</span>
+        <span class="fx-t">${esc(e.title)}</span>
+        <span class="fx-line">${fxSwap(ev.then, ev.now, ev.future.head || ev.future.body)}</span>
+        <span class="fx-go">▶ TIME JUMP</span>
+      </a>`;
+    })
+    .join('');
+  return `
+  <div class="page future" data-era="${futureEra}" data-fx-boot>
+    <header class="fx-head">
+      <span class="badge" style="background:var(--yellow);color:#0b2a5c">CH ${c.num}</span>
+      <div class="fx-brand"><span class="fx-logo">ABANTE <b>2030</b></span><small>${esc(d.aspect)}</small></div>
+      <span class="fx-rec"><i aria-hidden="true"></i>TIME LINK ACTIVE</span>
+    </header>
+    <div class="fx-intro">
+      <div><h3>WHAT IS IT?</h3><p>${esc(d.what)}</p></div>
+      <div><h3>HOW TO WATCH</h3><p>${esc(d.felt)}</p></div>
+    </div>
+    ${eraDial(d)}
+    <div class="fx-grid">${tiles}</div>
+    <div style="flex:1"></div>
+    ${ticker(['TURN THE TIME DIAL: 2000s, TODAY, 2030', 'FORECASTS ARE PROJECTIONS, NOT FACTS', 'P+ / P- TO CHANGE CHANNEL', next ? `CH ${next.num} NEXT: ${next.title.toUpperCase()}` : ''])}
+  </div>`;
+}
+
+function futureEpisode(c, e) {
+  const d = c.data;
+  const eps = d.episodes;
+  const i = eps.indexOf(e);
+  const prev = eps[i - 1];
+  const nx = eps[i + 1];
+  const cell = (col, era, inner) => `<div class="fx-cell" data-col="${col}"><span class="fx-ct"><i class="ti ${era.icon}" aria-hidden="true"></i> ${esc(era.label)}${era.key === 'now' ? ' · 2026' : ''}</span>${inner}</div>`;
+  const [eThen, eNow, eFut] = d.eras;
+  const rows = e.rows
+    .map(
+      (r) => `<div class="fx-row">
+        <div class="fx-rlabel"><i class="ti ${r.icon}" aria-hidden="true"></i><span>${esc(r.label)}</span></div>
+        ${cell('then', eThen, `<p>${esc(r.then)}</p>`)}
+        ${cell('now', eNow, `<p>${esc(r.now)}</p>`)}
+        ${cell('future', eFut, `${r.future.head ? `<b class="fx-hl">${esc(r.future.head)}</b>` : ''}<p>${esc(r.future.body)}</p>`)}
+      </div>`
+    )
+    .join('');
+  const trend = `<div class="fx-row">
+      <div class="fx-rlabel"><i class="ti ti-trending-up" aria-hidden="true"></i><span>Overall trend</span></div>
+      ${cell('then', eThen, `<p>${esc(e.trend.then)}</p>`)}
+      ${cell('now', eNow, `<p>${esc(e.trend.now)}</p>`)}
+      ${cell('future', eFut, `<b class="fx-hl"><i class="ti ti-radar" aria-hidden="true"></i> Trend to watch</b><p>${esc(cap(e.watch))}</p>`)}
+    </div>`;
+  const sectors = eps
+    .map((x) => `<a class="fx-sector${x === e ? ' on' : ''}" href="/ch/${c.num}/${x.slug}" data-link style="--c:${x.color}"><i class="ti ${x.icon}" aria-hidden="true"></i><span>${esc(x.en)}</span></a>`)
+    .join('');
+  const pager = `<div class="pager fx-pager">
+    ${prev ? `<a href="/ch/${c.num}/${prev.slug}" data-link>◀ ${esc(prev.title)}</a>` : `<a href="/ch/${c.num}" data-link>◀ CH ${c.num} MAIN PAGE</a>`}
+    ${nx ? `<a href="/ch/${c.num}/${nx.slug}" data-link>NEXT: ${esc(nx.title)} ▶</a>` : endLink(c, e, `<a href="/ch/${c.num}" data-link>BACK TO CH ${c.num} ▶</a>`)}
+  </div>`;
+  return `
+  <div class="page future" data-era="${futureEra}" style="--c:${e.color}">
+    <div class="now fx-now"><span class="label">SECTOR ${e.ep} OF ${eps.length}</span><span class="where">${esc(e.en)}</span><a class="btn ghost back" href="/ch/${c.num}" data-link>◀ ALL SECTORS</a></div>
+    <nav class="fx-sectors" aria-label="Sectors">${sectors}</nav>
+    <div class="page-body">
+      <div class="fx-title">
+        <span class="fx-orb big" aria-hidden="true"><i class="ti ${e.icon}"></i></span>
+        <div><div class="fx-dom">${esc(e.en)} · ${esc(e.cardSub)}</div><h1>${esc(e.title)}</h1></div>
+      </div>
+      ${eraDial(d)}
+      <div class="fx-board">
+        <div class="fx-row fx-colhead" aria-hidden="true"><div></div>${d.eras.map((x) => `<div class="fx-ch" data-col="${x.key}"><i class="ti ${x.icon}"></i> ${esc(x.label)} <small>${esc(x.sub)}</small></div>`).join('')}</div>
+        ${rows}
+        ${trend}
+      </div>
+      <div class="fx-forecast">
+        <section class="fx-card"><h4><i class="ti ti-history" aria-hidden="true"></i> MULA 2000s HANGGANG NGAYON</h4><p>${esc(e.pastToNow)}</p></section>
+        <section class="fx-card f"><h4><i class="ti ti-rocket" aria-hidden="true"></i> PATUNGONG 2030</h4><p>${esc(e.toFuture)}</p></section>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+    ${pager}
+    ${ticker(['FORECASTS ARE PROJECTIONS, NOT FACTS', 'TURN THE TIME DIAL TO COMPARE THE YEARS', 'SOURCES: Y2Kultura curators, Phase 3 forecast workbook (2026)'])}
+  </div>`;
+}
+
+function setEra(page, era) {
+  if (!page.isConnected || !ERA_KEYS.includes(era)) return;
+  futureEra = era;
+  page.dataset.era = era;
+  page.querySelectorAll('[data-era-btn]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.eraBtn === era)));
+  const r = page.querySelector('[data-era-range]');
+  if (r) r.value = ERA_KEYS.indexOf(era);
+  page.querySelectorAll('[data-swap]').forEach((el) => { el.textContent = el.dataset[era]; });
+}
+
+function bindFuture(view) {
+  const page = view.querySelector('.page.future');
+  if (!page) return;
+  page.addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-era-btn]');
+    if (b) setEra(page, b.dataset.eraBtn);
+  });
+  page.querySelector('[data-era-range]')?.addEventListener('input', (ev) => setEra(page, ERA_KEYS[+ev.target.value]));
+  if (page.hasAttribute('data-fx-boot') && !fxBooted && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // First visit: the dial travels from the 2000s to today to 2030 on its own.
+    const end = futureEra;
+    setEra(page, 'then');
+    setTimeout(() => setEra(page, 'now'), 1000);
+    setTimeout(() => setEra(page, end === 'then' ? 'future' : end), 2000);
+  }
+  fxBooted = true;
+}
+
 /* ---------- CH 05 format: "Grand Finals" talent show ---------- */
 const pad = (n) => String(n).padStart(2, '0');
 
@@ -1230,7 +1376,7 @@ function buzzEpisode(c, e, partIndex) {
         <div>${interview(page.qa)}${rundown(page.list)}</div>
       </div>
       ${extra}
-      ${nextUp ? `<a class="nextseg" href="${nextUp.href}" data-link><span class="an">${esc(nextUp.label)}</span><span class="nextseg-t">${esc(nextUp.title)} ▶</span></a>` : `<div class="nextseg final"><span class="pf">Hanggang sa susunod na tsika!</span><span class="nextseg-t">That's all the buzz for now. Stay tuned for CH 09, Credits Roll.</span></div>`}
+      ${nextUp ? `<a class="nextseg" href="${nextUp.href}" data-link><span class="an">${esc(nextUp.label)}</span><span class="nextseg-t">${esc(nextUp.title)} ▶</span></a>` : `<div class="nextseg final"><span class="pf">Hanggang sa susunod na tsika!</span><span class="nextseg-t">That's all the buzz for now. Stay tuned for CH ${String(+c.num + 1).padStart(2, '0')}, Credits Roll.</span></div>`}
     </div>
     <div style="flex:1"></div>
     ${pagerBar(c, nav, 'buzz-pager')}
@@ -1525,6 +1671,7 @@ function bindQuiz(view) {
 export async function afterRender(view) {
   bindQuiz(view);
   bindRoll(view);
+  bindFuture(view);
   const box = view.querySelector('[data-worldmap]');
   if (!box) return;
   const c = CHANNELS.find((x) => x.num === box.dataset.worldmap);
