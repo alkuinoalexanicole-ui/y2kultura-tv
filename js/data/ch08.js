@@ -1,280 +1,412 @@
-// CH 08: Behind the Broadcast (about the museum), presented as a 2000s showbiz talk show.
-// Each episode is an "exclusive" segment; each part is an interview ("tsika") about the museum.
-// `qa` holds the host's questions and the network's answers. `list` is an optional rundown.
-const v = (label) => ({ label, youtube: null });
-const ph = (...captions) => captions.map((caption) => ({ caption, src: null }));
-
+// CH 08: Abante 2030 (the present and the future), presented as a time machine broadcast.
+// Each story moves one part of Filipino life from the 2000s, to today (2026), to a 2030 forecast.
+// Text comes from the curators' Phase 3 forecast workbook.
 export default {
-  num: '08',
-  title: 'Behind the Broadcast',
-  aspect: 'About the museum',
-  format: 'buzz',
-  bg: '#2a0838',
-  showTitle: 'The Y2K Buzz',
-  showSub: 'BEHIND THE BROADCAST · ANG TSIKA SA LIKOD NG NETWORK',
-  hostLine: 'Magandang hapon, mga Kapamilya at Kapuso! Today we go behind the cameras of Y2Kultura TV: why it exists, how it was made, and how you can be part of it.',
-  sched: 'TUWING HAPON · 10:30 PM REPLAY · ALL EXCLUSIVE, ALL TRUE',
-  what: 'Y2Kultura TV is a digital museum of Philippine popular culture from 2000 to 2010, built like a television network. Each channel explores one aspect of pop culture, told through the shows, songs, places, and habits of the decade.',
-  felt: 'Like coming home, switching on the TV, and flipping through the channels with the remote, the way Filipino families did every night in the 2000s.',
-  episodes: [
+  "num": "08",
+  "title": "Abante 2030",
+  "aspect": "The future: today and 2030",
+  "format": "future",
+  "bg": "#05061a",
+  "what": "A look forward. Every story in this museum started in the 2000s, and it did not stop there. This channel follows six parts of Filipino life from the 2000s to today (2026), then forecasts where they are heading by 2030.",
+  "felt": "Turn the time dial and watch the screen change with the years: from keypad phones and internet cafés, to smartphones and streaming, to AI companions and climate-ready barangays. The forecasts are projections, not facts. They are the patterns of the past two decades, carried forward.",
+  "eras": [
     {
-      slug: 'ang-network',
-      ep: 1,
-      title: 'Ang Network',
-      en: 'THE NETWORK',
-      headline: 'Isang buong TV network para sa 2000s!',
-      color: '#ff4fa3',
-      cardSub: 'Why a museum looks like a TV, and why this decade',
-      overview: {
-        sub: 'Why a museum looks like a TV, and why this decade',
-        qa: [
-          ['So, what exactly is Y2Kultura TV?', 'A digital museum of Philippine pop culture from 2000 to 2010. Instead of walking through halls, you flip through channels. Every channel is one aspect of pop culture, and every program inside it is an exhibit.'],
-          ['Why build it like a TV network?', 'Because in the 2000s, the TV was the center of the Filipino home. The news, the teleserye, the noontime show, and the Sunday variety show set the rhythm of the day, so the museum borrows that rhythm.'],
-        ],
-        stats: [['7', 'channels, one for each aspect'], ['2000–2010', 'the decade on air'], ['+2', 'bonus channels: this one and the credits']],
-        video: v('2004 station IDs'),
-        photos: ph('A home TV corner', 'A TV studio', 'A remote control'),
-        ticker: ['Y2KULTURA TV: WHERE THE 2000s COME ALIVE!'],
-      },
-      parts: [
-        {
-          slug: 'bakit-tv', title: 'Bakit TV?', en: 'WHY TV?', cardLine: 'The TV as the center of the house',
-          sub: 'The TV as the center of the house',
-          qa: [
-            ['Why not a regular museum website?', 'A regular site would show the 2000s. A TV lets you feel them again: the color bars, the static between channels, the on-screen channel number, the tickers crawling at the bottom of the screen.'],
-            ['What does each part of the "TV" stand for?', 'The channel guide is the museum map. Each channel is a gallery. Each program or episode is an exhibit, and the parts inside it are the closer looks: the facts, the videos, and the photos.'],
-          ],
-          stats: [['GUIDE', 'the museum map'], ['CHANNEL', 'a gallery for one aspect'], ['EPISODE', 'one exhibit']],
-          video: v('a 2005 network station ID'),
-          photos: ph('A home TV corner'),
-          ticker: ['THE TV WAS THE CENTER OF THE 2000s FILIPINO HOME'],
-        },
-        {
-          slug: 'bakit-2000s', title: 'Bakit 2000s?', en: 'WHY THE 2000s?', cardLine: 'The decade everything changed',
-          sub: 'The decade everything changed',
-          qa: [
-            ['Why focus on 2000 to 2010?', 'It was a decade of change. Filipinos started texting, chatting in internet cafés, watching Korean dramas and reality shows, and working the night shift in call centers, while still gathering for fiestas, teleseryes, and Sunday lunch.'],
-            ['Why does that matter today?', 'Many of today\'s habits started then. The decade is recent enough for parents and older siblings to remember, and far enough away to feel nostalgic. That is why every fact, video, and photo in the museum is dated from 2000 to 2010.'],
-          ],
-          stats: [['2000', 'the year the Nokia 3310 came out'], ['2005', 'the year YouTube launched'], ['2010', 'the year PH became the call center capital']],
-          video: v('a 2002 network station ID'),
-          photos: ph('A Nokia phone', 'An internet café'),
-          ticker: ['EVERY FACT, VIDEO, AND PHOTO IS DATED 2000 TO 2010'],
-        },
-        {
-          slug: 'paano-manood', title: 'Paano Manood', en: 'HOW TO WATCH', cardLine: 'Using the remote and the channel guide',
-          sub: 'Using the remote and the channel guide',
-          qa: [
-            ['I just got here. Where do I start?', 'Press GUIDE to see every channel and its time slot, then pick one. Or press P+ and P− to flip through the channels in order, just like the old days.'],
-            ['How do I move around inside a channel?', 'Each channel page lists its programs. Open one, then use the tabs under the title or the NEXT button at the bottom to go through its parts. BACK takes you one step up.'],
-          ],
-          list: [
-            ['P+ / P−', 'Next or previous channel (keyboard: Page Up / Page Down, or + and −)'],
-            ['0 to 9', 'Type a channel number, like 0 then 7 for CH 07'],
-            ['GUIDE', 'Open the channel guide (keyboard: G)'],
-            ['BACK', 'Go one step back (keyboard: Esc or Backspace)'],
-            ['TABS', 'Jump to any part of a program'],
-            ['NEXT ▶', 'Go to the next part, then on to the next program'],
-          ],
-          stats: [['9', 'channels on the dial'], ['P+ / P−', 'flip channels'], ['G', 'the guide shortcut']],
-          video: v('a 2006 sign-on and sign-off'),
-          photos: ph('A remote control'),
-          ticker: ['PRESS GUIDE ANYTIME TO SEE WHAT IS ON'],
-        },
-      ],
+      "key": "then",
+      "label": "2000s",
+      "sub": "2000–2010",
+      "icon": "ti-device-tv-old"
     },
     {
-      slug: 'ang-mga-programa',
-      ep: 2,
-      title: 'Ang Mga Programa',
-      en: 'THE CHANNELS',
-      headline: 'Pitong aspeto, pitong klase ng palabas!',
-      color: '#ffd23f',
-      cardSub: 'Seven aspects of pop culture, each in its own TV format',
-      overview: {
-        sub: 'Seven aspects of pop culture, each in its own TV format',
-        wall: true,
-        qa: [
-          ['How are the channels organized?', 'By aspect. Pop culture can be looked at through feelings, technology, globalization, the body, performance, space, and time. Each aspect gets its own channel, from CH 01 to CH 07.'],
-          ['Why does every channel look different?', 'Because each one borrows a different piece of 2000s media: a letter-reading drama, a computer desktop, a newscast, a teen magazine, a talent show finale, a teleserye, a quiz show, and, here on CH 08, a showbiz talk show.'],
-        ],
-        stats: [['7', 'aspects of pop culture'], ['9', 'formats borrowed from the decade'], ['1', 'decade on the dial']],
-        video: v('a 2005 network station ID'),
-        photos: ph('A TV studio', 'A newsroom'),
-        ticker: ['TAP A MONITOR TO JUMP TO THAT CHANNEL'],
-      },
-      parts: [
-        {
-          slug: 'pitong-aspeto', title: 'Pitong Aspeto', en: 'SEVEN ASPECTS', cardLine: 'What each channel is about',
-          sub: 'What each channel is about',
-          qa: [
-            ['What is an "aspect" of pop culture?', 'A way of looking at it. The same teleserye can be about feelings, about beauty standards, about the family living room, or about how families planned their evenings. Each channel picks one lens.'],
-          ],
-          list: [
-            ['CH 01', 'Heartstrings · Affect, senses, and feelings: what pop culture made us feel'],
-            ['CH 02', 'Tech Talk 2000 · Technology: phones, texting, the internet, and gadgets'],
-            ['CH 03', 'Global Mix · Globalization: the world arriving in Filipino life'],
-            ['CH 04', 'Style File · Body and self-image: beauty, fashion, and fitness'],
-            ['CH 05', 'Starstruck! · Performance: stages, contests, bands, and videoke'],
-            ['CH 06', 'Place To Be · Space: the places where culture happened'],
-            ['CH 07', 'Then vs. Now · Time: how the decade kept time'],
-          ],
-          stats: [['7', 'aspects'], ['CH 01–07', 'one channel each'], ['2000s', 'one decade']],
-          video: v('a 2009 network Christmas station ID'),
-          photos: ph('Pop culture moments'),
-          ticker: ['SEVEN ASPECTS, ONE DECADE'],
-        },
-        {
-          slug: 'ibat-ibang-format', title: 'Iba\'t Ibang Format', en: 'A DIFFERENT SHOW ON EVERY CHANNEL', cardLine: 'The 2000s TV shows behind each design',
-          sub: 'The 2000s TV shows behind each design',
-          qa: [
-            ['Where did the designs come from?', 'From the kinds of programs Filipinos watched every day in the 2000s. Each format matches its aspect: performance became a grand finals night, space became a teleserye told place by place, and time became a race against the clock on a quiz show.'],
-          ],
-          list: [
-            ['CH 01', 'Letter-reading drama: each story is read like a letter, titled after a keepsake'],
-            ['CH 02', 'Computer desktop: each story opens in its own window, with a music player and a phone'],
-            ['CH 03', 'Newscast: "Balitang Global," with a world map of stories'],
-            ['CH 04', 'Teen magazine: a cover for each story, then an editor\'s note with a reality check'],
-            ['CH 05', 'Talent show grand finals: acts, rounds, and judges\' scorecards'],
-            ['CH 06', 'Primetime teleserye: kabanata, eksena, and "Abangan!"'],
-            ['CH 07', 'Quiz show: a prize ladder up to one million pesos'],
-            ['CH 08', 'Showbiz talk show: the "exclusive" story behind the network'],
-            ['CH 09', 'End credits: the people and sources behind it all'],
-          ],
-          stats: [['9', 'channels'], ['9', 'different formats'], ['1', 'remote']],
-          video: v('a 2007 showbiz talk show episode'),
-          photos: ph('A showbiz talk show host', 'A TV studio'),
-          ticker: ['EVERY CHANNEL BORROWS A DIFFERENT 2000s TV FORMAT'],
-        },
-        {
-          slug: 'ang-itsura', title: 'Ang Itsura', en: 'THE LOOK', cardLine: 'Color bars, static, and tickers',
-          sub: 'Color bars, static, and tickers',
-          qa: [
-            ['What are all the little TV details?', 'They are borrowed from 2000s broadcasts. The color bars on the guide come from the test pattern stations showed when they signed on and off. The static in empty video boxes is the "snow" between channels. The channel number flashes on screen when you switch, and the ticker at the bottom lists each page\'s sources.'],
-            ['Why the boxy TV frame and the remote?', 'Most 2000s homes still had a boxy CRT television, and the remote was the most fought-over object in the house.'],
-          ],
-          stats: [['COLOR BARS', 'the sign-on test pattern'], ['SNOW', 'static between channels'], ['TICKER', 'sources at the bottom of every page']],
-          video: v('a 2009 network sign-off'),
-          photos: ph('A home TV corner', 'A TV control room'),
-          ticker: ['THE TICKER AT THE BOTTOM OF EACH PAGE LISTS ITS SOURCES'],
-        },
-      ],
+      "key": "now",
+      "label": "NGAYON",
+      "sub": "2026",
+      "icon": "ti-device-mobile"
     },
     {
-      slug: 'paano-ginawa',
-      ep: 3,
-      title: 'Paano Ginawa',
-      en: 'HOW IT WAS MADE',
-      headline: 'Ang sikreto sa likod ng bawat channel!',
-      color: '#4fd8ff',
-      cardSub: 'The research, the rules for media, and the website',
-      overview: {
-        sub: 'The research, the rules for media, and the website',
-        qa: [
-          ['How was the museum put together?', 'It started with research: examples of 2000s Filipino pop culture gathered for each of the seven aspects. Each example was then checked against news reports and references, matched with videos and photos from the decade, and built into a channel.'],
-          ['How do I know the facts are right?', 'Every page lists its sources in the ticker at the bottom of the screen, and the full list of references is on CH 09, Credits Roll.'],
-        ],
-        stats: [['RESEARCH', 'examples for every aspect'], ['CHECKED', 'against news from the decade'], ['CREDITED', 'every photo and video']],
-        video: v('behind the scenes of a 2009 station ID'),
-        photos: ph('A newsroom', 'Newsroom clocks', 'A TV control room'),
-        ticker: ['SOURCES ARE LISTED ON EVERY PAGE AND ON CH 09'],
-      },
-      parts: [
-        {
-          slug: 'pananaliksik', title: 'Ang Pananaliksik', en: 'THE RESEARCH', cardLine: 'From examples to checked facts',
-          sub: 'From examples to checked facts',
-          qa: [
-            ['Where do the facts come from?', 'Mostly from news reports written during the decade itself, such as The Philippine Star, the Philippine Daily Inquirer, GMA News, ABS-CBN News, and PEP, plus encyclopedia entries and archives for dates and names.'],
-            ['What happens when sources disagree?', 'The museum uses the figure reported at the time and says who reported it. Ratings, prices, and crowd counts are given as they were reported then, not as today\'s numbers.'],
-          ],
-          stats: [['2000–2010', 'news reports from the decade'], ['AS REPORTED', 'figures with who said them'], ['CH 09', 'the full reference list']],
-          video: null,
-          photos: ph('Newsroom clocks', 'A newsroom'),
-          ticker: ['FIGURES ARE GIVEN AS THEY WERE REPORTED AT THE TIME'],
-        },
-        {
-          slug: 'mga-video-at-larawan', title: 'Mga Video at Larawan', en: 'THE VIDEOS AND PHOTOS', cardLine: 'Grainy, real, and from the decade',
-          sub: 'Grainy, real, and from the decade',
-          qa: [
-            ['Why are some videos so grainy?', 'Because they are real. Most are TV ads, newscasts, and shows recorded off the air on VHS and uploaded by fans to YouTube. A modern, sharp video would not be from the 2000s, so the museum keeps the grain.'],
-            ['Who owns the videos and photos?', 'The videos play straight from YouTube and belong to their networks and uploaders, who are named under each one. The photos come from Wikimedia Commons under free licenses, and each one credits its photographer and license. If a photo shows something similar rather than the exact thing, its caption says so.'],
-          ],
-          stats: [['2000–2010', 'every video and photo'], ['YOUTUBE', 'videos play from their uploaders'], ['COMMONS', 'photos with free licenses']],
-          video: v('a 2004 network sign-off notice'),
-          photos: ph('A TV control room'),
-          ticker: ['VIDEOS BELONG TO THEIR NETWORKS AND UPLOADERS', 'PHOTOS: WIKIMEDIA COMMONS, CREDITED ON EACH ONE'],
-        },
-        {
-          slug: 'ang-website', title: 'Ang Website', en: 'THE WEBSITE', cardLine: 'A TV you can carry in your pocket',
-          sub: 'A TV you can carry in your pocket',
-          qa: [
-            ['How does the "TV" work?', 'The museum is a small website built with HTML, CSS, and JavaScript. Changing channels swaps what is on the screen without reloading the page, so it feels like flipping channels. It works on computers and phones.'],
-            ['Does it save anything about me?', 'Your CH 07 quiz winnings stay in your own browser. The only things the museum collects are Station Break answers you choose to send: your answer, a nostalgia rating, and any memory, first name, or city you type in. The videos and photos load from YouTube and Wikimedia Commons. There are no ads.'],
-          ],
-          stats: [['HTML · CSS · JS', 'what it is built with'], ['PHONE OR PC', 'works on both'], ['NO ADS', 'just the 2000s']],
-          video: null,
-          photos: ph('A remote control'),
-          ticker: ['QUIZ WINNINGS ARE SAVED ONLY ON YOUR DEVICE'],
-        },
-      ],
-    },
-    {
-      slug: 'ikaw-naman',
-      ep: 4,
-      title: 'Ikaw Naman!',
-      en: 'YOUR TURN',
-      headline: 'Ikaw na ang bida sa susunod na episode!',
-      color: '#7cff6b',
-      cardSub: 'Station Breaks, games, and a few reminders',
-      overview: {
-        sub: 'Station Breaks, games, and a few reminders',
-        qa: [
-          ['Can viewers be part of the show?', 'Yes. Finish the last episode of any channel from CH 01 to CH 07 and move on to the next one, and a Station Break game show pops up: a quick question, a nostalgia rating, and a space to share your own 2000s memory. CH 07 is also a full quiz show.'],
-          ['What should I keep in mind while watching?', 'Some stories are serious, like the Glorietta blast and the passing of President Cory Aquino. They are told with care, as part of what the decade felt like.'],
-        ],
-        stats: [['7', 'Station Break game shows'], ['12', 'quiz questions on CH 07'], ['FIRST NAME', 'and city only']],
-        video: v('a 2005 network Christmas station ID'),
-        photos: ph('A camera phone'),
-        ticker: ['IKAW NAMAN! THE NEXT EXCLUSIVE COULD BE YOURS'],
-      },
-      parts: [
-        {
-          slug: 'station-break', title: 'Station Break', en: 'SHARE YOUR MEMORIES', cardLine: 'A game show between channels',
-          sub: 'A game show between channels',
-          qa: [
-            ['What is a Station Break?', 'When you finish the last episode of a channel from CH 01 to CH 07 and move on to the next one, a short game styled after a 2000s TV game show appears: Deal or No Deal, Pinoy Henyo, Wheel of Fortune, Tama o Mali, Fastest Finger First, The Price Is Right, and Pera o Bayong. It is optional, so you can skip it anytime.'],
-            ['What happens to my answers?', 'If you press Send, your answer, your nostalgia rating, and any memory you share are saved in the museum\'s answer sheet. Only share your first name and your city, and please leave out phone numbers, addresses, or private details about yourself or anyone else.'],
-          ],
-          stats: [['7', 'game shows, one per channel'], ['OPTIONAL', 'skip anytime'], ['FIRST NAME', 'and city only']],
-          video: null,
-          photos: ph('A camera phone'),
-          ticker: ['STATION BREAK: FIRST NAME AND CITY ONLY, PLEASE'],
-        },
-        {
-          slug: 'laro', title: 'Laro at Botohan', en: 'GAMES AND VOTING', cardLine: 'The quiz and the vote codes',
-          sub: 'The quiz and the vote codes',
-          qa: [
-            ['Is there anything to play?', 'Yes. CH 07 is a full quiz show: twelve questions, three lifelines, and a prize ladder up to one million pesos. Your winnings are saved in your browser, and you can play any question again.'],
-            ['Can I vote on CH 05?', 'The "text to vote" codes on Starstruck! are part of the look of a 2000s talent show. They are for display only, so there is no need to text anything.'],
-          ],
-          stats: [['₱1,000,000', 'the top prize (just for fun)'], ['3', 'lifelines: 50:50, Ask the Audience, Text a Friend'], ['DISPLAY ONLY', 'CH 05 vote codes']],
-          video: null,
-          photos: [],
-          ticker: ['PRIZES AND VOTE CODES ARE FOR FUN ONLY'],
-        },
-        {
-          slug: 'paalala', title: 'Paalala', en: 'A FEW REMINDERS', cardLine: 'Watching with care',
-          sub: 'Watching with care',
-          qa: [
-            ['Is everything here a happy memory?', 'No. Pop culture also carried hard moments: the Glorietta blast in 2007, the ULTRA stampede in 2006, and the nation\'s grief for Cory Aquino in 2009. These are shown respectfully, without graphic images.'],
-            ['Who is this museum for?', 'Anyone curious about the 2000s, from those who lived it to those who only heard the stories. It is an educational, non-commercial digital museum, and the shows, songs, and brands in it belong to their owners.'],
-          ],
-          stats: [['WITH CARE', 'for difficult stories'], ['NON-COMMERCIAL', 'an educational museum'], ['THEIR OWNERS', 'shows, songs, and brands']],
-          video: null,
-          photos: [],
-          ticker: ['SALAMAT SA PANONOOD!'],
-        },
-      ],
-    },
+      "key": "future",
+      "label": "2030",
+      "sub": "forecast",
+      "icon": "ti-rocket"
+    }
   ],
+  "episodes": [
+    {
+      "slug": "social",
+      "ep": 1,
+      "title": "Konektado Pa Ba?",
+      "en": "SOCIAL",
+      "icon": "ti-users-group",
+      "color": "#3ee0ff",
+      "cardSub": "Family, friends, and barangay life",
+      "cardFuture": "Hybrid barangay networks",
+      "rows": [
+        {
+          "key": "event",
+          "label": "Key event",
+          "icon": "ti-calendar-event",
+          "then": "EDSA II (2001): Mass demonstrations led to a change in presidential leadership.",
+          "now": "People-powered digital activism: Social media campaigns and online movements help mobilize citizens and raise awareness of social issues.",
+          "future": {
+            "head": "Hybrid barangay networks",
+            "body": "By 2030, neighborhood group chats, volunteer apps, and local AI assistants are expected to coordinate disaster response, tutoring, and civic projects, making online-offline communities part of everyday barangay life."
+          }
+        },
+        {
+          "key": "feel",
+          "label": "Affect, senses, and feelings",
+          "icon": "ti-heart",
+          "then": "OFW migration and family separation shaped feelings of longing, sacrifice, and family resilience.",
+          "now": "Pandemic isolation and disrupted social life intensified feelings of loneliness, anxiety, and uncertainty.",
+          "future": {
+            "head": "A shift from 'always connected' to 'intentionally connected'",
+            "body": "Filipinos are likely to feel lonelier yet more deliberate, valuing phone-free family time, offline weekends, and AI-supported counseling while staying wary of AI 'friends.'"
+          }
+        },
+        {
+          "key": "tech",
+          "label": "Technology",
+          "icon": "ti-device-mobile",
+          "then": "Mobile phones and SMS texting",
+          "now": "Smartphones and instant connectivity",
+          "future": {
+            "head": "",
+            "body": "Personal AI companions on phones and wearables handle scheduling, Filipino-language translation, caregiving reminders, and emotional check-ins, while verified digital identities make anonymous online harassment harder."
+          }
+        },
+        {
+          "key": "global",
+          "label": "Globalization",
+          "icon": "ti-world",
+          "then": "Overseas Filipino workers and international migration",
+          "now": "Globally connected families and online communities",
+          "future": {
+            "head": "Borderless families",
+            "body": "Families split across countries are expected to share daily life through real-time translation, AR video calls, and instant cross-border payments, while more Filipinos earn from abroad without leaving home."
+          }
+        }
+      ],
+      "trend": {
+        "then": "People relied more on face-to-face interactions, text messaging, traditional media, and community relationships. Overseas migration strongly influenced Filipino families.",
+        "now": "People are more digitally connected through smartphones and social media. Online communities are growing, while concerns about mental health, misinformation, and digital inequality remain."
+      },
+      "pastToNow": "The rise of mobile phones, text messaging, and overseas migration helped establish the connected society we have today. Social media now makes communication faster and helps families stay connected across countries, but it also contributes to cyberbullying, misinformation, and concerns about mental health.",
+      "toFuture": "Since texting and OFW ties built a culture of staying close across distance and smartphones made it constant, by 2030 connection will likely feel effortless but less special. Relationships will blend physical and AI-mediated contact, and 'disconnecting well' (offline time, screen limits) becomes a social norm.",
+      "watch": "from 'how do we stay connected?' to 'how do we disconnect meaningfully?'"
+    },
+    {
+      "slug": "economic",
+      "ep": 2,
+      "title": "Kayod 2030",
+      "en": "ECONOMIC",
+      "icon": "ti-briefcase",
+      "color": "#ffd23f",
+      "cardSub": "Work, money, and making a living",
+      "cardFuture": "AI co-worker economy",
+      "rows": [
+        {
+          "key": "event",
+          "label": "Key event",
+          "icon": "ti-calendar-event",
+          "then": "BPO industry expansion in the 2000s",
+          "now": "Philippine digital economy and creator economy",
+          "future": {
+            "head": "AI co-worker economy",
+            "body": "By 2030, most office, creative, and customer-service workers are expected to work with AI daily. New roles (AI trainers, automation specialists, care-economy coordinators) grow as routine call-center tasks fade."
+          }
+        },
+        {
+          "key": "feel",
+          "label": "Affect, senses, and feelings",
+          "icon": "ti-heart",
+          "then": "OFW remittances, overseas work and call center jobs became associated with sacrifice, hope, and aspirations for family stability.",
+          "now": "Economic insecurity and post-pandemic recovery have shaped anxieties about employment, income, and financial stability.",
+          "future": {
+            "head": "Reinvention stress and empowerment",
+            "body": "Workers feel pressure to keep upskilling but also pride in earning globally from home; fear of replacement fades for those who adapt and deepens for those left offline."
+          }
+        },
+        {
+          "key": "tech",
+          "label": "Technology",
+          "icon": "ti-device-mobile",
+          "then": "Internet cafés; desktop computers; Nokia phones",
+          "now": "Smartphones; e-commerce; AI tools; digital payment apps",
+          "future": {
+            "head": "Cashless by default",
+            "body": "QR, biometric, and wearable payments, AI financial advisors inside super-apps, instant micro-loans, and a digital ID linking banking and government services."
+          }
+        },
+        {
+          "key": "global",
+          "label": "Globalization",
+          "icon": "ti-world",
+          "then": "Philippine BPO services for foreign companies",
+          "now": "Remote work for international companies and clients",
+          "future": {
+            "head": "Filipinos as a global remote workforce",
+            "body": "Foreign firms hire Filipino specialists across time zones, so more skilled workers export services digitally instead of migrating, while nurses, seafarers, and caregivers stay in demand abroad."
+          }
+        }
+      ],
+      "trend": {
+        "then": "The 2000s showed the growing importance of technology and globalization in creating employment, especially through BPO and call center work connected to foreign companies.",
+        "now": "Economic opportunities are now more digitally diverse, including content creation, freelancing, e-commerce, remote work, digital payments, and AI-assisted work."
+      },
+      "pastToNow": "The international and technology-based work culture of the 2000s helped create a foundation for today's wider digital economy. Economic participation has expanded from BPO-centered work to more flexible and globally connected digital opportunities.",
+      "toFuture": "As BPO exposed the Philippines to global work and digital tools later opened freelancing and online selling, by 2030 income will likely depend less on where you work and more on what skills you can pair with AI. Routine entry-level jobs shrink, reinvention becomes normal, and a gap may widen between AI-skilled and offline workers.",
+      "watch": "upskilling and digital access as the new divide."
+    },
+    {
+      "slug": "political",
+      "ep": 3,
+      "title": "Boses ng Bayan",
+      "en": "POLITICAL",
+      "icon": "ti-speakerphone",
+      "color": "#ff6b9a",
+      "cardSub": "Elections, leaders, and public trust",
+      "cardFuture": "Digital-era leadership test",
+      "rows": [
+        {
+          "key": "event",
+          "label": "Key event",
+          "icon": "ti-calendar-event",
+          "then": "Hello Garci controversy (2005): Allegations of election fraud triggered political controversy and calls for accountability.",
+          "now": "Political disinformation and online campaigning: Social media has become a major space for political messaging, debate, and fact-checking.",
+          "future": {
+            "head": "Digital-era leadership test",
+            "body": "By 2030 a new administration is expected to face citizens who demand instant responses, publicly traceable budgets, and AI-assisted public services, while fake videos become a routine part of every political season."
+          }
+        },
+        {
+          "key": "feel",
+          "label": "Affect, senses, and feelings",
+          "icon": "ti-heart",
+          "then": "Cory Aquino's death (2009) triggered widespread national grief and public mourning.",
+          "now": "Political polarization and heightened public engagement have made political identity and disagreements increasingly emotional and personal.",
+          "future": {
+            "head": "Verify-first skepticism",
+            "body": "Filipinos feel empowered by transparency tools yet tired of constant political content, placing trust in verified sources, local communities, and trusted creators over institutions; anger gives way to demand for results."
+          }
+        },
+        {
+          "key": "tech",
+          "label": "Technology",
+          "icon": "ti-device-mobile",
+          "then": "SMS-powered political participation",
+          "now": "Social media campaigns and digital government",
+          "future": {
+            "head": "Authenticity technology",
+            "body": "Content-authenticity labels, built-in deepfake detection, digital IDs for public services, AI chatbots for government transactions, and pilots of online voting and open-data dashboards."
+          }
+        },
+        {
+          "key": "global",
+          "label": "Globalization",
+          "icon": "ti-world",
+          "then": "Regional cooperation through ASEAN",
+          "now": "Geopolitical tensions and international cooperation",
+          "future": {
+            "head": "Middle-power balancing",
+            "body": "The Philippines is expected to use digital trade, maritime-security partnerships, and climate diplomacy to balance major powers, while regional rules on data, AI, and cross-border scams take shape."
+          }
+        }
+      ],
+      "trend": {
+        "then": "Political participation centered on elections, rallies, traditional news, and public demonstrations. Television, radio, and text messaging influenced political communication.",
+        "now": "Social media plays a major role in political campaigns, public debate, and activism. Digital misinformation, political polarization, cybersecurity, and government accountability are major concerns."
+      },
+      "pastToNow": "Political demonstrations and the use of text messaging to mobilize people helped demonstrate the power of communication technology in public participation. Today, social media enables faster political engagement and activism, but it also makes misinformation, online propaganda, and political polarization more challenging.",
+      "toFuture": "Text-powered rallies grew into social-media politics, by 2030 political life will likely be more online, data-driven, and AI-influenced, with voters expecting transparency and speed. Misinformation will not disappear but will be met by labeling and verification tools.",
+      "watch": "trust shifting from institutions and parties to verified information and trusted community voices."
+    },
+    {
+      "slug": "cultural",
+      "ep": 4,
+      "title": "Pinoy Wave",
+      "en": "CULTURAL",
+      "icon": "ti-movie",
+      "color": "#b98cff",
+      "cardSub": "Shows, music, and fandoms",
+      "cardFuture": "Pinoy wave abroad",
+      "rows": [
+        {
+          "key": "event",
+          "label": "Key event",
+          "icon": "ti-calendar-event",
+          "then": "Meteor Garden Philippine broadcast — 2003",
+          "now": "My Girlfriend is a Gumiho, Boys Over Flowers, The Heirs - 2010",
+          "future": {
+            "head": "Pinoy wave abroad",
+            "body": "By 2030 Filipino series, animation, games, and music are expected to hold regular places on global streaming and charts, with AI-dubbed Filipino-language content reaching worldwide fans, while 2000s nostalgia brings teleserye remakes and reunion concerts."
+          }
+        },
+        {
+          "key": "feel",
+          "label": "Affect, senses, and feelings",
+          "icon": "ti-heart",
+          "then": "OPM, teleseryes, love teams, and celebrity culture became major outlets for romance, heartbreak, admiration, nostalgia, and shared entertainment.",
+          "now": "Digital entertainment and fandom culture continue to create shared excitement, nostalgia, identification, and emotional connection around Filipino and global artists.",
+          "future": {
+            "head": "Creative pride and nostalgic comfort",
+            "body": "Filipinos feel they belong on the world stage and find warmth in 2000s nostalgia, while feeling mixed about AI-made performers compared with real artists."
+          }
+        },
+        {
+          "key": "tech",
+          "label": "Technology",
+          "icon": "ti-device-mobile",
+          "then": "Television; VCD/DVD; MP3 players",
+          "now": "Netflix; YouTube; Spotify; TikTok",
+          "future": {
+            "head": "AI-assisted, immersive entertainment",
+            "body": "virtual idols, AI-dubbed shows, AR/VR concerts, interactive 'choose-your-ending' teleseryes, and phone tools that give anyone studio-quality production."
+          }
+        },
+        {
+          "key": "global",
+          "label": "Globalization",
+          "icon": "ti-world",
+          "then": "Asianovelas and Japanese anime becoming mainstream in the Philippines",
+          "now": "K-pop, K-dramas, anime, Hollywood, and global streaming content",
+          "future": {
+            "head": "Global co-creation",
+            "body": "Filipino creators partner with studios and fan communities worldwide, and Filipino stories, fashion, food, and language gain recognition as cultural exports that draw foreign fans and visitors."
+          }
+        }
+      ],
+      "trend": {
+        "then": "Foreign entertainment such as Meteor Garden, Asianovelas, and anime became part of Filipino popular culture through television and physical media. Filipino audiences developed emotional connections with these shows and characters.",
+        "now": "Global entertainment is now continuously accessible through Netflix, YouTube, Spotify, TikTok, and other digital platforms, with K-pop, K-dramas, anime, and Hollywood content becoming highly interactive online experiences."
+      },
+      "pastToNow": "The cultural openness seen in the 2000s continued and became stronger through digital globalization. Filipinos still embrace foreign entertainment, but today's technology makes discovering, sharing, and participating in global culture much faster and more interactive.",
+      "toFuture": "Since foreign shows once shaped Filipino tastes and the K-wave taught fans to organize around idols online, by 2030 Filipino culture will likely be a creator and exporter, not just an audience. Local and global fandoms will co-create content, and AI will lower production costs while raising questions about authenticity.",
+      "watch": "local content rivaling imports in popularity at home and abroad."
+    },
+    {
+      "slug": "environmental",
+      "ep": 5,
+      "title": "Handa sa Unos",
+      "en": "ENVIRONMENTAL",
+      "icon": "ti-cloud-storm",
+      "color": "#5dff9e",
+      "cardSub": "Typhoons, heat, and climate",
+      "cardFuture": "Climate-adaptation era",
+      "rows": [
+        {
+          "key": "event",
+          "label": "Key event",
+          "icon": "ti-calendar-event",
+          "then": "Typhoon Ondoy (2009); increasing climate awareness; Climate Change Act of 2009",
+          "now": "Extreme heat and El Niño; destructive typhoons; stronger focus on climate resilience",
+          "future": {
+            "head": "Climate-adaptation era",
+            "body": "By 2030 flood-prone communities are expected to retrofit or relocate, with elevated and floating housing, mangrove barriers, and rooftop solar with batteries becoming common, and storm and heat seasons planned for like school calendars."
+          }
+        },
+        {
+          "key": "feel",
+          "label": "Affect, senses, and feelings",
+          "icon": "ti-heart",
+          "then": "Typhoon Ondoy (2009) generated fear, grief, displacement, and community solidarity after widespread flooding.",
+          "now": "Extreme weather and climate anxiety have intensified public concern over heat, typhoons, flooding, and disaster preparedness.",
+          "future": {
+            "head": "Routine worry with growing preparedness",
+            "body": "Storm-season stress feels normal, along with grief for changing places, but communities feel more prepared and share a stronger sense of responsibility for each other."
+          }
+        },
+        {
+          "key": "tech",
+          "label": "Technology",
+          "icon": "ti-device-mobile",
+          "then": "Technology came in separate devices. Cameras, MP3 players, CD/DVD players, phones, and computers each served different purposes, meaning more physical electronics were used and eventually discarded.",
+          "now": "Devices have become multifunctional. Smartphones, tablets, and laptops now combine many functions in one device, reducing the need to own separate gadgets for communication, music, photography, and entertainment.",
+          "future": {
+            "head": "Hyper-local climate tech",
+            "body": "AI flood and weather forecasts down to the barangay, phone alerts with evacuation routes, drone-assisted rescue, smart grids, and e-jeepneys and EVs on everyday roads."
+          }
+        },
+        {
+          "key": "global",
+          "label": "Globalization",
+          "icon": "ti-world",
+          "then": "Global environmental concerns, particularly climate change, increasingly entered Filipino awareness through international news and discussions.",
+          "now": "Climate change is now a more visible global concern, with Filipinos exposed to international climate discussions, campaigns, and environmental movements through digital media.",
+          "future": {
+            "head": "Climate-linked mobility and cooperation",
+            "body": "Regional networks for disaster response and green energy grow, some climate-displaced families move within or beyond the country, and Filipino green-industry workers are in demand abroad."
+          }
+        }
+      ],
+      "trend": {
+        "then": "Major disasters and growing climate concerns influenced Filipino awareness, emotions, and public discussions about environmental issues.",
+        "now": "Environmental information spreads quickly through social media, digital news, weather apps, and online advocacy."
+      },
+      "pastToNow": "Technology and global environmental discussions have made awareness of disasters and climate issues more immediate and widespread.",
+      "toFuture": "Given how Ondoy-era disasters raised awareness and social media made alerts instant, by 2030 climate adaptation will likely be part of ordinary life rather than an emergency reaction. Building, farming, energy, and insurance choices will assume stronger storms and heat.",
+      "watch": "communities and households investing in resilience on their own, supported by technology."
+    },
+    {
+      "slug": "everyday-tech",
+      "ep": 6,
+      "title": "AI sa Araw-araw",
+      "en": "EVERYDAY TECH",
+      "icon": "ti-robot",
+      "color": "#ff9b4a",
+      "cardSub": "Gadgets, AI, and daily life",
+      "cardFuture": "AI in everyday life",
+      "rows": [
+        {
+          "key": "event",
+          "label": "Key event",
+          "icon": "ti-calendar-event",
+          "then": "Key technologies included keypad phones, SMS, internet cafés, digital cameras, MP3 players, and early social networking sites.",
+          "now": "Smartphones, short-form videos, streaming platforms, artificial intelligence tools, and digital creators influence how Filipinos produce, share, and experience popular culture.",
+          "future": {
+            "head": "AI in everyday life",
+            "body": "By 2030 AI tutors in schools, AI-assisted check-ups and telemedicine reaching remote islands, and personalized entertainment feeds are expected to be normal, with digital literacy and AI ethics taught as basic subjects."
+          }
+        },
+        {
+          "key": "feel",
+          "label": "Affect, senses, and feelings",
+          "icon": "ti-heart",
+          "then": "Manny Pacquiao's boxing victories became moments of collective excitement, celebration, and national pride.",
+          "now": "COVID-19 and its aftermath generated collective grief, anxiety, resilience, and renewed appreciation for social connection.",
+          "future": {
+            "head": "Wonder with caution",
+            "body": "excitement over convenience and creativity sits beside fear of deepfakes, scams, and losing the 'human touch,' so people increasingly value authentic, human-made experiences."
+          }
+        },
+        {
+          "key": "tech",
+          "label": "Technology",
+          "icon": "ti-device-mobile",
+          "then": "Mobile phones, digital cameras, MP3 players, and early social networking sites changed everyday entertainment habits",
+          "now": "Artificial intelligence tools, streaming services, smartphones, and short-form video platforms provide new ways to create and experience entertainment.",
+          "future": {
+            "head": "Ambient technology",
+            "body": "voice assistants that understand Filipino languages, smart glasses and wearables, cloud gaming, and fast satellite-backed internet across all islands."
+          }
+        },
+        {
+          "key": "global",
+          "label": "Globalization",
+          "icon": "ti-world",
+          "then": "Hollywood films, foreign television shows, international music, and anime were widely consumed by Filipino audiences.",
+          "now": "Global entertainment is distributed through streaming platforms, while Filipino musicians, filmmakers, and creators can reach international audiences online.",
+          "future": {
+            "head": "Local tech, global reach",
+            "body": "Filipino-language AI tools, apps, and creators compete worldwide, and the Philippines is known as a hub for AI-assisted services and digital creativity."
+          }
+        }
+      ],
+      "trend": {
+        "then": "Keypad phones, MP3 players, digital cameras, internet cafés, and early social networking sites changed everyday entertainment habits",
+        "now": "Smartphones, streaming services, short-form videos, and AI tools offer new ways to create and experience entertainment."
+      },
+      "pastToNow": "The development from basic digital devices to connected smartphones and creative platforms has made popular culture more interactive, accessible, and user-generated",
+      "toFuture": "Because early gadgets and platforms became smartphones, streaming, and AI tools, by 2030 popular culture will likely be fully interactive, personalized, and user-generated, with AI as a creative partner. As machines produce more, human-made and live experiences gain value.",
+      "watch": "rules and habits around AI, privacy, and screen time becoming part of everyday culture."
+    }
+  ]
 };
