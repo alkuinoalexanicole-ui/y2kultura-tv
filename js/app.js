@@ -52,7 +52,7 @@ function render(path, { animate = true, osd = false } = {}) {
     view.innerHTML = r.html;
     view.scrollTop = 0;
     document.title = r.title;
-    if (state === 'on') display.textContent = r.num === '--' ? 'GUIDE' : `CH ${r.num}`;
+    if (state === 'on') display.textContent = r.num === '--' ? 'GUIDE' : r.num === '00' ? 'HOME' : `CH ${r.num}`;
     startSnow();
     fixLinks(view);
     afterRender(view).then(() => fixLinks(view));
@@ -63,7 +63,7 @@ function render(path, { animate = true, osd = false } = {}) {
   const channelChanged = r.num !== currentNum;
   if (animate) changeChannel(swap);
   else swap();
-  if (state === 'on' && (channelChanged || animate || osd)) showOSD(r.num === '--' ? 'GUIDE' : r.num, r.name);
+  if (state === 'on' && (channelChanged || animate || osd)) showOSD(r.num === '--' ? 'GUIDE' : r.num === '00' ? 'HOME' : r.num, r.name);
   currentNum = r.num;
   if (animate) setTimeout(() => view.focus({ preventScroll: true }), 300);
 }
@@ -302,12 +302,13 @@ function typeDigit(n) {
   const commit = () => {
     const num = typed.padStart(2, '0');
     typed = '';
-    if (num === '00') return go('/');
     if (findChannel(num)) go(`/ch/${num}`);
     else render(here(), { animate: false });
   };
+  // 8 and 08 both tune to CH 08. A lone 0 waits for the second digit, and never goes home
+  // (the house button does that).
   if (typed.length === 2) commit();
-  else typedTimer = setTimeout(commit, 900);
+  else typedTimer = setTimeout(commit, typed === '0' ? 3000 : 1200);
 }
 
 const actions = {
@@ -342,6 +343,7 @@ document.addEventListener('keydown', (ev) => {
   else if (ev.key === 'PageDown' || ev.key === '-') { ev.preventDefault(); step(-1); }
   else if (/^[0-9]$/.test(ev.key)) typeDigit(ev.key);
   else if (ev.key === 'g' || ev.key === 'G') go('/guide');
+  else if (ev.key === 'h' || ev.key === 'H' || ev.key === 'Home') { ev.preventDefault(); go('/'); }
   else if (ev.key === 'Escape' && !breakbox.hidden) { const p = breakbox.querySelector('[data-sb-skip]'); p?.click(); }
   else if (ev.key === 'Escape' || ev.key === 'Backspace') { ev.preventDefault(); up(); }
 });
