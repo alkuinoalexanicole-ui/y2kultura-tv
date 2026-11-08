@@ -1,5 +1,6 @@
 // Screens that appear inside the TV. Each function returns HTML for the screen.
 import { syncMusic } from './music.js';
+import { balanceColumns } from './balance.js';
 import { CHANNELS } from './data/channels.js';
 
 const esc = (s) =>
@@ -491,7 +492,7 @@ function mmkEpisode(c, e, partIndex) {
     ${total > 1 ? tabRow(nav, 'mmk-tabs') : ''}
     <div class="page-body">
       <div class="mmk-grid">
-        <article class="letter">
+        <div class="mmk-main"><article class="letter">
           ${p && p.strip ? `<div class="mmk-ribbon">${esc(p.strip)}</div>` : ''}
           <div class="letter-top"><span>${esc(e.keepsakeEn)}</span><span>${pageNo}/${total}</span></div>
           <h1 class="pf">${esc(p ? p.title : e.title)}</h1>
@@ -500,7 +501,7 @@ function mmkEpisode(c, e, partIndex) {
           ${body.join('')}
           ${stamps}
           <p class="sign">${solemn ? 'Nakikiramay,' : 'Nagmamahal,'}<br><span>${esc(d.title)}, CH ${c.num}</span></p>
-        </article>
+        </article></div>
         <aside class="mmk-side">
           ${mmkDeck(p)}
           ${mmkReplay(page.video)}
@@ -618,7 +619,7 @@ function deskEpisode(c, e, partIndex) {
   return `
   <div class="page xp" style="--acc:${e.accent || '#19B5F0'}">
     <div class="xp-desk">
-      <section class="xp-win xp-main">
+      <div class="xp-col"><section class="xp-win xp-main">
         ${xpBar(`${p ? p.cardTitle : e.title} - Y2K Explorer`, 'ti-folder-open')}
         <div class="xp-addr"><b>Address</b><span>${esc(path)}</span></div>
         <div class="xp-doc">
@@ -629,7 +630,7 @@ function deskEpisode(c, e, partIndex) {
           ${files}
         </div>
         ${ticker(page.ticker?.length ? page.ticker : ['P+ / P- TO CHANGE CHANNEL'])}
-      </section>
+      </section></div>
       <div class="xp-side">
         ${winamp(page.video)}
         ${nokiaWin(page.stats, page.chips)}
@@ -1692,6 +1693,7 @@ export async function afterRender(view) {
   bindRoll(view);
   bindFuture(view);
   syncMusic(view);
+  balanceColumns(view);
   const box = view.querySelector('[data-worldmap]');
   if (!box) return;
   const c = CHANNELS.find((x) => x.num === box.dataset.worldmap);
