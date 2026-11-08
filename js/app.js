@@ -2,6 +2,7 @@
 import { DIAL, findChannel, CHANNELS } from './data/channels.js';
 import * as views from './views.js';
 import { afterRender } from './views.js';
+import { musicSound, stopMusic } from './music.js';
 import { wantsBreak, breakHTML, bindBreak } from './breaks.js';
 import { changeChannel, showOSD, toggleSound, startTone, stopTone, toneOn, isSoundOn, sfx } from './tv.js';
 
@@ -256,6 +257,7 @@ function powerOn() {
 function powerOff() {
   state = 'cooling';
   stopTone();
+  stopMusic();
   sfx('off');
   crt.classList.add('turning-off');
   document.body.classList.remove('on');
@@ -320,6 +322,7 @@ const actions = {
   sound: () => {
     const on = toggleSound();
     if (on && view.querySelector('[data-tone]')) startTone(8);
+    musicSound(on);
     paintSoundBtn();
   },
 };

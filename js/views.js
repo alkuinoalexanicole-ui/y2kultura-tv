@@ -1,4 +1,5 @@
 // Screens that appear inside the TV. Each function returns HTML for the screen.
+import { syncMusic } from './music.js';
 import { CHANNELS } from './data/channels.js';
 
 const esc = (s) =>
@@ -398,6 +399,23 @@ function mmkMemoryBox(page, show, note) {
   </div>`;
 }
 
+// A cassette deck on each band page of the Mixtape letter; js/music.js plays the song softly.
+function mmkDeck(p) {
+  const s = p?.song;
+  if (!s) return '';
+  const find = `https://music.apple.com/ph/search?term=${encodeURIComponent(`${s.artist} ${s.title}`)}`;
+  return `<section class="deck" data-song data-artist="${esc(s.artist)}" data-title="${esc(s.title)}" data-state="loading">
+    <span class="deck-tag">SIDE A · ${esc(p.label)}</span>
+    <div class="cassette" aria-hidden="true">
+      <div class="cs-label"><b>${esc(s.title)}</b><span>${esc(s.artist)} · ${esc(s.year)}</span></div>
+      <div class="cs-win"><i class="reel"></i><span class="cs-tape"></span><i class="reel"></i></div>
+    </div>
+    <div class="deck-row"><button class="deck-btn" type="button" data-deck-toggle aria-label="Play the song" disabled><i class="ti ti-player-play" aria-hidden="true"></i></button>
+      <span class="deck-status" aria-live="polite">Tuning in…</span><span class="deck-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>
+    <div class="deck-cap">${esc(s.note)}. 30-second preview from Apple Music. <a class="deck-am" href="${find}" target="_blank" rel="noopener"><i class="ti ti-brand-apple" aria-hidden="true"></i> Listen on Apple Music</a></div>
+  </section>`;
+}
+
 function mmkReplay(video) {
   if (!video?.youtube) return media(video, [], null);
   return `<div class="mmk-replay"><span class="mmk-replay-tag">BALIKAN</span>${ytFrame(video, '', null)}</div>`;
@@ -484,6 +502,7 @@ function mmkEpisode(c, e, partIndex) {
           <p class="sign">${solemn ? 'Nakikiramay,' : 'Nagmamahal,'}<br><span>${esc(d.title)}, CH ${c.num}</span></p>
         </article>
         <aside class="mmk-side">
+          ${mmkDeck(p)}
           ${mmkReplay(page.video)}
           <div class="polaroids">${photoGrid(page.photos)}</div>
           ${facts}
@@ -1672,6 +1691,7 @@ export async function afterRender(view) {
   bindQuiz(view);
   bindRoll(view);
   bindFuture(view);
+  syncMusic(view);
   const box = view.querySelector('[data-worldmap]');
   if (!box) return;
   const c = CHANNELS.find((x) => x.num === box.dataset.worldmap);

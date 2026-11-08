@@ -1159,6 +1159,35 @@ body.standby .rb-power { animation: pulse-power 1.6s ease-in-out infinite; }
 .mmk-ribbon { margin: -18px -22px 12px -34px; padding: 6px 14px; background: var(--rose); color: #fff; font-family: 'Anton', sans-serif; letter-spacing: 1px; font-size: clamp(15px, 2.02cqw, 25px); }
 .mmk-solemn .mmk-ribbon { background: var(--yellow); color: #1f2a44; }
 .mmk-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+/* CH 01 Mixtape: the cassette deck that plays each band's song softly */
+.deck { position: relative; background: linear-gradient(#3a2a44, #241a2c); color: #f3e6f7; padding: 16px 12px 10px; border-radius: 14px; box-shadow: inset 0 0 0 3px #5a4466, 0 6px 16px rgba(0,0,0,.4); }
+.deck-tag { position: absolute; top: -9px; left: 14px; background: #19B5F0; color: #08223a; font-weight: 700; font-size: clamp(12px, 1.35cqw, 17px); letter-spacing: 1px; padding: 1px 8px; }
+.cassette { background: #f4ecd8; border-radius: 8px; padding: 8px 10px 10px; box-shadow: inset 0 0 0 2px #cdbf9e; color: #2b1d22; }
+.cs-label { display: flex; flex-direction: column; border-bottom: 2px solid #e2557f; padding-bottom: 4px; margin-bottom: 8px; }
+.cs-label b { font-family: 'Barlow Condensed', sans-serif; font-style: italic; font-weight: 500; font-size: clamp(16px, 2cqw, 25px); line-height: 1.15; }
+.cs-label span { font-size: clamp(12.5px, 1.45cqw, 18px); letter-spacing: .5px; opacity: .8; }
+.cs-win { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #2b1d22; border-radius: 30px; padding: 6px 14px; }
+.cs-tape { flex: 1; height: 8px; background: #5b3a2a; border-radius: 4px; }
+.reel { width: clamp(22px, 3cqw, 34px); aspect-ratio: 1; border-radius: 50%; background: repeating-conic-gradient(#f4ecd8 0 20deg, #8a7a5e 20deg 60deg); box-shadow: 0 0 0 3px #f4ecd8; }
+.deck[data-state="playing"] .reel { animation: reel-spin 2.4s linear infinite; }
+@keyframes reel-spin { to { transform: rotate(360deg); } }
+.deck-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.deck-btn { flex: none; width: clamp(36px, 4.2cqw, 48px); aspect-ratio: 1; border-radius: 50%; border: 0; background: #19B5F0; color: #08223a; font-size: clamp(18px, 2.2cqw, 26px); display: grid; place-items: center; cursor: pointer; box-shadow: 0 3px 0 #0b6f96; }
+.deck-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #0b6f96; }
+.deck-btn:disabled { opacity: .5; cursor: default; }
+.deck-btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.deck-status { flex: 1; font-size: clamp(13.5px, 1.6cqw, 20px); line-height: 1.3; }
+.deck-eq { display: flex; align-items: flex-end; gap: 3px; height: 20px; }
+.deck-eq i { width: 4px; height: 25%; background: #19B5F0; border-radius: 2px; }
+.deck[data-state="playing"] .deck-eq i { animation: deck-eq 1s ease-in-out infinite alternate; }
+.deck[data-state="playing"] .deck-eq i:nth-child(2) { animation-delay: -.3s; }
+.deck[data-state="playing"] .deck-eq i:nth-child(3) { animation-delay: -.6s; }
+.deck[data-state="playing"] .deck-eq i:nth-child(4) { animation-delay: -.8s; }
+@keyframes deck-eq { from { height: 20%; } to { height: 100%; } }
+.deck[data-state="nosignal"] .deck-eq { display: none; }
+.deck-cap { margin-top: 8px; font-size: clamp(12.5px, 1.45cqw, 18px); line-height: 1.45; color: #e6d6ec; }
+.deck-am { color: #9fe3ff; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .deck[data-state="playing"] .reel, .deck[data-state="playing"] .deck-eq i { animation: none; } }
 .mmk-replay { position: relative; background: #2b1d22; padding: 10px 10px 6px; border-radius: 14px; box-shadow: inset 0 0 0 3px #4a3238, 0 6px 16px rgba(0,0,0,.4); }
 .mmk-replay .video { border: 0; border-radius: 8px; margin-bottom: 4px; }
 .mmk-replay .vcap { color: #f0dfe5; }
