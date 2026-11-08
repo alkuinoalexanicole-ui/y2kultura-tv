@@ -415,6 +415,7 @@ export default {
           "title": "Hale",
           "sub": "The heartbreak anthem of 2005",
           "strip": "THE DAY YOU SAID GOODNIGHT",
+          "song": { "title": "The Day You Said Goodnight", "artist": "Hale", "year": "2005", "note": "From the album Hale (2005)" },
           "factsTitle": "",
           "facts": [
             [
@@ -472,7 +473,7 @@ export default {
             }
           ],
           "ticker": [
-            "SOURCES: WIKIPEDIA, MYX HIT CHART MIRROR, WISH 107.5"
+            "SOURCES: WIKIPEDIA, MYX HIT CHART MIRROR, WISH 107.5, APPLE MUSIC (SONG PREVIEW)"
           ]
         },
         {
@@ -483,6 +484,7 @@ export default {
           "title": "Cueshé",
           "sub": "Love songs from Cebu to the top",
           "strip": "STAY",
+          "song": { "title": "Stay", "artist": "Cueshé", "year": "2005", "note": "Debut single, 2005" },
           "factsTitle": "",
           "facts": [
             [
@@ -540,7 +542,7 @@ export default {
             }
           ],
           "ticker": [
-            "SOURCES: WIKIPEDIA, PHILSTAR, KHALEEJ TIMES, MYX HIT CHART MIRROR"
+            "SOURCES: WIKIPEDIA, PHILSTAR, KHALEEJ TIMES, MYX HIT CHART MIRROR, APPLE MUSIC (SONG PREVIEW)"
           ]
         },
         {
@@ -551,6 +553,7 @@ export default {
           "title": "The Eraserheads",
           "sub": "The reunion concert · August 30, 2008",
           "strip": "LIVE: AUGUST 30, 2008",
+          "song": { "title": "Ang Huling El Bimbo", "artist": "Eraserheads", "year": "1995", "note": "From Cutterpillow (1995), older than the decade: the band's best-known song" },
           "factsTitle": "",
           "facts": [
             [
@@ -608,7 +611,7 @@ export default {
             }
           ],
           "ticker": [
-            "SOURCES: PEP, PHILSTAR, GMA NEWS, WIKIPEDIA"
+            "SOURCES: PEP, PHILSTAR, GMA NEWS, WIKIPEDIA, APPLE MUSIC (SONG PREVIEW)"
           ]
         }
       ]
