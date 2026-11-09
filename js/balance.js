@@ -114,6 +114,7 @@ function moveTail(grid, tail, to) {
 function balanceGrid(grid) {
   const cols = [...grid.children].filter((c) => !c.classList.contains('bal-wide'));
   if (cols.length !== 2) return;
+  grid.classList.remove('bal-fill');
   if (!home.has(grid)) home.set(grid, cols.map((c) => [...c.children]));
   restore(grid);
   // Stacked columns (phones): nothing to balance.
@@ -145,6 +146,8 @@ function balanceGrid(grid) {
     moveTail(grid, best.tail, best.to);
   }
   fitPhotos(cols);
+  // Now the columns are settled, a stretchy box (like the CH 02 phone) may grow to fill any space left.
+  grid.classList.add('bal-fill');
 }
 
 // If the column with the photos still runs longer, crop its photos a little shorter (never below
