@@ -117,6 +117,7 @@ export default {
         {
           slug: 'the-playlist-era', label: 'PART 2', cardTitle: 'THE PLAYLIST ERA', cardLine: 'Building a playlist, one CD and one download at a time',
           title: 'The Playlist Era', sub: 'Every song on your player had a story',
+          picsLeft: true,
           stats: [['CD', 'buy or borrow it'], ['PC', 'copy the songs over'], ['PLAYER', 'load it and press play']],
           panels: [
             ['DAY BY DAY', 'Filling a player took effort. Songs came from CDs, from the internet, and from friends, and music was shared the same way. Because space was limited, every song you kept had to earn its place.'],
