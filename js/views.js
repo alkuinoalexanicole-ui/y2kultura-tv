@@ -2,6 +2,7 @@
 import { syncMusic } from './music.js';
 import { balanceColumns } from './balance.js';
 import { CHANNELS } from './data/channels.js';
+import { SOURCE_LINKS } from './data/sources.js';
 
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -1117,30 +1118,47 @@ function allPages(ch) {
   return out;
 }
 
-// Sources are the ticker items from "SOURCES:" onward on each page.
-function channelSources(ch) {
-  const set = new Set();
-  allPages(ch).forEach(({ page }) => {
-    let on = false;
-    (page?.ticker || []).forEach((t) => {
-      if (/^SOURCES?:/i.test(t)) on = true;
-      if (!on) return;
-      let depth = 0, cur = '';
-      const items = [];
-      for (const ch2 of t.replace(/^SOURCES?:\s*/i, '')) {
-        if (ch2 === '(') depth++;
-        if (ch2 === ')') depth--;
-        if (ch2 === ',' && depth === 0) { items.push(cur); cur = ''; } else cur += ch2;
-      }
-      items.push(cur);
-      items.forEach((it) => {
-        const m = it.trim().match(/^(.*?)\s*\((.*)\)$/);
-        if (m && m[2].includes(';')) m[2].split(';').forEach((x) => set.add(`${m[1]} (${x.trim()})`));
-        else if (it.trim()) set.add(it.trim());
-      });
+// Every source a channel cites, each with the article it points to (from data/sources.js) and the
+// pages that cite it. A source with several articles (e.g. two Wikipedia pages) gets one line each.
+function pageSources(page) {
+  const out = [];
+  let on = false;
+  (page?.ticker || []).forEach((t) => {
+    if (/^SOURCES?:/i.test(t)) on = true;
+    if (!on) return;
+    let depth = 0, cur = '';
+    for (const c of t.replace(/^SOURCES?:\s*/i, '')) {
+      if (c === '(') depth++;
+      if (c === ')') depth--;
+      if (c === ',' && depth === 0) { out.push(cur.trim()); cur = ''; } else cur += c;
+    }
+    out.push(cur.trim());
+  });
+  return out.filter(Boolean);
+}
+
+function linkedSources(ch) {
+  const byKey = new Map();
+  allPages(ch).forEach(({ e, page, href }) => {
+    if (!page) return;
+    const key = href.replace(/^\/ch\//, '');
+    const links = SOURCE_LINKS[key] || [];
+    const title = page === e.overview ? `${e.title}` : page.title || page.cardTitle || e.title;
+    const tidy = (s) => String(s).replace(/\s+/g, ' ').trim();
+    const cite = (id, entry) => {
+      if (!byKey.has(id)) byKey.set(id, { ...entry, pages: [] });
+      const r = byKey.get(id);
+      if (!r.pages.some((pg) => pg.href === href)) r.pages.push({ href, title: tidy(title) });
+    };
+    pageSources(page).forEach((label) => {
+      const found = links.filter((l) => l[0] === label);
+      // Wikipedia lines show the article's own title, so the label needs no list of articles.
+      const show = (l) => (/^WIKIPEDIA\b/i.test(l) ? 'WIKIPEDIA' : l);
+      if (!found.length) cite(`label:${label}`, { label, url: '', title: '' });
+      found.forEach(([l, url, t]) => cite(`url:${url}`, { label: show(l), url, title: t }));
     });
   });
-  return [...set].sort((a, b) => a.localeCompare(b));
+  return [...byKey.values()].sort((a, b) => a.label.localeCompare(b.label) || a.title.localeCompare(b.title));
 }
 
 function channelMedia(ch) {
@@ -1162,7 +1180,7 @@ function creditsChannel(c) {
     const m = channelMedia(x);
     nPhotos += m.photos.length;
     nVideos += m.videos.length;
-    nRefs += channelSources(x).length;
+    nRefs += linkedSources(x).length;
   });
   const roll = `
     <div class="cr-block"><div class="cr-small">${esc(d.presents)}</div><div class="cr-big pf">Y2Kultura TV</div><div class="cr-small">${esc(d.tagline)}</div></div>
@@ -1218,12 +1236,18 @@ function creditsEpisode(c, e) {
   } else if (e.kind === 'refs') {
     body = shows
       .map((x) => {
-        const refs = channelSources(x);
+        const refs = linkedSources(x);
         if (!refs.length) return '';
         return `<section class="cr-sheet"><h3 class="cr-ch"><a href="/ch/${x.num}" data-link>CH ${x.num} · ${esc(x.title)}</a> <small>${esc(x.aspect)}</small></h3>
-          <ul class="cr-refs">${refs.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></section>`;
+          <ul class="cr-refs cr-links">${refs
+            .map(
+              (r) => `<li><span class="ref-src">${esc(r.label)}</span>${
+                r.url ? ` <a class="ref-a" href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)} <i class="ti ti-external-link" aria-hidden="true"></i></a>` : ''
+              }<span class="ref-on">Cited in ${r.pages.map((pg) => `<a href="${pg.href}" data-link>${esc(pg.title)}</a>`).join(', ')}</span></li>`
+            )
+            .join('')}</ul></section>`;
       })
-      .join('') + `<p class="cr-note">Sources are listed as they are cited on each page. Figures are given as they were reported at the time.</p>`;
+      .join('') + `<p class="cr-note">Tap an article title to open the source itself. Sources are named as they are cited on each page, and figures are given as they were reported at the time. A source without a link is one we could not find a public online copy of.</p>`;
   } else if (e.kind === 'media') {
     body = shows
       .map((x) => {
