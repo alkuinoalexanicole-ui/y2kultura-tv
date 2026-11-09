@@ -236,7 +236,16 @@ function nudge() {
   note.classList.add('nudge');
 }
 
+// Put the home channel behind the dark screen, so no other channel shows while the TV warms up.
+function homeBehindGlass() {
+  if (here() !== '/') history.pushState({}, '', BASE + '/');
+  render('/', { animate: false });
+}
+
 function powerOn() {
+  // Switching the TV back on always starts at the home channel (CH 00), even if it was turned off
+  // in the middle of another channel: home is in place before the picture appears.
+  homeBehindGlass();
   state = 'warming';
   display.textContent = 'POWER ON';
   sfx('on');
@@ -249,9 +258,7 @@ function powerOn() {
     document.body.classList.remove('warming');
     state = 'on';
     paintState();
-    // Switching the TV back on always starts at the home channel (CH 00), even if it was turned off
-    // in the middle of another channel. No static: the warm-up goes straight to the picture.
-    if (here() !== '/') history.pushState({}, '', BASE + '/');
+    // No static: the warm-up goes straight to the picture.
     render('/', { animate: false, osd: true });
   }, reduced ? 50 : 650);
 }
@@ -267,6 +274,8 @@ function powerOff() {
     crt.classList.remove('turning-off');
     state = 'standby';
     paintState();
+    // Once the screen is dark, swap in the home channel so the last channel is never seen again.
+    homeBehindGlass();
   }, reduced ? 50 : 600);
 }
 
