@@ -1181,7 +1181,7 @@ function creditsChannel(c) {
     )
     .join('');
   return `
-  <div class="page credits${body.includes('data-tone') ? ' cr-end' : ''}" style="background:${d.bg}">
+  <div class="page credits" style="background:${d.bg}">
     ${channelHead(c, d, 'background:#0b0b0b')}
     <div class="finale">
       <div class="finale-video">
