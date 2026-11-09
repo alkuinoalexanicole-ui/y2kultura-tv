@@ -165,7 +165,8 @@ function fitPhotos(cols) {
   const t = h[0] > h[1] ? 0 : 1;
   const over = h[t] - h[1 - t];
   if (over < 40) return;
-  const imgs = [...cols[t].querySelectorAll('.photo img')].filter((im) => im.getBoundingClientRect().height > 60);
+  // Photos shown whole ('contain') are never trimmed: shrinking them would only make them smaller.
+  const imgs = [...cols[t].querySelectorAll('.photo img')].filter((im) => im.getBoundingClientRect().height > 60 && im.style.objectFit !== 'contain');
   if (!imgs.length) return;
   const rows = new Map();
   imgs.forEach((im) => {
