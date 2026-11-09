@@ -1555,20 +1555,19 @@ function quizEpisode(c, e, partIndex) {
   </div>`;
 }
 
-/* Quiz state lives in this browser only (a light per-viewer convenience). */
+/* Quiz state lives only for this visit: moving between pages keeps the game going,
+   and a refresh starts a fresh game with no winnings. */
+const quizState = new Map();
+try {
+  Object.keys(localStorage).filter((k) => k.startsWith('y2k-quiz-')).forEach((k) => localStorage.removeItem(k));
+} catch {
+  /* storage unavailable: nothing saved to clear */
+}
 function quizLoad(num) {
-  try {
-    return JSON.parse(localStorage.getItem(`y2k-quiz-${num}`) || '{}');
-  } catch {
-    return {};
-  }
+  return { ...(quizState.get(num) || {}) };
 }
 function quizSave(num, state) {
-  try {
-    localStorage.setItem(`y2k-quiz-${num}`, JSON.stringify(state));
-  } catch {
-    /* storage unavailable: the quiz still works for this visit */
-  }
+  quizState.set(num, { ...state });
 }
 
 function quizWinnings(num, state) {
