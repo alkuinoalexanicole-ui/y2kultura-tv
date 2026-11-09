@@ -137,8 +137,10 @@ const P = {
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
   jawed: ph(T + 'c/ca/Jawed_Karim.jpg/960px-Jawed_Karim.jpg', 'YouTube co-founder Jawed Karim', 'Jawed', 'Public domain', 'Jawed_Karim.jpg', 'contain'),
   arnel: ph(T + '5/5b/Arnel_Pineda_by_Phey_Palma.jpg/960px-Arnel_Pineda_by_Phey_Palma.jpg', 'Arnel Pineda, March 2009', 'Phey Palma', 'CC BY 2.0', 'Arnel_Pineda_by_Phey_Palma.jpg'),
-  avril1: ph(C + 'c/ce/Avril_Lavigne_in_May_2005.jpg', 'Avril Lavigne on her 2005 Bonez Tour', 'James Wyse', 'CC BY-SA 2.0', 'Avril_Lavigne_in_May_2005.jpg'),
+  avril1: ph(C + 'c/ce/Avril_Lavigne_in_May_2005.jpg', 'Avril Lavigne on her 2005 Bonez Tour', 'James Wyse', 'CC BY-SA 2.0', 'Avril_Lavigne_in_May_2005.jpg', 'center 45%'),
   avril2: ph(T + '6/6b/Avril_Lavigne_in_Taiwan_-_1.jpg/960px-Avril_Lavigne_in_Taiwan_-_1.jpg', 'Avril Lavigne in Asia, 2005', 'usarenee', 'CC BY-SA 2.0', 'Avril_Lavigne_in_Taiwan_-_1.jpg'),
+  beyonce07: ph(T + 'e/e4/Beyonce_in_Barcelona_2007.jpg/960px-Beyonce_in_Barcelona_2007.jpg', 'Beyoncé in concert in Barcelona, May 2007', 'Pex Cornel', 'CC BY 2.0', 'Beyonce_in_Barcelona_2007.jpg', 'center 20%'),
+  lpSonic: ph(T + '9/90/Linkin_Park_-_Summer_Sonic_2006.jpg/960px-Linkin_Park_-_Summer_Sonic_2006.jpg', 'Linkin Park plays to a packed crowd at Summer Sonic in Japan, August 2006', 'J. Sean Bennett', 'CC BY-SA 2.0', 'Linkin_Park_-_Summer_Sonic_2006.jpg', 'center 45%'),
   suju: ph(T + 'b/bf/Super_Junior_in_BKK.jpg/960px-Super_Junior_in_BKK.jpg', 'Super Junior in Bangkok, February 2009', 'Sry85', 'CC BY 3.0', 'Super_Junior_in_BKK.jpg'),
   suju2: ph(C + '0/08/Super_Junior_from_Acrofan.jpg', 'Super Junior, May 2009', 'acrofan.com', 'CC BY-SA 3.0', 'Super_Junior_from_Acrofan.jpg'),
   dara: ph(C + '3/3c/Dara_DMA_2009_2.jpg', 'Sandara Park with 2NE1, August 2009', 'O2NEWS', 'CC BY 4.0', 'Dara_DMA_2009_2.jpg'),
@@ -187,8 +189,8 @@ export default {
   '02/click-upload-watch/photos-online': { video: yt('6WwSh2Pqdxs', 'Friendster Capital: the Philippines and its Friendster record, 2007', 'Vince Rodriguez'), photos: [P.camPhone, P.netCafe] },
 
   /* CH 03 */
-  '03/western-waves': { video: yt('5NPBIwQyPWE', 'Avril Lavigne, "Complicated" music video, 2002', 'Avril Lavigne (VEVO)'), photos: [P.avril1] },
-  '03/western-waves/live-in-manila': { video: yt('iNDt-RxDtjI', 'Linkin Park in Manila on ASAP Mania, June 2004', 'qwir34'), photos: [P.avril2] },
+  '03/western-waves': { video: yt('5NPBIwQyPWE', 'Avril Lavigne, "Complicated" music video, 2002', 'Avril Lavigne (VEVO)'), photos: [P.avril1, P.beyonce07] },
+  '03/western-waves/live-in-manila': { video: yt('iNDt-RxDtjI', 'Linkin Park in Manila on ASAP Mania, June 2004', 'qwir34'), photos: [P.lpSonic, P.avril2] },
   '03/western-waves/mtv-on-channel-41': { video: yt('PuiMqMfoNrE', 'MTV Philippines sketch with VJ KC Montero and Gary Valenciano, uploaded 2008', 'Arv The Man'), photos: [P.channelV, P.maggie] },
   '03/western-waves/box-office-magic': { video: yt('LLAaW1EgyY8', 'Harry Potter and the Order of the Phoenix trailer, 2007', 'Harry Potter'), photos: [P.hpQueue, P.tickets] },
   '03/dubbed-and-delivered': { video: yt('Yw-QjQME6eE', 'Meteor Garden, Tagalog-dubbed episode 4', 'Meteor Garden Marathon'), photos: [P.vicChou, P.kuHyeSun, P.ghostFighter] },
