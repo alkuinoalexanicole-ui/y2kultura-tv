@@ -279,7 +279,7 @@ export default {
             }
           ],
           "ticker": [
-            "SOURCES: AP, GMA NEWS, MALACANANG PROCLAMATION NO. 1764"
+            "SOURCES: AFP, GMA NEWS, MALACANANG PROCLAMATION NO. 1764"
           ]
         },
         {
@@ -428,7 +428,7 @@ export default {
             ],
             [
               "2005 CHART",
-              "#1 The Day You Said Goodnight; #8 Kahit Pa; #17 Kung Wala Ka"
+              "#1 The Day You Said Goodnight; #7 Kahit Pa; #17 Kung Wala Ka"
             ],
             [
               "AWARD",
