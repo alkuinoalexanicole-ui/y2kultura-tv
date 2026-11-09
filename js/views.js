@@ -1274,9 +1274,9 @@ function creditsEpisode(c, e) {
         <div class="cr-big pf">Salamat sa panonood!</div>
         <div class="signoff-btns"><button type="button" class="btn tone-btn" data-tone-btn><i class="ti ti-wave-sine" aria-hidden="true"></i> PLAY THE SIGN-OFF TONE</button><a class="btn" href="/" data-link>▶ BACK TO CH 00</a><a class="btn" href="/guide" data-link>CHANNEL GUIDE</a></div>
       </div>
-    </div>
-    <div class="cr-end-side"><div class="cr-end-vid">${ytFrame(e.overview.video, 'finalecam', null)}</div>
-      <div class="cr-sheet"><div class="cr-role">REMEMBER THIS?</div><p class="cr-p">Every night in the 2000s, stations signed off with a prayer, the national anthem, and a notice like this one, before the screen went to color bars and static. Some viewers stayed up just to see it.</p></div></div>`;
+      <div class="cr-end-side"><div class="cr-end-vid">${ytFrame(e.overview.video, 'finalecam', null)}</div>
+        <div class="cr-sheet"><div class="cr-role">REMEMBER THIS?</div><p class="cr-p">Every night in the 2000s, stations signed off with a prayer, the national anthem, and a notice like this one, before the screen went to color bars and static. Some viewers stayed up just to see it.</p></div></div>
+    </div>`;
   }
   const i = d.episodes.indexOf(e);
   const prev = d.episodes[i - 1];
