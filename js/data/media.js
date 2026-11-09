@@ -135,7 +135,7 @@ const P = {
   cds: ph(C + '6/6b/CD_collection_3.jpg', 'A shelf of CD albums, 2006', 'Alice and Matt from US', 'CC BY 2.0', 'CD_collection_3.jpg'),
   n5800: ph(T + '6/6a/Nokia_5800_XpressMusic_3Q.jpg/960px-Nokia_5800_XpressMusic_3Q.jpg', 'Nokia 5800 XpressMusic', 'Conrad Longmore', 'CC0', 'Nokia_5800_XpressMusic_3Q.jpg'),
   stb: ph(T + '3/3e/Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg/960px-Set-top_box_%28CATV%2C_Keihan_Cable_TV%29.jpg', 'A cable TV box from the 2000s', 'MASA', 'CC BY-SA 3.0', 'Set-top_box_(CATV,_Keihan_Cable_TV).jpg'),
-  jawed: ph(T + 'c/ca/Jawed_Karim.jpg/960px-Jawed_Karim.jpg', 'YouTube co-founder Jawed Karim', 'Jawed', 'Public domain', 'Jawed_Karim.jpg'),
+  jawed: ph(T + 'c/ca/Jawed_Karim.jpg/960px-Jawed_Karim.jpg', 'YouTube co-founder Jawed Karim', 'Jawed', 'Public domain', 'Jawed_Karim.jpg', 'contain'),
   arnel: ph(T + '5/5b/Arnel_Pineda_by_Phey_Palma.jpg/960px-Arnel_Pineda_by_Phey_Palma.jpg', 'Arnel Pineda, March 2009', 'Phey Palma', 'CC BY 2.0', 'Arnel_Pineda_by_Phey_Palma.jpg'),
   avril1: ph(C + 'c/ce/Avril_Lavigne_in_May_2005.jpg', 'Avril Lavigne on her 2005 Bonez Tour', 'James Wyse', 'CC BY-SA 2.0', 'Avril_Lavigne_in_May_2005.jpg'),
   avril2: ph(T + '6/6b/Avril_Lavigne_in_Taiwan_-_1.jpg/960px-Avril_Lavigne_in_Taiwan_-_1.jpg', 'Avril Lavigne in Asia, 2005', 'usarenee', 'CC BY-SA 2.0', 'Avril_Lavigne_in_Taiwan_-_1.jpg'),
