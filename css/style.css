@@ -1759,3 +1759,7 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
 .xp-desk.bal-fill .xp-side .xp-phone .nokia { flex: 1; display: flex; flex-direction: column; }
 .xp-desk.bal-fill .xp-side .nk-screen { flex: 1; display: flex; flex-direction: column; }
 .xp-desk.bal-fill .xp-side .nk-screen ul { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+/* Photos shown whole: the entire picture at its own shape, centered, never cropped.
+   Tall portraits are capped in height so they stay a sensible size. */
+.photo.whole { background: transparent; }
+.photo.whole img, .polaroids .photo.whole img, .mag .mag-pg .photo.whole img { flex: none; width: auto; max-width: 100%; height: auto; max-height: clamp(220px, 46cqh, 460px); aspect-ratio: auto; object-fit: contain; margin: 0 auto; }

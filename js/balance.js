@@ -75,9 +75,9 @@ function tidy(grid) {
 function clearFit(grid) {
   grid.parentNode.querySelectorAll('img[data-bal-fit]').forEach((im) => {
     im.removeAttribute('data-bal-fit');
-    im.style.aspectRatio = '';
-    im.style.flex = '';
-    im.style.height = '';
+    im.style.maxHeight = '';
+    const fig = im.closest('.photo');
+    if (fig) ['maxWidth', 'width', 'marginInline', 'justifySelf'].forEach((k) => (fig.style[k] = ''));
   });
 }
 
@@ -138,7 +138,8 @@ function balanceGrid(grid) {
       for (const to of [cols[1 - t], 'below']) {
         // Only photos and small boxes go full width; a long text column stays a column.
         if (to === 'below' && grid.matches('.xp-desk, .mag-spread')) continue;
-        if (to === 'below' && tail.some((el) => !el.matches('.photos, .polaroids, .xp-pics, .memory-box, .index-card, .tags, .note'))) continue;
+        // Small boxes may go full width; photos stay in a column (a lone centered row leaves empty space).
+        if (to === 'below' && tail.some((el) => !el.matches('.memory-box, .index-card, .tags, .note'))) continue;
         const snap = snapshot(grid);
         moveTail(grid, tail, to);
         // Judge each option with photos already trimmed to fit, as they will be in the end.
@@ -157,16 +158,16 @@ function balanceGrid(grid) {
   grid.classList.add('bal-fill');
 }
 
-// If the column with the photos still runs longer, crop its photos a little shorter (never below
-// 55% of their height) so both columns end together.
+// If the column with the photos still runs longer, make its photos smaller (never below 55% of their
+// height or 180px) so both columns end closer together. Photos are scaled, never cropped: whole-picture
+// photos get a lower height cap, framed photos a narrower, centered frame of the same shape.
 function fitPhotos(cols) {
   const tops = cols.map((c) => c.getBoundingClientRect().top);
   const h = cols.map((c, i) => Math.max(0, ...[...c.children].map(bottomOf)) - tops[i]);
   const t = h[0] > h[1] ? 0 : 1;
   const over = h[t] - h[1 - t];
   if (over < 40) return;
-  // Photos shown whole ('contain') are never trimmed: shrinking them would only make them smaller.
-  const imgs = [...cols[t].querySelectorAll('.photo img')].filter((im) => im.getBoundingClientRect().height > 60 && im.style.objectFit !== 'contain');
+  const imgs = [...cols[t].querySelectorAll('.photo img')].filter((im) => im.getBoundingClientRect().height > 60);
   if (!imgs.length) return;
   const rows = new Map();
   imgs.forEach((im) => {
@@ -177,14 +178,23 @@ function fitPhotos(cols) {
   const cut = over / rows.size;
   for (const row of rows.values()) {
     const tallest = Math.max(...row.map((im) => im.getBoundingClientRect().height));
-    const to = Math.max(tallest * 0.55, 140, tallest - cut);
+    const to = Math.max(tallest * 0.55, 180, tallest - cut);
     row.forEach((im) => {
-      const now = im.getBoundingClientRect().height;
-      if (to > now - 8) return;
+      const r = im.getBoundingClientRect();
+      if (to > r.height - 8) return;
+      // A framed photo is narrowed only when it is alone on its row; in a row of several,
+      // narrow frames would squeeze the captions.
+      if (!im.closest('.whole') && row.length > 1) return;
       im.dataset.balFit = '';
-      im.style.aspectRatio = 'auto';
-      im.style.flex = 'none';
-      im.style.height = `${Math.round(to)}px`;
+      if (im.closest('.whole')) {
+        im.style.maxHeight = `${Math.round(to)}px`;
+        return;
+      }
+      const fig = im.closest('.photo');
+      fig.style.maxWidth = `${Math.round((r.width * to) / r.height)}px`;
+      fig.style.width = '100%';
+      fig.style.marginInline = 'auto';
+      fig.style.justifySelf = 'center';
     });
   }
 }
@@ -200,8 +210,17 @@ const soon = () => {
   timer = setTimeout(run, 120);
 };
 
+// Tall or square photos would lose heads and faces in a 4:3 frame, so they are shown whole.
+function wholeIfTall(img) {
+  if (img.naturalWidth && img.naturalHeight > img.naturalWidth * 0.9) img.closest('.photo')?.classList.add('whole');
+}
+
 export function balanceColumns(view) {
   current = view;
+  view.querySelectorAll('.photo img').forEach((img) => {
+    if (img.complete) wholeIfTall(img);
+    else img.addEventListener('load', () => wholeIfTall(img), { once: true });
+  });
   run();
   // Photos and fonts change heights as they arrive.
   view.querySelectorAll('.page-body img, .xp-desk img').forEach((img) => {

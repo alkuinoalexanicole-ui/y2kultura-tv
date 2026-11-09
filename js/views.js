@@ -139,7 +139,7 @@ export function photoGrid(photos) {
   const p = (photos || [])
     .map((ph) =>
       ph.src
-        ? `<figure class="photo"><img src="${esc(ph.src)}" alt="${esc(ph.caption)}" loading="lazy"${ph.pos === 'contain' ? ' style="object-fit:contain;background:#000"' : ph.pos ? ` style="object-position:${esc(ph.pos)}"` : ''}><figcaption>${esc(ph.caption)}${ph.credit ? `<a class="credit" href="${esc(ph.link || ph.src)}" target="_blank" rel="noopener">Photo: ${esc(ph.credit)}</a>` : ''}</figcaption></figure>`
+        ? `<figure class="photo${ph.pos === 'contain' ? ' whole' : ''}"><img src="${esc(ph.src)}" alt="${esc(ph.caption)}" loading="lazy"${ph.pos && ph.pos !== 'contain' ? ` style="object-position:${esc(ph.pos)}"` : ''}><figcaption>${esc(ph.caption)}${ph.credit ? `<a class="credit" href="${esc(ph.link || ph.src)}" target="_blank" rel="noopener">Photo: ${esc(ph.credit)}</a>` : ''}</figcaption></figure>`
         : `<figure class="photo"><div class="ph">PHOTO COMING SOON</div><figcaption>${esc(ph.caption)}</figcaption></figure>`
     )
     .join('');
