@@ -128,6 +128,8 @@ function balanceGrid(grid) {
     let best = null;
     for (let k = 1; k < list.length; k++) {
       const tail = list.slice(-k).flat();
+      // Boxes a page pins in place never move.
+      if (tail.some((el) => el.matches('[data-stay]'))) continue;
       for (const to of [cols[1 - t], 'below']) {
         // Only photos and small boxes go full width; a long text column stays a column.
         if (to === 'below' && grid.matches('.xp-desk, .mag-spread')) continue;

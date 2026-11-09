@@ -616,6 +616,10 @@ function deskEpisode(c, e, partIndex) {
           )
           .join('')}</div>`
       : '';
+  // My Pictures sits in the right column, or under the main window when a page asks for it.
+  const pics = page.photos?.length
+    ? `<section class="xp-win xp-pics"${page.picsLeft ? ' data-stay' : ''}>${xpBar('My Pictures', 'ti-photo')}<div class="xp-pbody">${photoGrid(page.photos)}</div></section>`
+    : '';
   return `
   <div class="page xp" style="--acc:${e.accent || '#19B5F0'}">
     <div class="xp-desk">
@@ -630,11 +634,11 @@ function deskEpisode(c, e, partIndex) {
           ${files}
         </div>
         ${ticker(page.ticker?.length ? page.ticker : ['P+ / P- TO CHANGE CHANNEL'])}
-      </section></div>
+      </section>${page.picsLeft ? pics : ''}</div>
       <div class="xp-side">
         ${winamp(page.video)}
         ${nokiaWin(page.stats, page.chips)}
-        ${page.photos?.length ? `<section class="xp-win xp-pics">${xpBar('My Pictures', 'ti-photo')}<div class="xp-pbody">${photoGrid(page.photos)}</div></section>` : ''}
+        ${page.picsLeft ? '' : pics}
       </div>
     </div>
     <div style="flex:1"></div>
