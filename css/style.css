@@ -682,9 +682,9 @@ a.nextq:hover { box-shadow: 0 0 14px rgba(255,207,63,.6); }
 .buzz-tsub { font-size: clamp(14px, 1.57cqw, 20px); color: #ffd6ec; margin-top: 4px; }
 .buzz-tabs { text-align: center; --accent: var(--seg); padding-top: 8px; }
 .buzz-tabs .tab.on { color: #1a0424; }
-.chika { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.chika { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px 10px; margin-bottom: 18px; }
 .bubble { position: relative; background: #fff; color: #1a0424; border-radius: 18px; padding: 7px 10px; text-align: center; border: 3px solid var(--seg); }
-.bubble::after { content: ''; position: absolute; left: 22px; bottom: -11px; border: 8px solid transparent; border-top-color: var(--seg); }
+.bubble::after { content: ''; position: absolute; left: 22px; bottom: -19px; border: 8px solid transparent; border-top-color: var(--seg); }
 .bubble .an { font-size: clamp(16px, 2.46cqw, 31px); line-height: 1.05; color: #e0102f; }
 .bubble div:last-child { font-size: clamp(12px, 1.35cqw, 17px); line-height: 1.3; }
 .qa { margin-bottom: 10px; }
