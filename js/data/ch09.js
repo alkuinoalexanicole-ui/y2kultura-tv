@@ -211,12 +211,12 @@ export default {
           sub: 'A TV you can carry in your pocket',
           qa: [
             ['How does the "TV" work?', 'The museum is a small website built with HTML, CSS, and JavaScript. Changing channels swaps what is on the screen without reloading the page, so it feels like flipping channels. It works on computers and phones.'],
-            ['Does it save anything about me?', 'Your CH 07 quiz winnings stay in your own browser. The only things the museum collects are Station Break answers you choose to send: your answer, a nostalgia rating, and any memory, first name, or city you type in. The videos and photos load from YouTube and Wikimedia Commons. There are no ads.'],
+            ['Does it save anything about me?', 'Nothing from the CH 07 quiz is saved: winnings reset when you refresh the page. The only things the museum collects are Station Break answers you choose to send: your answer, a nostalgia rating, and any memory, first name, or city you type in. The videos and photos load from YouTube and Wikimedia Commons. There are no ads.'],
           ],
           stats: [['HTML · CSS · JS', 'what it is built with'], ['PHONE OR PC', 'works on both'], ['NO ADS', 'just the 2000s']],
           video: null,
           photos: ph('A remote control'),
-          ticker: ['QUIZ WINNINGS ARE SAVED ONLY ON YOUR DEVICE'],
+          ticker: ['CH 07 QUIZ WINNINGS RESET ON EVERY REFRESH'],
         },
       ],
     },
@@ -256,7 +256,7 @@ export default {
           slug: 'laro', title: 'Laro at Botohan', en: 'GAMES AND VOTING', cardLine: 'The quiz and the vote codes',
           sub: 'The quiz and the vote codes',
           qa: [
-            ['Is there anything to play?', 'Yes. CH 07 is a full quiz show: twelve questions, three lifelines, and a prize ladder up to one million pesos. Your winnings are saved in your browser, and you can play any question again.'],
+            ['Is there anything to play?', 'Yes. CH 07 is a full quiz show: twelve questions, three lifelines, and a prize ladder up to one million pesos. Your winnings last while you browse the museum, and refreshing the page starts a new game.'],
             ['Can I vote on CH 05?', 'The "text to vote" codes on Starstruck! are part of the look of a 2000s talent show. They are for display only, so there is no need to text anything.'],
           ],
           stats: [['₱1,000,000', 'the top prize (just for fun)'], ['3', 'lifelines: 50:50, Ask the Audience, Text a Friend'], ['DISPLAY ONLY', 'CH 05 vote codes']],
