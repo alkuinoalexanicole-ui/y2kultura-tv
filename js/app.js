@@ -249,8 +249,10 @@ function powerOn() {
     document.body.classList.remove('warming');
     state = 'on';
     paintState();
-    // No static when the TV switches on: the warm-up goes straight to the picture.
-    render(here(), { animate: false, osd: true });
+    // Switching the TV back on always starts at the home channel (CH 00), even if it was turned off
+    // in the middle of another channel. No static: the warm-up goes straight to the picture.
+    if (here() !== '/') history.pushState({}, '', BASE + '/');
+    render('/', { animate: false, osd: true });
   }, reduced ? 50 : 650);
 }
 
