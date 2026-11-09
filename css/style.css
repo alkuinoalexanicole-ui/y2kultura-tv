@@ -1802,3 +1802,12 @@ a.cover:hover, a.cover:focus-visible { transform: translateY(-5px) rotate(-1deg)
   .cr-end-side { display: none; }
   .cr-end .page-body { grid-template-rows: minmax(0, 1fr); }
 }
+
+/* Touch phones and tablets: keep the screen's effects off the scrolling area itself.
+   Some phone browsers (notably Safari on iPhone) can misplace taps after scrolling when the
+   scrolling layer animates a filter or sits under a blended overlay, so buttons seem dead. */
+@media (hover: none) {
+  .view.flicker { animation: none; }
+  .scanlines { mix-blend-mode: normal; background: repeating-linear-gradient(to bottom, rgba(0,0,0,.1) 0 1px, transparent 1px 3px); }
+  a, button, summary, .rb { touch-action: manipulation; }
+}
