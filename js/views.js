@@ -1181,7 +1181,7 @@ function creditsChannel(c) {
     )
     .join('');
   return `
-  <div class="page credits" style="background:${d.bg}">
+  <div class="page credits${body.includes('data-tone') ? ' cr-end' : ''}" style="background:${d.bg}">
     ${channelHead(c, d, 'background:#0b0b0b')}
     <div class="finale">
       <div class="finale-video">
@@ -1245,20 +1245,20 @@ function creditsEpisode(c, e) {
       <div class="smpte-low">${low.map((b) => `<i style="background:${b}"></i>`).join('')}</div>
       <div class="signoff-card">
         <div class="cr-small">Y2KULTURA TV NETWORK</div>
-        <p>This concludes our broadcast day. Y2Kultura TV has brought you the sights, sounds, and feelings of Philippine pop culture from 2000 to 2010, across seven channels.</p>
+        <p>This concludes our broadcast day. Y2Kultura TV has brought you the sights, sounds, and feelings of Philippine pop culture from 2000 to 2010, across ten channels.</p>
         <p>Thank you for watching, and for remembering with us. Hanggang sa muli!</p>
         <div class="cr-big pf">Salamat sa panonood!</div>
         <div class="signoff-btns"><button type="button" class="btn tone-btn" data-tone-btn><i class="ti ti-wave-sine" aria-hidden="true"></i> PLAY THE SIGN-OFF TONE</button><a class="btn" href="/" data-link>▶ BACK TO CH 00</a><a class="btn" href="/guide" data-link>CHANNEL GUIDE</a></div>
       </div>
     </div>
-    <div class="cols" style="margin-top:14px"><div>${ytFrame(e.overview.video, 'finalecam', null)}</div>
+    <div class="cr-end-side"><div class="cr-end-vid">${ytFrame(e.overview.video, 'finalecam', null)}</div>
       <div class="cr-sheet"><div class="cr-role">REMEMBER THIS?</div><p class="cr-p">Every night in the 2000s, stations signed off with a prayer, the national anthem, and a notice like this one, before the screen went to color bars and static. Some viewers stayed up just to see it.</p></div></div>`;
   }
   const i = d.episodes.indexOf(e);
   const prev = d.episodes[i - 1];
   const next = d.episodes[i + 1];
   return `
-  <div class="page credits" style="background:${d.bg}">
+  <div class="page credits${body.includes('data-tone') ? ' cr-end' : ''}" style="background:${d.bg}">
     <div class="now credits-now"><span class="label">CH ${c.num} · CREDITS ROLL</span><span class="where">${esc(e.en)}</span>
       <a class="btn ghost back" href="/ch/${c.num}" data-link>◀ BACK TO CH ${c.num}</a></div>
     <div class="cr-title">
