@@ -72,13 +72,17 @@ function tidy(grid) {
   });
 }
 
-function restore(grid) {
+function clearFit(grid) {
   grid.parentNode.querySelectorAll('img[data-bal-fit]').forEach((im) => {
     im.removeAttribute('data-bal-fit');
     im.style.aspectRatio = '';
     im.style.flex = '';
     im.style.height = '';
   });
+}
+
+function restore(grid) {
+  clearFit(grid);
   home.get(grid).forEach((kids, i) =>
     kids.forEach((k) => {
       k.classList.remove('bal-moved', 'bal-wide');
@@ -137,7 +141,10 @@ function balanceGrid(grid) {
         if (to === 'below' && tail.some((el) => !el.matches('.photos, .polaroids, .xp-pics, .memory-box, .index-card, .tags, .note'))) continue;
         const snap = snapshot(grid);
         moveTail(grid, tail, to);
+        // Judge each option with photos already trimmed to fit, as they will be in the end.
+        fitPhotos(cols);
         const size = total(grid);
+        clearFit(grid);
         undo(snap);
         if (!best || size < best.size) best = { tail, to, size };
       }
